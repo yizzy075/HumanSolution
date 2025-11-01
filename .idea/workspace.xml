@@ -11,6 +11,8 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/RolBusinessImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/RolPermisoBusinessImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/TipoHoraExtraBusinessImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/humansolution.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/humansolution.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/data/factory/DAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/data/factory/DAOFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,6 +60,10 @@
   "keyToString": {
     "Application.MainApp.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.MainApp.executor": "Run",
@@ -101,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1761970873213</updated>
       <workItem from="1761970874157" duration="817000" />
-      <workItem from="1761972151361" duration="5931000" />
+      <workItem from="1761972151361" duration="6037000" />
     </task>
     <servers />
   </component>
