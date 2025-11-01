@@ -1,0 +1,41 @@
+package co.edu.uco.HumanSolution.business.assembler.entity.impl;
+
+import co.edu.uco.HumanSolution.business.assembler.entity.EntityAssembler;
+import co.edu.uco.HumanSolution.domain.UsuarioDocumentoDomain;
+import co.edu.uco.HumanSolution.entity.UsuarioDocumentoEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class UsuarioDocumentoEntityAssembler implements EntityAssembler<UsuarioDocumentoDomain, UsuarioDocumentoEntity> {
+
+    @Override
+    public UsuarioDocumentoDomain toDomain(UsuarioDocumentoEntity entity) {
+        return UsuarioDocumentoDomain.create(
+                entity.getId(),
+                entity.getIdUsuario(),
+                entity.getIdTipoDocumento(),
+                entity.getFecha(),
+                entity.getIdEstadoSolicitud()
+        );
+    }
+
+    @Override
+    public UsuarioDocumentoEntity toEntity(UsuarioDocumentoDomain domain) {
+        return UsuarioDocumentoEntity.create(
+                domain.getId(),
+                domain.getIdUsuario(),
+                domain.getIdTipoDocumento(),
+                domain.getFecha(),
+                domain.getIdEstadoSolicitud()
+        );
+    }
+
+    public List<UsuarioDocumentoDomain> toDomainList(List<UsuarioDocumentoEntity> entities) {
+        List<UsuarioDocumentoDomain> domains = new ArrayList<>();
+        for (UsuarioDocumentoEntity entity : entities) {
+            domains.add(toDomain(entity));
+        }
+        return domains;
+    }
+}

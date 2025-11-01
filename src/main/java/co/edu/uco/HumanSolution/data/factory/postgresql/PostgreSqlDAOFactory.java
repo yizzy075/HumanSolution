@@ -1,0 +1,187 @@
+package co.edu.uco.HumanSolution.data.factory.postgresql;
+
+import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
+import co.edu.uco.HumanSolution.data.dao.*;
+import co.edu.uco.HumanSolution.data.dao.entity.postgresql.*;
+import co.edu.uco.HumanSolution.data.factory.DAOFactory;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class PostgreSqlDAOFactory extends DAOFactory {
+
+    private Connection connection;
+
+    public PostgreSqlDAOFactory() {
+        openConnection();
+    }
+
+    private void openConnection() {
+        try {
+            String url = "jdbc:postgresql://localhost:5432/humansolution";
+            String user = "postgres";
+            String password = "postgres";
+            connection = DriverManager.getConnection(url, user, password);
+        } catch (SQLException exception) {
+            throw new HumanSolutionException(
+                    "Error técnico abriendo conexión a base de datos",
+                    "No se pudo conectar a la base de datos",
+                    exception
+            );
+        }
+    }
+
+    @Override
+    protected Connection getConnection() {
+        return connection;
+    }
+
+    @Override
+    public void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException exception) {
+            throw new HumanSolutionException(
+                    "Error técnico cerrando conexión",
+                    "Error al cerrar la conexión",
+                    exception
+            );
+        }
+    }
+
+    @Override
+    public void initTransaction() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.setAutoCommit(false);
+            }
+        } catch (SQLException exception) {
+            throw new HumanSolutionException(
+                    "Error técnico iniciando transacción",
+                    "No se pudo iniciar la transacción",
+                    exception
+            );
+        }
+    }
+
+    @Override
+    public void commitTransaction() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.commit();
+            }
+        } catch (SQLException exception) {
+            throw new HumanSolutionException(
+                    "Error técnico haciendo commit",
+                    "No se pudo confirmar la transacción",
+                    exception
+            );
+        }
+    }
+
+    @Override
+    public void rollbackTransaction() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.rollback();
+            }
+        } catch (SQLException exception) {
+            throw new HumanSolutionException(
+                    "Error técnico haciendo rollback",
+                    "No se pudo revertir la transacción",
+                    exception
+            );
+        }
+    }
+
+    // CATÁLOGOS
+    @Override
+    public TipoDocumentoDAO getTipoDocumentoDAO() {
+        return new TipoDocumentoPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public TipoPermisoDAO getTipoPermisoDAO() {
+        return new TipoPermisoPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public EstadoSolicitudDAO getEstadoSolicitudDAO() {
+        return new EstadoSolicitudPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public TipoHoraExtraDAO getTipoHoraExtraDAO() {
+        return new TipoHoraExtraPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public EstadoPuestoDAO getEstadoPuestoDAO() {
+        return new EstadoPuestoPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public RolDAO getRolDAO() {
+        return new RolPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public PermisoSistemaDAO getPermisoSistemaDAO() {
+        return new PermisoSistemaPostgreSqlDAO(getConnection());
+    }
+
+    // RELACIONES
+    @Override
+    public RolPermisoDAO getRolPermisoDAO() {
+        return new RolPermisoPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public UnidadOrganizativaDAO getUnidadOrganizativaDAO() {
+        return new UnidadOrganizativaPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public UsuarioDAO getUsuarioDAO() {
+        return new UsuarioPostgreSqlDAO(getConnection());
+    }
+
+    // OPERACIONALES
+    @Override
+    public PuestoDAO getPuestoDAO() {
+        return new PuestoPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public ContratoDAO getContratoDAO() {
+        return new ContratoPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public ExperienciaLaboralDAO getExperienciaLaboralDAO() {
+        return new ExperienciaLaboralPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public EvaluacionDesempenoDAO getEvaluacionDesempenoDAO() {
+        return new EvaluacionDesempenoPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public UsuarioDocumentoDAO getUsuarioDocumentoDAO() {
+        return new UsuarioDocumentoPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public UsuarioPermisoDAO getUsuarioPermisoDAO() {
+        return new UsuarioPermisoPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public UsuarioHoraExtraDAO getUsuarioHoraExtraDAO() {
+        return new UsuarioHoraExtraPostgreSqlDAO(getConnection());
+    }
+}
