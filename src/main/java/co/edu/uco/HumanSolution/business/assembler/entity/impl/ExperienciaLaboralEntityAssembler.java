@@ -1,15 +1,22 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.business.assembler.entity.EntityAssembler;
 import co.edu.uco.HumanSolution.domain.ExperienciaLaboralDomain;
 import co.edu.uco.HumanSolution.entity.ExperienciaLaboralEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExperienciaLaboralEntityAssembler implements EntityAssembler<ExperienciaLaboralDomain, ExperienciaLaboralEntity> {
+public final class ExperienciaLaboralEntityAssembler {
 
-    @Override
+    private static final ExperienciaLaboralEntityAssembler instance = new ExperienciaLaboralEntityAssembler();
+
+    private ExperienciaLaboralEntityAssembler() {
+    }
+
+    public static ExperienciaLaboralEntityAssembler getExperienciaLaboralEntityAssembler() {
+        return instance;
+    }
+
     public ExperienciaLaboralDomain toDomain(ExperienciaLaboralEntity entity) {
         return ExperienciaLaboralDomain.create(
                 entity.getId(),
@@ -21,7 +28,6 @@ public class ExperienciaLaboralEntityAssembler implements EntityAssembler<Experi
         );
     }
 
-    @Override
     public ExperienciaLaboralEntity toEntity(ExperienciaLaboralDomain domain) {
         return ExperienciaLaboralEntity.create(
                 domain.getId(),

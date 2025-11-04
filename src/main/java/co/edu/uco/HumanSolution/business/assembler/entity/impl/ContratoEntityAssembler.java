@@ -1,15 +1,22 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.business.assembler.entity.EntityAssembler;
 import co.edu.uco.HumanSolution.domain.ContratoDomain;
 import co.edu.uco.HumanSolution.entity.ContratoEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContratoEntityAssembler implements EntityAssembler<ContratoDomain, ContratoEntity> {
+public final class ContratoEntityAssembler {
 
-    @Override
+    private static final ContratoEntityAssembler instance = new ContratoEntityAssembler();
+
+    private ContratoEntityAssembler() {
+    }
+
+    public static ContratoEntityAssembler getContratoEntityAssembler() {
+        return instance;
+    }
+
     public ContratoDomain toDomain(ContratoEntity entity) {
         return ContratoDomain.create(
                 entity.getId(),
@@ -20,7 +27,6 @@ public class ContratoEntityAssembler implements EntityAssembler<ContratoDomain, 
         );
     }
 
-    @Override
     public ContratoEntity toEntity(ContratoDomain domain) {
         return ContratoEntity.create(
                 domain.getId(),

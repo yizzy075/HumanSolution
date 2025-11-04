@@ -1,15 +1,22 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.business.assembler.entity.EntityAssembler;
 import co.edu.uco.HumanSolution.domain.EvaluacionDesempenoDomain;
 import co.edu.uco.HumanSolution.entity.EvaluacionDesempenoEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EvaluacionDesempenoEntityAssembler implements EntityAssembler<EvaluacionDesempenoDomain, EvaluacionDesempenoEntity> {
+public final class EvaluacionDesempenoEntityAssembler {
 
-    @Override
+    private static final EvaluacionDesempenoEntityAssembler instance = new EvaluacionDesempenoEntityAssembler();
+
+    private EvaluacionDesempenoEntityAssembler() {
+    }
+
+    public static EvaluacionDesempenoEntityAssembler getEvaluacionDesempenoEntityAssembler() {
+        return instance;
+    }
+
     public EvaluacionDesempenoDomain toDomain(EvaluacionDesempenoEntity entity) {
         return EvaluacionDesempenoDomain.create(
                 entity.getId(),
@@ -20,7 +27,6 @@ public class EvaluacionDesempenoEntityAssembler implements EntityAssembler<Evalu
         );
     }
 
-    @Override
     public EvaluacionDesempenoEntity toEntity(EvaluacionDesempenoDomain domain) {
         return EvaluacionDesempenoEntity.create(
                 domain.getId(),

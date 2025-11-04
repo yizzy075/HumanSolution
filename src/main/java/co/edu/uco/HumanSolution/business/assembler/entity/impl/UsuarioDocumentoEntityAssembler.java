@@ -1,15 +1,22 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.business.assembler.entity.EntityAssembler;
 import co.edu.uco.HumanSolution.domain.UsuarioDocumentoDomain;
 import co.edu.uco.HumanSolution.entity.UsuarioDocumentoEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioDocumentoEntityAssembler implements EntityAssembler<UsuarioDocumentoDomain, UsuarioDocumentoEntity> {
+public final class UsuarioDocumentoEntityAssembler {
 
-    @Override
+    private static final UsuarioDocumentoEntityAssembler instance = new UsuarioDocumentoEntityAssembler();
+
+    private UsuarioDocumentoEntityAssembler() {
+    }
+
+    public static UsuarioDocumentoEntityAssembler getUsuarioDocumentoEntityAssembler() {
+        return instance;
+    }
+
     public UsuarioDocumentoDomain toDomain(UsuarioDocumentoEntity entity) {
         return UsuarioDocumentoDomain.create(
                 entity.getId(),
@@ -20,7 +27,6 @@ public class UsuarioDocumentoEntityAssembler implements EntityAssembler<UsuarioD
         );
     }
 
-    @Override
     public UsuarioDocumentoEntity toEntity(UsuarioDocumentoDomain domain) {
         return UsuarioDocumentoEntity.create(
                 domain.getId(),

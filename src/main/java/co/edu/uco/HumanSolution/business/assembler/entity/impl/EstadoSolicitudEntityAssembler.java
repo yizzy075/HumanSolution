@@ -1,15 +1,22 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.business.assembler.entity.EntityAssembler;
 import co.edu.uco.HumanSolution.domain.EstadoSolicitudDomain;
 import co.edu.uco.HumanSolution.entity.EstadoSolicitudEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EstadoSolicitudEntityAssembler implements EntityAssembler<EstadoSolicitudDomain, EstadoSolicitudEntity> {
+public final class EstadoSolicitudEntityAssembler {
 
-    @Override
+    private static final EstadoSolicitudEntityAssembler instance = new EstadoSolicitudEntityAssembler();
+
+    private EstadoSolicitudEntityAssembler() {
+    }
+
+    public static EstadoSolicitudEntityAssembler getEstadoSolicitudEntityAssembler() {
+        return instance;
+    }
+
     public EstadoSolicitudDomain toDomain(EstadoSolicitudEntity entity) {
         return EstadoSolicitudDomain.create(
                 entity.getId(),
@@ -17,7 +24,6 @@ public class EstadoSolicitudEntityAssembler implements EntityAssembler<EstadoSol
         );
     }
 
-    @Override
     public EstadoSolicitudEntity toEntity(EstadoSolicitudDomain domain) {
         return EstadoSolicitudEntity.create(
                 domain.getId(),

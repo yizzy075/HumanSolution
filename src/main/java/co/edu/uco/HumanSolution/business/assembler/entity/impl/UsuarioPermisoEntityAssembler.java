@@ -1,15 +1,22 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.business.assembler.entity.EntityAssembler;
 import co.edu.uco.HumanSolution.domain.UsuarioPermisoDomain;
 import co.edu.uco.HumanSolution.entity.UsuarioPermisoEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioPermisoEntityAssembler implements EntityAssembler<UsuarioPermisoDomain, UsuarioPermisoEntity> {
+public final class UsuarioPermisoEntityAssembler {
 
-    @Override
+    private static final UsuarioPermisoEntityAssembler instance = new UsuarioPermisoEntityAssembler();
+
+    private UsuarioPermisoEntityAssembler() {
+    }
+
+    public static UsuarioPermisoEntityAssembler getUsuarioPermisoEntityAssembler() {
+        return instance;
+    }
+
     public UsuarioPermisoDomain toDomain(UsuarioPermisoEntity entity) {
         return UsuarioPermisoDomain.create(
                 entity.getId(),
@@ -21,7 +28,6 @@ public class UsuarioPermisoEntityAssembler implements EntityAssembler<UsuarioPer
         );
     }
 
-    @Override
     public UsuarioPermisoEntity toEntity(UsuarioPermisoDomain domain) {
         return UsuarioPermisoEntity.create(
                 domain.getId(),

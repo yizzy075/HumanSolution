@@ -1,15 +1,22 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.business.assembler.entity.EntityAssembler;
 import co.edu.uco.HumanSolution.domain.RolPermisoDomain;
 import co.edu.uco.HumanSolution.entity.RolPermisoEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RolPermisoEntityAssembler implements EntityAssembler<RolPermisoDomain, RolPermisoEntity> {
+public final class RolPermisoEntityAssembler {
 
-    @Override
+    private static final RolPermisoEntityAssembler instance = new RolPermisoEntityAssembler();
+
+    private RolPermisoEntityAssembler() {
+    }
+
+    public static RolPermisoEntityAssembler getRolPermisoEntityAssembler() {
+        return instance;
+    }
+
     public RolPermisoDomain toDomain(RolPermisoEntity entity) {
         return RolPermisoDomain.create(
                 entity.getId(),
@@ -18,7 +25,6 @@ public class RolPermisoEntityAssembler implements EntityAssembler<RolPermisoDoma
         );
     }
 
-    @Override
     public RolPermisoEntity toEntity(RolPermisoDomain domain) {
         return RolPermisoEntity.create(
                 domain.getId(),

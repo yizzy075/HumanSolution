@@ -1,15 +1,22 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.business.assembler.entity.EntityAssembler;
 import co.edu.uco.HumanSolution.domain.PuestoDomain;
 import co.edu.uco.HumanSolution.entity.PuestoEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PuestoEntityAssembler implements EntityAssembler<PuestoDomain, PuestoEntity> {
+public final class PuestoEntityAssembler {
 
-    @Override
+    private static final PuestoEntityAssembler instance = new PuestoEntityAssembler();
+
+    private PuestoEntityAssembler() {
+    }
+
+    public static PuestoEntityAssembler getPuestoEntityAssembler() {
+        return instance;
+    }
+
     public PuestoDomain toDomain(PuestoEntity entity) {
         return PuestoDomain.create(
                 entity.getId(),
@@ -21,7 +28,6 @@ public class PuestoEntityAssembler implements EntityAssembler<PuestoDomain, Pues
         );
     }
 
-    @Override
     public PuestoEntity toEntity(PuestoDomain domain) {
         return PuestoEntity.create(
                 domain.getId(),
