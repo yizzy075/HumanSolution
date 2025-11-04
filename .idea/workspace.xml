@@ -5,15 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47460403-0698-404d-8542-1be34bd537cb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/EstadoSolicitudBusinessImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/TipoDocumentoBusinessImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/TipoPermisoBusinessImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/UnidadOrganizativaBusinessImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/EstadoPuestoEntityAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/EstadoPuestoEntityAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/EstadoSolicitudEntityAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/EstadoSolicitudEntityAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/PermisoSistemaEntityAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/PermisoSistemaEntityAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/RolEntityAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/RolEntityAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/RolPermisoEntityAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/RolPermisoEntityAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/TipoDocumentoEntityAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/TipoDocumentoEntityAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/TipoHoraExtraEntityAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/TipoHoraExtraEntityAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/TipoPermisoEntityAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/assembler/entity/impl/TipoPermisoEntityAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/EstadoPuestoBusinessImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/EstadoPuestoBusinessImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/PermisoSistemaBusinessImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/PermisoSistemaBusinessImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/RolPermisoBusinessImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/RolPermisoBusinessImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/TipoHoraExtraBusinessImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/TipoHoraExtraBusinessImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +109,7 @@
       <updated>1761970873213</updated>
       <workItem from="1761970874157" duration="817000" />
       <workItem from="1761972151361" duration="6037000" />
-      <workItem from="1762263421412" duration="1050000" />
+      <workItem from="1762263421412" duration="2546000" />
     </task>
     <servers />
   </component>

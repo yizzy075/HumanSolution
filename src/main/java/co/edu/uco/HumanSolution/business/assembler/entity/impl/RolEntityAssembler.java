@@ -10,7 +10,7 @@ public final class RolEntityAssembler {
 
     private static final RolEntityAssembler instance = new RolEntityAssembler();
 
-    private RolEntityAssembler() {
+    public RolEntityAssembler() {
     }
 
     public static RolEntityAssembler getRolEntityAssembler() {

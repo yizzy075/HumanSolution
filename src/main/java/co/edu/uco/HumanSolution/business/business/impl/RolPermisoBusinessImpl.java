@@ -3,6 +3,7 @@ package co.edu.uco.HumanSolution.business.business.impl;
 import co.edu.uco.HumanSolution.business.assembler.entity.impl.RolPermisoEntityAssembler;
 import co.edu.uco.HumanSolution.business.business.RolPermisoBusiness;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
+import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
 import co.edu.uco.HumanSolution.domain.RolPermisoDomain;
 import co.edu.uco.HumanSolution.entity.RolPermisoEntity;
@@ -10,14 +11,12 @@ import co.edu.uco.HumanSolution.entity.RolPermisoEntity;
 import java.util.List;
 import java.util.UUID;
 
-public class RolPermisoBusinessImpl implements RolPermisoBusiness {
+public final class RolPermisoBusinessImpl implements RolPermisoBusiness {
 
     private DAOFactory daoFactory;
-    private RolPermisoEntityAssembler assembler;
 
-    public RolPermisoBusinessImpl() {
-        this.daoFactory = DAOFactory.getFactory();
-        this.assembler = new RolPermisoEntityAssembler();
+    public RolPermisoBusinessImpl(final DAOFactory daoFactory) {
+        this.daoFactory = daoFactory;
     }
 
     @Override
@@ -25,25 +24,20 @@ public class RolPermisoBusinessImpl implements RolPermisoBusiness {
         try {
             domain.validar();
 
-            daoFactory.initTransaction();
+            var id = generateId();
+            var domainWithId = RolPermisoDomain.create(id, domain.getIdRol(), domain.getIdPermiso());
 
-            RolPermisoEntity entity = assembler.toEntity(domain);
+            var entity = RolPermisoEntityAssembler.getRolPermisoEntityAssembler().toEntity(domainWithId);
             daoFactory.getRolPermisoDAO().create(entity);
 
-            daoFactory.commitTransaction();
-
         } catch (HumanSolutionException exception) {
-            daoFactory.rollbackTransaction();
             throw exception;
         } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error técnico asignando permiso a rol",
-                    "Error inesperado",
+                    "Error técnico asignando permiso a rol: " + exception.getMessage(),
+                    "Error inesperado al asignar permiso",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
@@ -52,53 +46,58 @@ public class RolPermisoBusinessImpl implements RolPermisoBusiness {
         try {
             RolPermisoEntity filter = RolPermisoEntity.create();
             List<RolPermisoEntity> entities = daoFactory.getRolPermisoDAO().read(filter);
-            return assembler.toDomainList(entities);
+            return RolPermisoEntityAssembler.getRolPermisoEntityAssembler().toDomainList(entities);
 
         } catch (Exception exception) {
             throw new HumanSolutionException(
-                    "Error técnico consultando permisos de roles",
-                    "Error inesperado",
+                    "Error técnico consultando permisos de roles: " + exception.getMessage(),
+                    "Error inesperado al listar permisos de roles",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
     @Override
     public List<RolPermisoDomain> findByRol(UUID idRol) {
         try {
-            RolPermisoEntity filter = RolPermisoEntity.create(UUID.randomUUID(), idRol, UUID.randomUUID());
+            RolPermisoEntity filter = RolPermisoEntity.create(UUIDHelper.getDefaultUUID(), idRol, UUIDHelper.getDefaultUUID());
             List<RolPermisoEntity> entities = daoFactory.getRolPermisoDAO().read(filter);
-            return assembler.toDomainList(entities);
+            return RolPermisoEntityAssembler.getRolPermisoEntityAssembler().toDomainList(entities);
 
         } catch (Exception exception) {
             throw new HumanSolutionException(
-                    "Error técnico consultando permisos del rol",
-                    "Error inesperado",
+                    "Error técnico consultando permisos del rol: " + exception.getMessage(),
+                    "Error inesperado al buscar permisos del rol",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
     @Override
     public void delete(UUID id) {
         try {
-            daoFactory.initTransaction();
             daoFactory.getRolPermisoDAO().delete(id);
-            daoFactory.commitTransaction();
 
         } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error técnico eliminando permiso de rol",
-                    "Error inesperado",
+                    "Error técnico eliminando permiso de rol: " + exception.getMessage(),
+                    "Error inesperado al eliminar permiso de rol",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
+    }
+
+    private UUID generateId() {
+        var id = UUIDHelper.generateNewUUID();
+        var entity = RolPermisoEntity.create(id, UUIDHelper.getDefaultUUID(), UUIDHelper.getDefaultUUID());
+        var existing = daoFactory.getRolPermisoDAO().read(entity);
+
+        while (!existing.isEmpty()) {
+            id = UUIDHelper.generateNewUUID();
+            entity = RolPermisoEntity.create(id, UUIDHelper.getDefaultUUID(), UUIDHelper.getDefaultUUID());
+            existing = daoFactory.getRolPermisoDAO().read(entity);
+        }
+
+        return id;
     }
 }

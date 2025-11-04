@@ -3,6 +3,7 @@ package co.edu.uco.HumanSolution.business.business.impl;
 import co.edu.uco.HumanSolution.business.assembler.entity.impl.TipoHoraExtraEntityAssembler;
 import co.edu.uco.HumanSolution.business.business.TipoHoraExtraBusiness;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
+import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
 import co.edu.uco.HumanSolution.domain.TipoHoraExtraDomain;
 import co.edu.uco.HumanSolution.entity.TipoHoraExtraEntity;
@@ -10,14 +11,12 @@ import co.edu.uco.HumanSolution.entity.TipoHoraExtraEntity;
 import java.util.List;
 import java.util.UUID;
 
-public class TipoHoraExtraBusinessImpl implements TipoHoraExtraBusiness {
+public final class TipoHoraExtraBusinessImpl implements TipoHoraExtraBusiness {
 
     private DAOFactory daoFactory;
-    private TipoHoraExtraEntityAssembler assembler;
 
-    public TipoHoraExtraBusinessImpl() {
-        this.daoFactory = DAOFactory.getFactory();
-        this.assembler = new TipoHoraExtraEntityAssembler();
+    public TipoHoraExtraBusinessImpl(final DAOFactory daoFactory) {
+        this.daoFactory = daoFactory;
     }
 
     @Override
@@ -25,32 +24,20 @@ public class TipoHoraExtraBusinessImpl implements TipoHoraExtraBusiness {
         try {
             domain.validar();
 
-            if (daoFactory.getTipoHoraExtraDAO().existsByNombre(domain.getNombre())) {
-                throw new HumanSolutionException(
-                        "Ya existe un tipo de hora extra con ese nombre",
-                        "El nombre ya está registrado"
-                );
-            }
+            var id = generateId();
+            var domainWithId = TipoHoraExtraDomain.create(id, domain.getNombre(), domain.getRecargo());
 
-            daoFactory.initTransaction();
-
-            TipoHoraExtraEntity entity = assembler.toEntity(domain);
+            var entity = TipoHoraExtraEntityAssembler.getTipoHoraExtraEntityAssembler().toEntity(domainWithId);
             daoFactory.getTipoHoraExtraDAO().create(entity);
 
-            daoFactory.commitTransaction();
-
         } catch (HumanSolutionException exception) {
-            daoFactory.rollbackTransaction();
             throw exception;
         } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error técnico creando tipo de hora extra",
-                    "Error inesperado",
+                    "Error técnico creando tipo de hora extra: " + exception.getMessage(),
+                    "Error inesperado al crear tipo de hora extra",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
@@ -59,16 +46,14 @@ public class TipoHoraExtraBusinessImpl implements TipoHoraExtraBusiness {
         try {
             TipoHoraExtraEntity filter = TipoHoraExtraEntity.create();
             List<TipoHoraExtraEntity> entities = daoFactory.getTipoHoraExtraDAO().read(filter);
-            return assembler.toDomainList(entities);
+            return TipoHoraExtraEntityAssembler.getTipoHoraExtraEntityAssembler().toDomainList(entities);
 
         } catch (Exception exception) {
             throw new HumanSolutionException(
-                    "Error técnico consultando tipos de hora extra",
-                    "Error inesperado",
+                    "Error técnico consultando tipos de hora extra: " + exception.getMessage(),
+                    "Error inesperado al listar tipos de hora extra",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
@@ -80,23 +65,21 @@ public class TipoHoraExtraBusinessImpl implements TipoHoraExtraBusiness {
 
             if (entities.isEmpty()) {
                 throw new HumanSolutionException(
-                        "No se encontró el tipo de hora extra",
-                        "Tipo de hora extra no existe"
+                        "Tipo de hora extra con ID " + id + " no existe",
+                        "No se encontró el tipo de hora extra"
                 );
             }
 
-            return assembler.toDomain(entities.get(0));
+            return TipoHoraExtraEntityAssembler.getTipoHoraExtraEntityAssembler().toDomain(entities.get(0));
 
         } catch (HumanSolutionException exception) {
             throw exception;
         } catch (Exception exception) {
             throw new HumanSolutionException(
-                    "Error técnico consultando tipo de hora extra",
-                    "Error inesperado",
+                    "Error técnico consultando tipo de hora extra: " + exception.getMessage(),
+                    "Error inesperado al buscar tipo de hora extra",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
@@ -105,44 +88,45 @@ public class TipoHoraExtraBusinessImpl implements TipoHoraExtraBusiness {
         try {
             domain.validar();
 
-            daoFactory.initTransaction();
-
-            TipoHoraExtraEntity entity = assembler.toEntity(domain);
+            var entity = TipoHoraExtraEntityAssembler.getTipoHoraExtraEntityAssembler().toEntity(domain);
             daoFactory.getTipoHoraExtraDAO().update(entity);
 
-            daoFactory.commitTransaction();
-
         } catch (HumanSolutionException exception) {
-            daoFactory.rollbackTransaction();
             throw exception;
         } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error técnico actualizando tipo de hora extra",
-                    "Error inesperado",
+                    "Error técnico actualizando tipo de hora extra: " + exception.getMessage(),
+                    "Error inesperado al actualizar tipo de hora extra",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
     @Override
     public void delete(UUID id) {
         try {
-            daoFactory.initTransaction();
             daoFactory.getTipoHoraExtraDAO().delete(id);
-            daoFactory.commitTransaction();
 
         } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error técnico eliminando tipo de hora extra",
-                    "Error inesperado",
+                    "Error técnico eliminando tipo de hora extra: " + exception.getMessage(),
+                    "Error inesperado al eliminar tipo de hora extra",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
+    }
+
+    private UUID generateId() {
+        var id = UUIDHelper.generateNewUUID();
+        var entity = TipoHoraExtraEntity.create(id, "", 0);
+        var existing = daoFactory.getTipoHoraExtraDAO().read(entity);
+
+        while (!existing.isEmpty()) {
+            id = UUIDHelper.generateNewUUID();
+            entity = TipoHoraExtraEntity.create(id, "", 0);
+            existing = daoFactory.getTipoHoraExtraDAO().read(entity);
+        }
+
+        return id;
     }
 }

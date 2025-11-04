@@ -3,6 +3,7 @@ package co.edu.uco.HumanSolution.business.business.impl;
 import co.edu.uco.HumanSolution.business.assembler.entity.impl.EstadoPuestoEntityAssembler;
 import co.edu.uco.HumanSolution.business.business.EstadoPuestoBusiness;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
+import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
 import co.edu.uco.HumanSolution.domain.EstadoPuestoDomain;
 import co.edu.uco.HumanSolution.entity.EstadoPuestoEntity;
@@ -10,14 +11,12 @@ import co.edu.uco.HumanSolution.entity.EstadoPuestoEntity;
 import java.util.List;
 import java.util.UUID;
 
-public class EstadoPuestoBusinessImpl implements EstadoPuestoBusiness {
+public final class EstadoPuestoBusinessImpl implements EstadoPuestoBusiness {
 
     private DAOFactory daoFactory;
-    private EstadoPuestoEntityAssembler assembler;
 
-    public EstadoPuestoBusinessImpl() {
-        this.daoFactory = DAOFactory.getFactory();
-        this.assembler = new EstadoPuestoEntityAssembler();
+    public EstadoPuestoBusinessImpl(final DAOFactory daoFactory) {
+        this.daoFactory = daoFactory;
     }
 
     @Override
@@ -25,32 +24,20 @@ public class EstadoPuestoBusinessImpl implements EstadoPuestoBusiness {
         try {
             domain.validar();
 
-            if (daoFactory.getEstadoPuestoDAO().existsByNombre(domain.getNombre())) {
-                throw new HumanSolutionException(
-                        "Ya existe un estado de puesto con ese nombre",
-                        "El nombre ya está registrado"
-                );
-            }
+            var id = generateId();
+            var domainWithId = EstadoPuestoDomain.create(id, domain.getNombre());
 
-            daoFactory.initTransaction();
-
-            EstadoPuestoEntity entity = assembler.toEntity(domain);
+            var entity = EstadoPuestoEntityAssembler.getEstadoPuestoEntityAssembler().toEntity(domainWithId);
             daoFactory.getEstadoPuestoDAO().create(entity);
 
-            daoFactory.commitTransaction();
-
         } catch (HumanSolutionException exception) {
-            daoFactory.rollbackTransaction();
             throw exception;
         } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error técnico creando estado de puesto",
-                    "Error inesperado",
+                    "Error técnico creando estado de puesto: " + exception.getMessage(),
+                    "Error inesperado al crear estado de puesto",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
@@ -59,16 +46,14 @@ public class EstadoPuestoBusinessImpl implements EstadoPuestoBusiness {
         try {
             EstadoPuestoEntity filter = EstadoPuestoEntity.create();
             List<EstadoPuestoEntity> entities = daoFactory.getEstadoPuestoDAO().read(filter);
-            return assembler.toDomainList(entities);
+            return EstadoPuestoEntityAssembler.getEstadoPuestoEntityAssembler().toDomainList(entities);
 
         } catch (Exception exception) {
             throw new HumanSolutionException(
-                    "Error técnico consultando estados de puesto",
-                    "Error inesperado",
+                    "Error técnico consultando estados de puesto: " + exception.getMessage(),
+                    "Error inesperado al listar estados de puesto",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
@@ -80,23 +65,21 @@ public class EstadoPuestoBusinessImpl implements EstadoPuestoBusiness {
 
             if (entities.isEmpty()) {
                 throw new HumanSolutionException(
-                        "No se encontró el estado de puesto",
-                        "Estado de puesto no existe"
+                        "Estado de puesto con ID " + id + " no existe",
+                        "No se encontró el estado de puesto"
                 );
             }
 
-            return assembler.toDomain(entities.get(0));
+            return EstadoPuestoEntityAssembler.getEstadoPuestoEntityAssembler().toDomain(entities.get(0));
 
         } catch (HumanSolutionException exception) {
             throw exception;
         } catch (Exception exception) {
             throw new HumanSolutionException(
-                    "Error técnico consultando estado de puesto",
-                    "Error inesperado",
+                    "Error técnico consultando estado de puesto: " + exception.getMessage(),
+                    "Error inesperado al buscar estado de puesto",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
@@ -105,44 +88,45 @@ public class EstadoPuestoBusinessImpl implements EstadoPuestoBusiness {
         try {
             domain.validar();
 
-            daoFactory.initTransaction();
-
-            EstadoPuestoEntity entity = assembler.toEntity(domain);
+            var entity = EstadoPuestoEntityAssembler.getEstadoPuestoEntityAssembler().toEntity(domain);
             daoFactory.getEstadoPuestoDAO().update(entity);
 
-            daoFactory.commitTransaction();
-
         } catch (HumanSolutionException exception) {
-            daoFactory.rollbackTransaction();
             throw exception;
         } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error técnico actualizando estado de puesto",
-                    "Error inesperado",
+                    "Error técnico actualizando estado de puesto: " + exception.getMessage(),
+                    "Error inesperado al actualizar estado de puesto",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
     @Override
     public void delete(UUID id) {
         try {
-            daoFactory.initTransaction();
             daoFactory.getEstadoPuestoDAO().delete(id);
-            daoFactory.commitTransaction();
 
         } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error técnico eliminando estado de puesto",
-                    "Error inesperado",
+                    "Error técnico eliminando estado de puesto: " + exception.getMessage(),
+                    "Error inesperado al eliminar estado de puesto",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
+    }
+
+    private UUID generateId() {
+        var id = UUIDHelper.generateNewUUID();
+        var entity = EstadoPuestoEntity.create(id, "");
+        var existing = daoFactory.getEstadoPuestoDAO().read(entity);
+
+        while (!existing.isEmpty()) {
+            id = UUIDHelper.generateNewUUID();
+            entity = EstadoPuestoEntity.create(id, "");
+            existing = daoFactory.getEstadoPuestoDAO().read(entity);
+        }
+
+        return id;
     }
 }
