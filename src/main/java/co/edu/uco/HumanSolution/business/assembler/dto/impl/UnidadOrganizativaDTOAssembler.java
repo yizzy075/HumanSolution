@@ -1,14 +1,23 @@
 package co.edu.uco.HumanSolution.business.assembler.dto.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.dto.DTOAssembler;
-import co.edu.uco.HumanSolution.domain.UnidadOrganizativaDomain;
+import co.edu.uco.HumanSolution.business.domain.UnidadOrganizativaDomain;
 import co.edu.uco.HumanSolution.dto.UnidadOrganizativaDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UnidadOrganizativaDTOAssembler implements DTOAssembler<UnidadOrganizativaDomain, UnidadOrganizativaDTO> {
+public final class UnidadOrganizativaDTOAssembler implements DTOAssembler<UnidadOrganizativaDomain, UnidadOrganizativaDTO> {
+
+    private static final UnidadOrganizativaDTOAssembler instance = new UnidadOrganizativaDTOAssembler();
+
+    private UnidadOrganizativaDTOAssembler() {
+    }
+
+    public static UnidadOrganizativaDTOAssembler getInstance() {
+        return instance;
+    }
 
     @Override
     public UnidadOrganizativaDomain toDomain(UnidadOrganizativaDTO dto) {

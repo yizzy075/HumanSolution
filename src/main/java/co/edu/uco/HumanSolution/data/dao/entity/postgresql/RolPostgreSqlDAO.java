@@ -33,8 +33,8 @@ public class RolPostgreSqlDAO implements RolDAO {
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico creando rol",
-                    "Error al crear rol en la base de datos",
+                    "Error técnico creando rol en base de datos: " + exception.getMessage(),
+                    "Error al crear rol",
                     exception
             );
         }
@@ -74,7 +74,7 @@ public class RolPostgreSqlDAO implements RolDAO {
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico consultando roles",
+                    "Error técnico consultando roles: " + exception.getMessage(),
                     "Error al consultar roles",
                     exception
             );
@@ -95,7 +95,7 @@ public class RolPostgreSqlDAO implements RolDAO {
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico actualizando rol",
+                    "Error técnico actualizando rol: " + exception.getMessage(),
                     "Error al actualizar rol",
                     exception
             );
@@ -112,7 +112,7 @@ public class RolPostgreSqlDAO implements RolDAO {
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico eliminando rol",
+                    "Error técnico eliminando rol: " + exception.getMessage(),
                     "Error al eliminar rol",
                     exception
             );
@@ -134,7 +134,7 @@ public class RolPostgreSqlDAO implements RolDAO {
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico verificando rol",
+                    "Error técnico verificando rol: " + exception.getMessage(),
                     "Error al verificar existencia de rol",
                     exception
             );

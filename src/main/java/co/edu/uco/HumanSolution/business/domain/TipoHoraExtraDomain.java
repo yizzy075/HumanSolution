@@ -1,4 +1,4 @@
-package co.edu.uco.HumanSolution.domain;
+package co.edu.uco.HumanSolution.business.domain;
 
 import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;

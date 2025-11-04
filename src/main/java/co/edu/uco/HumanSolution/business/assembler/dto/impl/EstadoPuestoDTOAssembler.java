@@ -1,14 +1,23 @@
 package co.edu.uco.HumanSolution.business.assembler.dto.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.dto.DTOAssembler;
-import co.edu.uco.HumanSolution.domain.EstadoPuestoDomain;
+import co.edu.uco.HumanSolution.business.domain.EstadoPuestoDomain;
 import co.edu.uco.HumanSolution.dto.EstadoPuestoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class EstadoPuestoDTOAssembler implements DTOAssembler<EstadoPuestoDomain, EstadoPuestoDTO> {
+public final class EstadoPuestoDTOAssembler implements DTOAssembler<EstadoPuestoDomain, EstadoPuestoDTO> {
+
+    private static final EstadoPuestoDTOAssembler instance = new EstadoPuestoDTOAssembler();
+
+    private EstadoPuestoDTOAssembler() {
+    }
+
+    public static EstadoPuestoDTOAssembler getInstance() {
+        return instance;
+    }
 
     @Override
     public EstadoPuestoDomain toDomain(EstadoPuestoDTO dto) {

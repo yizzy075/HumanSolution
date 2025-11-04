@@ -9,32 +9,62 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class PostgreSqlDAOFactory extends DAOFactory {
+public final class PostgreSqlDAOFactory extends DAOFactory {
 
     private Connection connection;
 
-    public PostgreSqlDAOFactory() {
+    // SINGLETON PATTERN
+    private static PostgreSqlDAOFactory instance;
+
+    private PostgreSqlDAOFactory() {
         openConnection();
     }
 
-    private void openConnection() {
+    // MÉTODO ESTÁTICO PARA OBTENER LA INSTANCIA
+    public static PostgreSqlDAOFactory getInstance() {
+        if (instance == null) {
+            instance = new PostgreSqlDAOFactory();
+        }
+        return instance;
+    }
+
+    @Override
+    public void initTransaction() {
         try {
-            String url = "jdbc:postgresql://localhost:5432/humansolution";
-            String user = "postgres";
-            String password = "postgres";
-            connection = DriverManager.getConnection(url, user, password);
+            getConnection().setAutoCommit(false);
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico abriendo conexión a base de datos",
-                    "No se pudo conectar a la base de datos",
+                    "Error técnico iniciando transacción: " + exception.getMessage(),
+                    "Error al iniciar transacción",
                     exception
             );
         }
     }
 
     @Override
-    protected Connection getConnection() {
-        return connection;
+    public void commitTransaction() {
+        try {
+            getConnection().commit();
+        } catch (SQLException exception) {
+            throw new HumanSolutionException(
+                    "Error técnico confirmando transacción: " + exception.getMessage(),
+                    "Error al confirmar transacción",
+                    exception
+            );
+        }
+    }
+
+    @Override
+    public void rollbackTransaction() {
+        try {
+            getConnection().rollback();
+        } catch (SQLException exception) {
+            throw new HumanSolutionException(
+                    "Error técnico revirtiendo transacción: " + exception.getMessage(),
+                    "Error al revertir transacción",
+                    exception
+            );
+        }
     }
 
     @Override
@@ -45,59 +75,44 @@ public class PostgreSqlDAOFactory extends DAOFactory {
             }
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico cerrando conexión",
-                    "Error al cerrar la conexión",
+                    "Error técnico cerrando conexión: " + exception.getMessage(),
+                    "Error al cerrar conexión",
                     exception
             );
         }
     }
 
-    @Override
-    public void initTransaction() {
+    private void openConnection() {
+        String url = "jdbc:postgresql://localhost:5432/humansolution";
+        String user = "postgres";
+        String password = "tu_password";
+
         try {
-            if (connection != null && !connection.isClosed()) {
-                connection.setAutoCommit(false);
+            connection = DriverManager.getConnection(url, user, password);
+        } catch (SQLException exception) {
+            throw new HumanSolutionException(
+                    "Error técnico abriendo conexión a base de datos: " + exception.getMessage(),
+                    "Error al conectar con la base de datos",
+                    exception
+            );
+        }
+    }
+
+    private Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                openConnection();
             }
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico iniciando transacción",
-                    "No se pudo iniciar la transacción",
+                    "Error técnico verificando conexión: " + exception.getMessage(),
+                    "Error con la conexión a base de datos",
                     exception
             );
         }
+        return connection;
     }
 
-    @Override
-    public void commitTransaction() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.commit();
-            }
-        } catch (SQLException exception) {
-            throw new HumanSolutionException(
-                    "Error técnico haciendo commit",
-                    "No se pudo confirmar la transacción",
-                    exception
-            );
-        }
-    }
-
-    @Override
-    public void rollbackTransaction() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.rollback();
-            }
-        } catch (SQLException exception) {
-            throw new HumanSolutionException(
-                    "Error técnico haciendo rollback",
-                    "No se pudo revertir la transacción",
-                    exception
-            );
-        }
-    }
-
-    // CATÁLOGOS
     @Override
     public TipoDocumentoDAO getTipoDocumentoDAO() {
         return new TipoDocumentoPostgreSqlDAO(getConnection());
@@ -133,7 +148,6 @@ public class PostgreSqlDAOFactory extends DAOFactory {
         return new PermisoSistemaPostgreSqlDAO(getConnection());
     }
 
-    // RELACIONES
     @Override
     public RolPermisoDAO getRolPermisoDAO() {
         return new RolPermisoPostgreSqlDAO(getConnection());
@@ -149,7 +163,6 @@ public class PostgreSqlDAOFactory extends DAOFactory {
         return new UsuarioPostgreSqlDAO(getConnection());
     }
 
-    // OPERACIONALES
     @Override
     public PuestoDAO getPuestoDAO() {
         return new PuestoPostgreSqlDAO(getConnection());

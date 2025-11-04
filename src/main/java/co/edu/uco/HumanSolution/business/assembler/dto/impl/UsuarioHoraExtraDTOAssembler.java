@@ -1,7 +1,7 @@
 package co.edu.uco.HumanSolution.business.assembler.dto.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.dto.DTOAssembler;
-import co.edu.uco.HumanSolution.domain.UsuarioHoraExtraDomain;
+import co.edu.uco.HumanSolution.business.domain.UsuarioHoraExtraDomain;
 import co.edu.uco.HumanSolution.dto.UsuarioHoraExtraDTO;
 
 import java.util.ArrayList;

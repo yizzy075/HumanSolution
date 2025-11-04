@@ -1,14 +1,23 @@
 package co.edu.uco.HumanSolution.business.assembler.dto.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.dto.DTOAssembler;
-import co.edu.uco.HumanSolution.domain.TipoDocumentoDomain;
+import co.edu.uco.HumanSolution.business.domain.TipoDocumentoDomain;
 import co.edu.uco.HumanSolution.dto.TipoDocumentoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TipoDocumentoDTOAssembler implements DTOAssembler<TipoDocumentoDomain, TipoDocumentoDTO> {
+public final class TipoDocumentoDTOAssembler implements DTOAssembler<TipoDocumentoDomain, TipoDocumentoDTO> {
+
+    private static final TipoDocumentoDTOAssembler instance = new TipoDocumentoDTOAssembler();
+
+    private TipoDocumentoDTOAssembler() {
+    }
+
+    public static TipoDocumentoDTOAssembler getInstance() {
+        return instance;
+    }
 
     @Override
     public TipoDocumentoDomain toDomain(TipoDocumentoDTO dto) {

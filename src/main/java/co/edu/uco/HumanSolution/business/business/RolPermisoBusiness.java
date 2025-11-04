@@ -1,6 +1,6 @@
 package co.edu.uco.HumanSolution.business.business;
 
-import co.edu.uco.HumanSolution.domain.RolPermisoDomain;
+import co.edu.uco.HumanSolution.business.domain.RolPermisoDomain;
 
 import java.util.List;
 import java.util.UUID;

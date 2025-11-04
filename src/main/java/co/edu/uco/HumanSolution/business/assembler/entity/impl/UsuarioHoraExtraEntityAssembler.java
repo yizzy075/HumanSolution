@@ -1,6 +1,6 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.domain.UsuarioHoraExtraDomain;
+import co.edu.uco.HumanSolution.business.domain.UsuarioHoraExtraDomain;
 import co.edu.uco.HumanSolution.entity.UsuarioHoraExtraEntity;
 
 import java.util.ArrayList;

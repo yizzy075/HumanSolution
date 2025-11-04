@@ -37,8 +37,8 @@ public class UsuarioPostgreSqlDAO implements UsuarioDAO {
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico creando usuario",
-                    "Error al crear usuario en la base de datos",
+                    "Error técnico creando usuario en base de datos: " + exception.getMessage(),
+                    "Error al crear usuario",
                     exception
             );
         }
@@ -60,19 +60,9 @@ public class UsuarioPostgreSqlDAO implements UsuarioDAO {
             parametros.add(entity.getDocumento());
         }
 
-        if (!entity.getNombre().isEmpty()) {
-            sql.append(" AND nombre ILIKE ?");
-            parametros.add("%" + entity.getNombre() + "%");
-        }
-
         if (!entity.getCorreo().isEmpty()) {
             sql.append(" AND correo = ?");
             parametros.add(entity.getCorreo());
-        }
-
-        if (!UUIDHelper.isDefault(entity.getIdRol())) {
-            sql.append(" AND id_rol = ?");
-            parametros.add(entity.getIdRol());
         }
 
         try (PreparedStatement statement = connection.prepareStatement(sql.toString())) {
@@ -97,7 +87,7 @@ public class UsuarioPostgreSqlDAO implements UsuarioDAO {
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico consultando usuarios",
+                    "Error técnico consultando usuarios: " + exception.getMessage(),
                     "Error al consultar usuarios",
                     exception
             );
@@ -122,7 +112,7 @@ public class UsuarioPostgreSqlDAO implements UsuarioDAO {
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico actualizando usuario",
+                    "Error técnico actualizando usuario: " + exception.getMessage(),
                     "Error al actualizar usuario",
                     exception
             );
@@ -139,11 +129,35 @@ public class UsuarioPostgreSqlDAO implements UsuarioDAO {
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico eliminando usuario",
+                    "Error técnico eliminando usuario: " + exception.getMessage(),
                     "Error al eliminar usuario",
                     exception
             );
         }
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        String sql = "SELECT COUNT(*) FROM usuario WHERE correo = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+
+        } catch (SQLException exception) {
+            throw new HumanSolutionException(
+                    "Error técnico verificando email de usuario: " + exception.getMessage(),
+                    "Error al verificar email",
+                    exception
+            );
+        }
+
+        return false;
     }
 
     @Override
@@ -161,32 +175,8 @@ public class UsuarioPostgreSqlDAO implements UsuarioDAO {
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
-                    "Error técnico verificando usuario por documento",
-                    "Error al verificar existencia de usuario por documento",
-                    exception
-            );
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean existsByCorreo(String correo) {
-        String sql = "SELECT COUNT(*) FROM usuario WHERE correo = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, correo);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt(1) > 0;
-                }
-            }
-
-        } catch (SQLException exception) {
-            throw new HumanSolutionException(
-                    "Error técnico verificando usuario por correo",
-                    "Error al verificar existencia de usuario por correo",
+                    "Error técnico verificando documento de usuario: " + exception.getMessage(),
+                    "Error al verificar documento",
                     exception
             );
         }

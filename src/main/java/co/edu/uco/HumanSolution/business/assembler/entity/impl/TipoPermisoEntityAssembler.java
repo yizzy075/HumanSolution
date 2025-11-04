@@ -1,6 +1,6 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.domain.TipoPermisoDomain;
+import co.edu.uco.HumanSolution.business.domain.TipoPermisoDomain;
 import co.edu.uco.HumanSolution.entity.TipoPermisoEntity;
 
 import java.util.ArrayList;

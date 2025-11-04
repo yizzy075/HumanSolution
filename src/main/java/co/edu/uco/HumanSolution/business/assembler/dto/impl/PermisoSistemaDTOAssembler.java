@@ -1,14 +1,23 @@
 package co.edu.uco.HumanSolution.business.assembler.dto.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.dto.DTOAssembler;
-import co.edu.uco.HumanSolution.domain.PermisoSistemaDomain;
+import co.edu.uco.HumanSolution.business.domain.PermisoSistemaDomain;
 import co.edu.uco.HumanSolution.dto.PermisoSistemaDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class PermisoSistemaDTOAssembler implements DTOAssembler<PermisoSistemaDomain, PermisoSistemaDTO> {
+public final class PermisoSistemaDTOAssembler implements DTOAssembler<PermisoSistemaDomain, PermisoSistemaDTO> {
+
+    private static final PermisoSistemaDTOAssembler instance = new PermisoSistemaDTOAssembler();
+
+    private PermisoSistemaDTOAssembler() {
+    }
+
+    public static PermisoSistemaDTOAssembler getInstance() {
+        return instance;
+    }
 
     @Override
     public PermisoSistemaDomain toDomain(PermisoSistemaDTO dto) {

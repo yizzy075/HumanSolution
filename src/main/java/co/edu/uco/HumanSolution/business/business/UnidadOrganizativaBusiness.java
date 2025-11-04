@@ -1,6 +1,6 @@
 package co.edu.uco.HumanSolution.business.business;
 
-import co.edu.uco.HumanSolution.domain.UnidadOrganizativaDomain;
+import co.edu.uco.HumanSolution.business.domain.UnidadOrganizativaDomain;
 
 import java.util.List;
 import java.util.UUID;

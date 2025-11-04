@@ -1,14 +1,23 @@
 package co.edu.uco.HumanSolution.business.assembler.dto.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.dto.DTOAssembler;
-import co.edu.uco.HumanSolution.domain.UsuarioDomain;
+import co.edu.uco.HumanSolution.business.domain.UsuarioDomain;
 import co.edu.uco.HumanSolution.dto.UsuarioDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UsuarioDTOAssembler implements DTOAssembler<UsuarioDomain, UsuarioDTO> {
+public final class UsuarioDTOAssembler implements DTOAssembler<UsuarioDomain, UsuarioDTO> {
+
+    private static final UsuarioDTOAssembler instance = new UsuarioDTOAssembler();
+
+    private UsuarioDTOAssembler() {
+    }
+
+    public static UsuarioDTOAssembler getInstance() {
+        return instance;
+    }
 
     @Override
     public UsuarioDomain toDomain(UsuarioDTO dto) {

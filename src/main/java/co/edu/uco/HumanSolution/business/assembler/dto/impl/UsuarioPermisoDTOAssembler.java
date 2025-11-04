@@ -1,7 +1,7 @@
 package co.edu.uco.HumanSolution.business.assembler.dto.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.dto.DTOAssembler;
-import co.edu.uco.HumanSolution.domain.UsuarioPermisoDomain;
+import co.edu.uco.HumanSolution.business.domain.UsuarioPermisoDomain;
 import co.edu.uco.HumanSolution.dto.UsuarioPermisoDTO;
 
 import java.util.ArrayList;

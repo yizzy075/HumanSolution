@@ -1,6 +1,6 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.domain.EstadoPuestoDomain;
+import co.edu.uco.HumanSolution.business.domain.EstadoPuestoDomain;
 import co.edu.uco.HumanSolution.entity.EstadoPuestoEntity;
 
 import java.util.ArrayList;

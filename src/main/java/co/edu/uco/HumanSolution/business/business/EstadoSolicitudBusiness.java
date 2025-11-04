@@ -1,6 +1,6 @@
 package co.edu.uco.HumanSolution.business.business;
 
-import co.edu.uco.HumanSolution.domain.EstadoSolicitudDomain;
+import co.edu.uco.HumanSolution.business.domain.EstadoSolicitudDomain;
 
 import java.util.List;
 import java.util.UUID;

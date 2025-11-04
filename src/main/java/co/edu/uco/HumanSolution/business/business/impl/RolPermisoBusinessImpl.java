@@ -5,7 +5,7 @@ import co.edu.uco.HumanSolution.business.business.RolPermisoBusiness;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
-import co.edu.uco.HumanSolution.domain.RolPermisoDomain;
+import co.edu.uco.HumanSolution.business.domain.RolPermisoDomain;
 import co.edu.uco.HumanSolution.entity.RolPermisoEntity;
 
 import java.util.List;

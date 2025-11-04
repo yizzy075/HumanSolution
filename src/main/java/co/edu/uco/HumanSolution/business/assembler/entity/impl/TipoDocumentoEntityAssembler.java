@@ -1,6 +1,6 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.domain.TipoDocumentoDomain;
+import co.edu.uco.HumanSolution.business.domain.TipoDocumentoDomain;
 import co.edu.uco.HumanSolution.entity.TipoDocumentoEntity;
 
 import java.util.ArrayList;

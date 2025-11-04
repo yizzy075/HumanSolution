@@ -5,7 +5,7 @@ import co.edu.uco.HumanSolution.business.business.PermisoSistemaBusiness;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
-import co.edu.uco.HumanSolution.domain.PermisoSistemaDomain;
+import co.edu.uco.HumanSolution.business.domain.PermisoSistemaDomain;
 import co.edu.uco.HumanSolution.entity.PermisoSistemaEntity;
 
 import java.util.List;

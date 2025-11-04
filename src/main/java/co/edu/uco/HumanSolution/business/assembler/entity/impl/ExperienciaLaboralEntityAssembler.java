@@ -1,6 +1,6 @@
 package co.edu.uco.HumanSolution.business.assembler.entity.impl;
 
-import co.edu.uco.HumanSolution.domain.ExperienciaLaboralDomain;
+import co.edu.uco.HumanSolution.business.domain.ExperienciaLaboralDomain;
 import co.edu.uco.HumanSolution.entity.ExperienciaLaboralEntity;
 
 import java.util.ArrayList;

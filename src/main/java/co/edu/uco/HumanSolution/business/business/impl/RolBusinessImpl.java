@@ -4,7 +4,7 @@ import co.edu.uco.HumanSolution.business.assembler.entity.impl.RolEntityAssemble
 import co.edu.uco.HumanSolution.business.business.RolBusiness;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
-import co.edu.uco.HumanSolution.domain.RolDomain;
+import co.edu.uco.HumanSolution.business.domain.RolDomain;
 import co.edu.uco.HumanSolution.entity.RolEntity;
 
 import java.util.List;

@@ -1,24 +1,24 @@
-package co.edu.uco.HumanSolution.domain;
+package co.edu.uco.HumanSolution.business.domain;
 
 import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
 import java.util.UUID;
 
-public class RolDomain extends Domain {
+public class EstadoPuestoDomain extends Domain {
 
     private String nombre;
 
-    private RolDomain(UUID id, String nombre) {
+    private EstadoPuestoDomain(UUID id, String nombre) {
         super(id);
         setNombre(nombre);
     }
 
-    public static RolDomain create(UUID id, String nombre) {
-        return new RolDomain(id, nombre);
+    public static EstadoPuestoDomain create(UUID id, String nombre) {
+        return new EstadoPuestoDomain(id, nombre);
     }
 
-    public static RolDomain create() {
-        return new RolDomain(UUIDHelper.getDefaultUUID(), TextHelper.EMPTY);
+    public static EstadoPuestoDomain create() {
+        return new EstadoPuestoDomain(UUIDHelper.getDefaultUUID(), TextHelper.EMPTY);
     }
 
     public String getNombre() {
@@ -31,7 +31,7 @@ public class RolDomain extends Domain {
 
     public void validarNombre() {
         if (TextHelper.isEmpty(nombre)) {
-            throw new IllegalArgumentException("El nombre del rol es obligatorio");
+            throw new IllegalArgumentException("El nombre del estado de puesto es obligatorio");
         }
         if (nombre.length() > 50) {
             throw new IllegalArgumentException("El nombre no puede exceder 50 caracteres");
