@@ -8,7 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UsuarioDocumentoDTOAssembler implements DTOAssembler<UsuarioDocumentoDomain, UsuarioDocumentoDTO> {
+public final class UsuarioDocumentoDTOAssembler implements DTOAssembler<UsuarioDocumentoDomain, UsuarioDocumentoDTO> {
+
+    private static final DTOAssembler<UsuarioDocumentoDomain, UsuarioDocumentoDTO> instance = new UsuarioDocumentoDTOAssembler();
+
+    private UsuarioDocumentoDTOAssembler() {
+    }
+
+    public static DTOAssembler<UsuarioDocumentoDomain, UsuarioDocumentoDTO> getUsuarioDocumentoDTOAssembler() {
+        return instance;
+    }
 
     @Override
     public UsuarioDocumentoDomain toDomain(UsuarioDocumentoDTO dto) {
@@ -16,7 +25,7 @@ public class UsuarioDocumentoDTOAssembler implements DTOAssembler<UsuarioDocumen
                 UUID.fromString(dto.getId()),
                 UUID.fromString(dto.getIdUsuario()),
                 UUID.fromString(dto.getIdTipoDocumento()),
-                dto.getFecha(),
+                dto.getFecha(),  // ✅ LocalDate → LocalDate directo
                 UUID.fromString(dto.getIdEstadoSolicitud())
         );
     }
@@ -27,7 +36,7 @@ public class UsuarioDocumentoDTOAssembler implements DTOAssembler<UsuarioDocumen
                 domain.getId().toString(),
                 domain.getIdUsuario().toString(),
                 domain.getIdTipoDocumento().toString(),
-                domain.getFecha(),
+                domain.getFecha(),  // ✅ LocalDate → LocalDate directo
                 domain.getIdEstadoSolicitud().toString()
         );
     }

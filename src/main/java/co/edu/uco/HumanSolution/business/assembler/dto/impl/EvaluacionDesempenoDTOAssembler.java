@@ -8,14 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class EvaluacionDesempenoDTOAssembler implements DTOAssembler<EvaluacionDesempenoDomain, EvaluacionDesempenoDTO> {
+public final class EvaluacionDesempenoDTOAssembler implements DTOAssembler<EvaluacionDesempenoDomain, EvaluacionDesempenoDTO> {
+
+    private static final DTOAssembler<EvaluacionDesempenoDomain, EvaluacionDesempenoDTO> instance = new EvaluacionDesempenoDTOAssembler();
+
+    private EvaluacionDesempenoDTOAssembler() {
+    }
+
+    public static DTOAssembler<EvaluacionDesempenoDomain, EvaluacionDesempenoDTO> getEvaluacionDesempenoDTOAssembler() {
+        return instance;
+    }
 
     @Override
     public EvaluacionDesempenoDomain toDomain(EvaluacionDesempenoDTO dto) {
         return EvaluacionDesempenoDomain.create(
                 UUID.fromString(dto.getId()),
                 UUID.fromString(dto.getIdUsuario()),
-                dto.getFecha(),
+                dto.getFecha(),  // ✅ LocalDate → LocalDate directo
                 dto.getCalificacion(),
                 dto.getObservacion()
         );
@@ -26,7 +35,7 @@ public class EvaluacionDesempenoDTOAssembler implements DTOAssembler<EvaluacionD
         return EvaluacionDesempenoDTO.create(
                 domain.getId().toString(),
                 domain.getIdUsuario().toString(),
-                domain.getFecha(),
+                domain.getFecha(),  // ✅ LocalDate → LocalDate directo
                 domain.getCalificacion(),
                 domain.getObservacion()
         );

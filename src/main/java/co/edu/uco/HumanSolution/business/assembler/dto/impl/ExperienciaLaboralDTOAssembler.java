@@ -8,7 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ExperienciaLaboralDTOAssembler implements DTOAssembler<ExperienciaLaboralDomain, ExperienciaLaboralDTO> {
+public final class ExperienciaLaboralDTOAssembler implements DTOAssembler<ExperienciaLaboralDomain, ExperienciaLaboralDTO> {
+
+    private static final DTOAssembler<ExperienciaLaboralDomain, ExperienciaLaboralDTO> instance = new ExperienciaLaboralDTOAssembler();
+
+    private ExperienciaLaboralDTOAssembler() {
+    }
+
+    public static DTOAssembler<ExperienciaLaboralDomain, ExperienciaLaboralDTO> getExperienciaLaboralDTOAssembler() {
+        return instance;
+    }
 
     @Override
     public ExperienciaLaboralDomain toDomain(ExperienciaLaboralDTO dto) {
@@ -17,8 +26,8 @@ public class ExperienciaLaboralDTOAssembler implements DTOAssembler<ExperienciaL
                 UUID.fromString(dto.getIdUsuario()),
                 dto.getEmpresa(),
                 dto.getCargo(),
-                dto.getFechaInicio(),
-                dto.getFechaFin()
+                dto.getFechaInicio(),  // ✅ LocalDate → LocalDate directo
+                dto.getFechaFin()      // ✅ LocalDate → LocalDate directo
         );
     }
 
@@ -29,8 +38,8 @@ public class ExperienciaLaboralDTOAssembler implements DTOAssembler<ExperienciaL
                 domain.getIdUsuario().toString(),
                 domain.getEmpresa(),
                 domain.getCargo(),
-                domain.getFechaInicio(),
-                domain.getFechaFin()
+                domain.getFechaInicio(),  // ✅ LocalDate → LocalDate directo
+                domain.getFechaFin()      // ✅ LocalDate → LocalDate directo
         );
     }
 

@@ -8,7 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UsuarioPermisoDTOAssembler implements DTOAssembler<UsuarioPermisoDomain, UsuarioPermisoDTO> {
+public final class UsuarioPermisoDTOAssembler implements DTOAssembler<UsuarioPermisoDomain, UsuarioPermisoDTO> {
+
+    private static final DTOAssembler<UsuarioPermisoDomain, UsuarioPermisoDTO> instance = new UsuarioPermisoDTOAssembler();
+
+    private UsuarioPermisoDTOAssembler() {
+    }
+
+    public static DTOAssembler<UsuarioPermisoDomain, UsuarioPermisoDTO> getUsuarioPermisoDTOAssembler() {
+        return instance;
+    }
 
     @Override
     public UsuarioPermisoDomain toDomain(UsuarioPermisoDTO dto) {
@@ -16,8 +25,8 @@ public class UsuarioPermisoDTOAssembler implements DTOAssembler<UsuarioPermisoDo
                 UUID.fromString(dto.getId()),
                 UUID.fromString(dto.getIdUsuario()),
                 UUID.fromString(dto.getIdTipoPermiso()),
-                dto.getFechaInicio(),
-                dto.getFechaFin(),
+                dto.getFechaInicio(),  // ✅ LocalDate → LocalDate directo
+                dto.getFechaFin(),     // ✅ LocalDate → LocalDate directo
                 UUID.fromString(dto.getIdEstadoSolicitud())
         );
     }
@@ -28,8 +37,8 @@ public class UsuarioPermisoDTOAssembler implements DTOAssembler<UsuarioPermisoDo
                 domain.getId().toString(),
                 domain.getIdUsuario().toString(),
                 domain.getIdTipoPermiso().toString(),
-                domain.getFechaInicio(),
-                domain.getFechaFin(),
+                domain.getFechaInicio(),  // ✅ LocalDate → LocalDate directo
+                domain.getFechaFin(),     // ✅ LocalDate → LocalDate directo
                 domain.getIdEstadoSolicitud().toString()
         );
     }

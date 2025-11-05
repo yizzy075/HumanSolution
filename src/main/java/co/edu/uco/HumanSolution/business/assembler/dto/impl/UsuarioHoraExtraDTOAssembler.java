@@ -8,14 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UsuarioHoraExtraDTOAssembler implements DTOAssembler<UsuarioHoraExtraDomain, UsuarioHoraExtraDTO> {
+public final class UsuarioHoraExtraDTOAssembler implements DTOAssembler<UsuarioHoraExtraDomain, UsuarioHoraExtraDTO> {
+
+    private static final DTOAssembler<UsuarioHoraExtraDomain, UsuarioHoraExtraDTO> instance = new UsuarioHoraExtraDTOAssembler();
+
+    private UsuarioHoraExtraDTOAssembler() {
+    }
+
+    public static DTOAssembler<UsuarioHoraExtraDomain, UsuarioHoraExtraDTO> getUsuarioHoraExtraDTOAssembler() {
+        return instance;
+    }
 
     @Override
     public UsuarioHoraExtraDomain toDomain(UsuarioHoraExtraDTO dto) {
         return UsuarioHoraExtraDomain.create(
                 UUID.fromString(dto.getId()),
                 UUID.fromString(dto.getIdUsuario()),
-                dto.getFecha(),
+                dto.getFecha(),  // ✅ LocalDate → LocalDate directo
                 UUID.fromString(dto.getIdEstadoSolicitud()),
                 dto.getHoras(),
                 UUID.fromString(dto.getIdTipoHoraExtra())
@@ -27,7 +36,7 @@ public class UsuarioHoraExtraDTOAssembler implements DTOAssembler<UsuarioHoraExt
         return UsuarioHoraExtraDTO.create(
                 domain.getId().toString(),
                 domain.getIdUsuario().toString(),
-                domain.getFecha(),
+                domain.getFecha(),  // ✅ LocalDate → LocalDate directo
                 domain.getIdEstadoSolicitud().toString(),
                 domain.getHoras(),
                 domain.getIdTipoHoraExtra().toString()

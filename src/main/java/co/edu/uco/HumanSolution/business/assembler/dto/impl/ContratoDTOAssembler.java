@@ -8,15 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ContratoDTOAssembler implements DTOAssembler<ContratoDomain, ContratoDTO> {
+public final class ContratoDTOAssembler implements DTOAssembler<ContratoDomain, ContratoDTO> {
+
+    private static final DTOAssembler<ContratoDomain, ContratoDTO> instance = new ContratoDTOAssembler();
+
+    private ContratoDTOAssembler() {
+    }
+
+    public static DTOAssembler<ContratoDomain, ContratoDTO> getContratoDTOAssembler() {
+        return instance;
+    }
 
     @Override
     public ContratoDomain toDomain(ContratoDTO dto) {
         return ContratoDomain.create(
                 UUID.fromString(dto.getId()),
                 UUID.fromString(dto.getIdUsuario()),
-                dto.getFechaInicio(),
-                dto.getFechaFin(),
+                dto.getFechaInicio(),  // ✅ LocalDate → LocalDate directo
+                dto.getFechaFin(),     // ✅ LocalDate → LocalDate directo
                 dto.getSueldo()
         );
     }
@@ -26,8 +35,8 @@ public class ContratoDTOAssembler implements DTOAssembler<ContratoDomain, Contra
         return ContratoDTO.create(
                 domain.getId().toString(),
                 domain.getIdUsuario().toString(),
-                domain.getFechaInicio(),
-                domain.getFechaFin(),
+                domain.getFechaInicio(),  // ✅ LocalDate → LocalDate directo
+                domain.getFechaFin(),     // ✅ LocalDate → LocalDate directo
                 domain.getSueldo()
         );
     }

@@ -8,7 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class PuestoDTOAssembler implements DTOAssembler<PuestoDomain, PuestoDTO> {
+public final class PuestoDTOAssembler implements DTOAssembler<PuestoDomain, PuestoDTO> {
+
+    private static final DTOAssembler<PuestoDomain, PuestoDTO> instance = new PuestoDTOAssembler();
+
+    private PuestoDTOAssembler() {
+    }
+
+    public static DTOAssembler<PuestoDomain, PuestoDTO> getPuestoDTOAssembler() {
+        return instance;
+    }
 
     @Override
     public PuestoDomain toDomain(PuestoDTO dto) {
