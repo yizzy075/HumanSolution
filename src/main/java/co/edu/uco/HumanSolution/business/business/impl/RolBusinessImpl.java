@@ -15,7 +15,7 @@ public class RolBusinessImpl implements RolBusiness {
     private DAOFactory daoFactory;
     private RolEntityAssembler assembler;
 
-    public RolBusinessImpl() {
+    public RolBusinessImpl(DAOFactory daoFactory) {
         this.daoFactory = DAOFactory.getFactory();
         this.assembler = new RolEntityAssembler();
     }

@@ -24,7 +24,7 @@ public final class TipoPermisoFacadeImpl implements TipoPermisoFacade {
         try {
             daoFactory.initTransaction();
 
-            var domain = TipoPermisoDTOAssembler.getInstance().toDomain(dto);
+            var domain = TipoPermisoDTOAssembler.getTipoPermisoDTOAssembler().toDomain(dto);
             TipoPermisoBusiness business = new TipoPermisoBusinessImpl(daoFactory);
             business.create(domain);
 
@@ -50,7 +50,7 @@ public final class TipoPermisoFacadeImpl implements TipoPermisoFacade {
         try {
             TipoPermisoBusiness business = new TipoPermisoBusinessImpl(daoFactory);
             var domains = business.list();
-            return TipoPermisoDTOAssembler.getInstance().toDTOList(domains);
+            return TipoPermisoDTOAssembler.getTipoPermisoDTOAssembler().toDTOList(domains);
 
         } catch (HumanSolutionException exception) {
             throw exception;
@@ -70,7 +70,7 @@ public final class TipoPermisoFacadeImpl implements TipoPermisoFacade {
         try {
             TipoPermisoBusiness business = new TipoPermisoBusinessImpl(daoFactory);
             var domain = business.findById(id);
-            return TipoPermisoDTOAssembler.getInstance().toDTO(domain);
+            return TipoPermisoDTOAssembler.getTipoPermisoDTOAssembler().toDTO(domain);
 
         } catch (HumanSolutionException exception) {
             throw exception;
@@ -90,7 +90,7 @@ public final class TipoPermisoFacadeImpl implements TipoPermisoFacade {
         try {
             daoFactory.initTransaction();
 
-            var domain = TipoPermisoDTOAssembler.getInstance().toDomain(dto);
+            var domain = TipoPermisoDTOAssembler.getTipoPermisoDTOAssembler().toDomain(dto);
             TipoPermisoBusiness business = new TipoPermisoBusinessImpl(daoFactory);
             business.update(domain);
 

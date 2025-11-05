@@ -1,31 +1,27 @@
 package co.edu.uco.HumanSolution.business.facade.impl;
 
-import co.edu.uco.HumanSolution.business.assembler.dto.impl.EstadoSolicitudDTOAssembler;
-import co.edu.uco.HumanSolution.business.business.EstadoSolicitudBusiness;
-import co.edu.uco.HumanSolution.business.business.impl.EstadoSolicitudBusinessImpl;
-import co.edu.uco.HumanSolution.business.facade.EstadoSolicitudFacade;
+import co.edu.uco.HumanSolution.business.assembler.dto.impl.RolDTOAssembler;
+import co.edu.uco.HumanSolution.business.business.RolBusiness;
+import co.edu.uco.HumanSolution.business.business.impl.RolBusinessImpl;
+import co.edu.uco.HumanSolution.business.facade.RolFacade;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
-import co.edu.uco.HumanSolution.dto.EstadoSolicitudDTO;
+import co.edu.uco.HumanSolution.dto.RolDTO;
 
 import java.util.List;
 import java.util.UUID;
 
-public final class EstadoSolicitudFacadeImpl implements EstadoSolicitudFacade {
-
-    private DAOFactory daoFactory;
-
-    public EstadoSolicitudFacadeImpl() {
-        this.daoFactory = DAOFactory.getDAOFactory();
-    }
+public final class RolFacadeImpl implements RolFacade {
 
     @Override
-    public void create(EstadoSolicitudDTO dto) {
+    public void create(RolDTO dto) {
+        DAOFactory daoFactory = DAOFactory.getDAOFactory();
+
         try {
             daoFactory.initTransaction();
 
-            var domain = EstadoSolicitudDTOAssembler.getEstadoSolicitudDTOAssembler().toDomain(dto);
-            EstadoSolicitudBusiness business = new EstadoSolicitudBusinessImpl(daoFactory);
+            var domain = RolDTOAssembler.getRolDTOAssembler().toDomain(dto);
+            RolBusiness business = new RolBusinessImpl(daoFactory);
             business.create(domain);
 
             daoFactory.commitTransaction();
@@ -36,8 +32,8 @@ public final class EstadoSolicitudFacadeImpl implements EstadoSolicitudFacade {
         } catch (Exception exception) {
             daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error inesperado en Facade creando estado de solicitud: " + exception.getMessage(),
-                    "Error al crear estado de solicitud",
+                    "Error inesperado en Facade creando rol: " + exception.getMessage(),
+                    "Error al crear rol",
                     exception
             );
         } finally {
@@ -46,18 +42,20 @@ public final class EstadoSolicitudFacadeImpl implements EstadoSolicitudFacade {
     }
 
     @Override
-    public List<EstadoSolicitudDTO> list() {
+    public List<RolDTO> list() {
+        DAOFactory daoFactory = DAOFactory.getDAOFactory();
+
         try {
-            EstadoSolicitudBusiness business = new EstadoSolicitudBusinessImpl(daoFactory);
+            RolBusiness business = new RolBusinessImpl(daoFactory);
             var domains = business.list();
-            return EstadoSolicitudDTOAssembler.getEstadoSolicitudDTOAssembler().toDTOList(domains);
+            return RolDTOAssembler.getRolDTOAssembler().toDTOList(domains);
 
         } catch (HumanSolutionException exception) {
             throw exception;
         } catch (Exception exception) {
             throw new HumanSolutionException(
-                    "Error inesperado en Facade listando estados de solicitud: " + exception.getMessage(),
-                    "Error al listar estados de solicitud",
+                    "Error inesperado en Facade listando roles: " + exception.getMessage(),
+                    "Error al listar roles",
                     exception
             );
         } finally {
@@ -66,18 +64,20 @@ public final class EstadoSolicitudFacadeImpl implements EstadoSolicitudFacade {
     }
 
     @Override
-    public EstadoSolicitudDTO findById(UUID id) {
+    public RolDTO findById(UUID id) {
+        DAOFactory daoFactory = DAOFactory.getDAOFactory();
+
         try {
-            EstadoSolicitudBusiness business = new EstadoSolicitudBusinessImpl(daoFactory);
+            RolBusiness business = new RolBusinessImpl(daoFactory);
             var domain = business.findById(id);
-            return EstadoSolicitudDTOAssembler.getEstadoSolicitudDTOAssembler().toDTO(domain);
+            return RolDTOAssembler.getRolDTOAssembler().toDTO(domain);
 
         } catch (HumanSolutionException exception) {
             throw exception;
         } catch (Exception exception) {
             throw new HumanSolutionException(
-                    "Error inesperado en Facade buscando estado de solicitud: " + exception.getMessage(),
-                    "Error al buscar estado de solicitud",
+                    "Error inesperado en Facade buscando rol: " + exception.getMessage(),
+                    "Error al buscar rol",
                     exception
             );
         } finally {
@@ -86,12 +86,14 @@ public final class EstadoSolicitudFacadeImpl implements EstadoSolicitudFacade {
     }
 
     @Override
-    public void update(EstadoSolicitudDTO dto) {
+    public void update(RolDTO dto) {
+        DAOFactory daoFactory = DAOFactory.getDAOFactory();
+
         try {
             daoFactory.initTransaction();
 
-            var domain = EstadoSolicitudDTOAssembler.getEstadoSolicitudDTOAssembler().toDomain(dto);
-            EstadoSolicitudBusiness business = new EstadoSolicitudBusinessImpl(daoFactory);
+            var domain = RolDTOAssembler.getRolDTOAssembler().toDomain(dto);
+            RolBusiness business = new RolBusinessImpl(daoFactory);
             business.update(domain);
 
             daoFactory.commitTransaction();
@@ -102,8 +104,8 @@ public final class EstadoSolicitudFacadeImpl implements EstadoSolicitudFacade {
         } catch (Exception exception) {
             daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error inesperado en Facade actualizando estado de solicitud: " + exception.getMessage(),
-                    "Error al actualizar estado de solicitud",
+                    "Error inesperado en Facade actualizando rol: " + exception.getMessage(),
+                    "Error al actualizar rol",
                     exception
             );
         } finally {
@@ -113,10 +115,12 @@ public final class EstadoSolicitudFacadeImpl implements EstadoSolicitudFacade {
 
     @Override
     public void delete(UUID id) {
+        DAOFactory daoFactory = DAOFactory.getDAOFactory();
+
         try {
             daoFactory.initTransaction();
 
-            EstadoSolicitudBusiness business = new EstadoSolicitudBusinessImpl(daoFactory);
+            RolBusiness business = new RolBusinessImpl(daoFactory);
             business.delete(id);
 
             daoFactory.commitTransaction();
@@ -127,8 +131,8 @@ public final class EstadoSolicitudFacadeImpl implements EstadoSolicitudFacade {
         } catch (Exception exception) {
             daoFactory.rollbackTransaction();
             throw new HumanSolutionException(
-                    "Error inesperado en Facade eliminando estado de solicitud: " + exception.getMessage(),
-                    "Error al eliminar estado de solicitud",
+                    "Error inesperado en Facade eliminando rol: " + exception.getMessage(),
+                    "Error al eliminar rol",
                     exception
             );
         } finally {
