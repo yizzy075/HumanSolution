@@ -15,7 +15,8 @@ public final class TipoDocumentoDTOAssembler implements DTOAssembler<TipoDocumen
     private TipoDocumentoDTOAssembler() {
     }
 
-    public static TipoDocumentoDTOAssembler getInstance() {
+    // ✅ RETORNA LA CLASE CONCRETA, NO LA INTERFAZ
+    public static TipoDocumentoDTOAssembler getTipoDocumentoDTOAssembler() {
         return instance;
     }
 

@@ -15,7 +15,7 @@ public final class PermisoSistemaDTOAssembler implements DTOAssembler<PermisoSis
     private PermisoSistemaDTOAssembler() {
     }
 
-    public static PermisoSistemaDTOAssembler getInstance() {
+    public static PermisoSistemaDTOAssembler getPermisoSistemaDTOAssembler() {
         return instance;
     }
 

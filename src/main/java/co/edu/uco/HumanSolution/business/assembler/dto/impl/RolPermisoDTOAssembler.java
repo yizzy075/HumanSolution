@@ -15,7 +15,7 @@ public final class RolPermisoDTOAssembler implements DTOAssembler<RolPermisoDoma
     private RolPermisoDTOAssembler() {
     }
 
-    public static RolPermisoDTOAssembler getInstance() {
+    public static RolPermisoDTOAssembler getRolPermisoDTOAssembler() {
         return instance;
     }
 

@@ -15,7 +15,7 @@ public final class UnidadOrganizativaDTOAssembler implements DTOAssembler<Unidad
     private UnidadOrganizativaDTOAssembler() {
     }
 
-    public static UnidadOrganizativaDTOAssembler getInstance() {
+    public static UnidadOrganizativaDTOAssembler getUnidadOrganizativaDTOAssembler() {
         return instance;
     }
 

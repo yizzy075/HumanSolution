@@ -15,7 +15,7 @@ public final class UsuarioDTOAssembler implements DTOAssembler<UsuarioDomain, Us
     private UsuarioDTOAssembler() {
     }
 
-    public static UsuarioDTOAssembler getInstance() {
+    public static UsuarioDTOAssembler getUsuarioDTOAssembler() {
         return instance;
     }
 

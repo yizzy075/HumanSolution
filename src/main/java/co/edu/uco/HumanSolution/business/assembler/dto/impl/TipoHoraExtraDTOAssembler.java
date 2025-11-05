@@ -15,7 +15,7 @@ public final class TipoHoraExtraDTOAssembler implements DTOAssembler<TipoHoraExt
     private TipoHoraExtraDTOAssembler() {
     }
 
-    public static TipoHoraExtraDTOAssembler getInstance() {
+    public static TipoHoraExtraDTOAssembler getTipoHoraExtraDTOAssembler() {
         return instance;
     }
 

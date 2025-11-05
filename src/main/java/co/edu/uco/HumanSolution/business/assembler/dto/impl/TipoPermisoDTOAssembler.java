@@ -15,7 +15,7 @@ public final class TipoPermisoDTOAssembler implements DTOAssembler<TipoPermisoDo
     private TipoPermisoDTOAssembler() {
     }
 
-    public static TipoPermisoDTOAssembler getInstance() {
+    public static TipoPermisoDTOAssembler getTipoPermisoDTOAssembler() {
         return instance;
     }
 

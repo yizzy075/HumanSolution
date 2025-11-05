@@ -15,7 +15,7 @@ public final class EstadoPuestoDTOAssembler implements DTOAssembler<EstadoPuesto
     private EstadoPuestoDTOAssembler() {
     }
 
-    public static EstadoPuestoDTOAssembler getInstance() {
+    public static EstadoPuestoDTOAssembler getEstadoPuestoDTOAssembler() {
         return instance;
     }
 

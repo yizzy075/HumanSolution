@@ -15,7 +15,7 @@ public final class EstadoSolicitudDTOAssembler implements DTOAssembler<EstadoSol
     private EstadoSolicitudDTOAssembler() {
     }
 
-    public static EstadoSolicitudDTOAssembler getInstance() {
+    public static EstadoSolicitudDTOAssembler getEstadoSolicitudDTOAssembler() {
         return instance;
     }
 

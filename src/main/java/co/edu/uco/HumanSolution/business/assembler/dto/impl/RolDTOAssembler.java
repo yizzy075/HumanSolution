@@ -15,7 +15,7 @@ public final class RolDTOAssembler implements DTOAssembler<RolDomain, RolDTO> {
     private RolDTOAssembler() {
     }
 
-    public static RolDTOAssembler getInstance() {
+    public static RolDTOAssembler getRolDTOAssembler() {
         return instance;
     }
 

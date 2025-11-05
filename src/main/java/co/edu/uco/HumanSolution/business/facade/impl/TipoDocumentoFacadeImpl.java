@@ -24,7 +24,7 @@ public final class TipoDocumentoFacadeImpl implements TipoDocumentoFacade {
         try {
             daoFactory.initTransaction();
 
-            var domain = TipoDocumentoDTOAssembler.getInstance().toDomain(dto);
+            var domain = TipoDocumentoDTOAssembler.getTipoDocumentoDTOAssembler().toDomain(dto);
             TipoDocumentoBusiness business = new TipoDocumentoBusinessImpl(daoFactory);
             business.create(domain);
 
@@ -50,7 +50,7 @@ public final class TipoDocumentoFacadeImpl implements TipoDocumentoFacade {
         try {
             TipoDocumentoBusiness business = new TipoDocumentoBusinessImpl(daoFactory);
             var domains = business.list();
-            return TipoDocumentoDTOAssembler.getInstance().toDTOList(domains);
+            return TipoDocumentoDTOAssembler.getTipoDocumentoDTOAssembler().toDTOList(domains);
 
         } catch (HumanSolutionException exception) {
             throw exception;
@@ -70,7 +70,7 @@ public final class TipoDocumentoFacadeImpl implements TipoDocumentoFacade {
         try {
             TipoDocumentoBusiness business = new TipoDocumentoBusinessImpl(daoFactory);
             var domain = business.findById(id);
-            return TipoDocumentoDTOAssembler.getInstance().toDTO(domain);
+            return TipoDocumentoDTOAssembler.getTipoDocumentoDTOAssembler().toDTO(domain);
 
         } catch (HumanSolutionException exception) {
             throw exception;
@@ -90,7 +90,7 @@ public final class TipoDocumentoFacadeImpl implements TipoDocumentoFacade {
         try {
             daoFactory.initTransaction();
 
-            var domain = TipoDocumentoDTOAssembler.getInstance().toDomain(dto);
+            var domain = TipoDocumentoDTOAssembler.getTipoDocumentoDTOAssembler().toDomain(dto);
             TipoDocumentoBusiness business = new TipoDocumentoBusinessImpl(daoFactory);
             business.update(domain);
 
