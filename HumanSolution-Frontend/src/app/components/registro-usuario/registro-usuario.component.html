@@ -139,19 +139,15 @@
         <select
           id="rol"
           formControlName="rol"
-          [disabled]="cargandoRoles"
           [ngClass]="{
             'invalid': esInvalido('rol'),
             'valid': esValido('rol')
           }">
-          <option value="">{{ cargandoRoles ? 'Cargando roles...' : 'Seleccione un rol' }}</option>
-          <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+          <option value="">Seleccione un rol</option>
+          <option *ngFor="let rol of roles" [value]="rol">{{ rol }}</option>
         </select>
         <span class="error-message" *ngIf="esInvalido('rol')">
           {{ obtenerMensajeError('rol') }}
-        </span>
-        <span class="error-message" *ngIf="cargandoRoles" style="color: #666;">
-          ⏳ Cargando roles...
         </span>
       </div>
 

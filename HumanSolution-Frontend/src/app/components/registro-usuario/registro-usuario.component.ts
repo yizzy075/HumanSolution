@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UsuarioService, UsuarioDTO } from '../../services/usuario.service';
-import { RolService, RolDTO } from '../../services/rol.service';
 
 /**
  * Componente para el registro de usuarios
@@ -17,16 +16,14 @@ import { RolService, RolDTO } from '../../services/rol.service';
 })
 export class RegistroUsuarioComponent implements OnInit {
   formularioRegistro: FormGroup;
-  roles: RolDTO[] = [];
+  roles: string[] = [];
   mensaje: { texto: string, tipo: 'success' | 'error' } | null = null;
   cargando = false;
   mostrarContrasenia = false;
-  cargandoRoles = false;
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService: UsuarioService,
-    private rolService: RolService
+    private usuarioService: UsuarioService
   ) {
     // Inicializar formulario con validaciones
     this.formularioRegistro = this.fb.group({
@@ -71,9 +68,11 @@ export class RegistroUsuarioComponent implements OnInit {
   }
 
   /**
-   * Carga los roles disponibles desde el backend
+   * Carga los roles disponibles
+   * TODO: Implementar endpoint en backend para obtener roles desde /api/v1/roles
    */
   cargarRoles(): void {
+<<<<<<< HEAD
     this.cargandoRoles = true;
     this.rolService.listarRoles().subscribe({
       next: (response) => {
@@ -98,6 +97,27 @@ export class RegistroUsuarioComponent implements OnInit {
         this.cargandoRoles = false;
       }
     });
+=======
+    // Por ahora usar roles hardcodeados
+    // TODO: Implementar cuando el endpoint de roles esté disponible
+    // this.usuarioService.obtenerRoles().subscribe({
+    //   next: (roles) => {
+    //     this.roles = roles;
+    //   },
+    //   error: (error) => {
+    //     console.error('Error al cargar roles:', error);
+    //     this.roles = ['Postulante', 'Empleado', 'RRHH'];
+    //   }
+    // });
+    
+    // Roles temporales - necesitarás obtener los UUIDs reales de la base de datos
+    this.roles = [
+      '550e8400-e29b-41d4-a716-446655440000', // Postulante
+      '550e8400-e29b-41d4-a716-446655440001', // Empleado
+      '550e8400-e29b-41d4-a716-446655440002'  // RRHH
+    ];
+    console.log('Roles cargados (temporales):', this.roles);
+>>>>>>> parent of 8c8c848 (Merge branch 'master' of https://github.com/yizzy075/HumanSolution)
   }
 
   /**
@@ -169,6 +189,7 @@ export class RegistroUsuarioComponent implements OnInit {
         console.error('Error message:', error.message);
         console.error('Error error:', error.error);
 
+<<<<<<< HEAD
         let mensajeError = 'Error al registrar usuario';
         
         // Error de conexión (backend no disponible)
@@ -198,6 +219,9 @@ export class RegistroUsuarioComponent implements OnInit {
           mensajeError = error.message;
         }
 
+=======
+        const mensajeError = error.error?.message || error.message || 'Error al registrar usuario';
+>>>>>>> parent of 8c8c848 (Merge branch 'master' of https://github.com/yizzy075/HumanSolution)
         this.mensaje = {
           texto: '❌ ' + mensajeError,
           tipo: 'error'

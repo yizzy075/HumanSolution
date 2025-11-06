@@ -1,9 +1,10 @@
 
 @echo off
 echo ========================================
-echo Iniciando HumanSolution API Backend
+echo Iniciando HumanSolution API
 echo ========================================
 echo.
+<<<<<<< HEAD
 
 REM Verificar JAVA_HOME
 if "%JAVA_HOME%"=="" (
@@ -26,17 +27,24 @@ if "%JAVA_HOME%"=="" (
     pause
     exit /b 1
 )
+=======
+>>>>>>> parent of 8c8c848 (Merge branch 'master' of https://github.com/yizzy075/HumanSolution)
 
-REM Verificar si existe el wrapper de Maven
-if not exist "mvnw.cmd" (
-    echo [ERROR] No se encuentra mvnw.cmd
-    echo Por favor ejecuta el backend desde tu IDE usando HumanSolutionApplication
+REM Verificar si Maven está instalado
+where mvn >nul 2>&1
+if %ERRORLEVEL% NEQ 0 (
+    echo [ERROR] Maven no está instalado o no está en el PATH
+    echo.
+    echo Por favor:
+    echo 1. Instala Maven desde https://maven.apache.org/download.cgi
+    echo 2. O ejecuta desde tu IDE (IntelliJ, Eclipse, VS Code)
+    echo.
     pause
     exit /b 1
 )
 
 echo Compilando proyecto...
-call mvnw.cmd clean compile
+call mvn clean compile
 
 if %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Error al compilar el proyecto
@@ -49,7 +57,7 @@ echo Iniciando servidor en http://localhost:8080
 echo Presiona Ctrl+C para detener el servidor
 echo.
 
-call mvnw.cmd spring-boot:run
+call mvn spring-boot:run
 
 pause
 

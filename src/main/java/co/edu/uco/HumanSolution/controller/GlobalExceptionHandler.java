@@ -42,6 +42,7 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
+<<<<<<< HEAD
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ResponseDTO<Object>> handleIllegalArgumentException(IllegalArgumentException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -93,14 +94,14 @@ public class GlobalExceptionHandler {
 
 =======
 >>>>>>> parent of b475d55 (correcciones conexion)
+=======
+>>>>>>> parent of 8c8c848 (Merge branch 'master' of https://github.com/yizzy075/HumanSolution)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDTO<Object>> handleGenericException(Exception exception) {
-        // Log del error completo para debugging
-        exception.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ResponseDTO.builder()
                         .success(false)
-                        .message("Error inesperado en el servidor: " + exception.getMessage())
+                        .message("Error inesperado en el servidor")
                         .data(null)
                         .build());
     }
