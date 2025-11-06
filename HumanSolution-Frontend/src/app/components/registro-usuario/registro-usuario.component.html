@@ -144,7 +144,7 @@
             'valid': esValido('rol')
           }">
           <option value="">Seleccione un rol</option>
-          <option *ngFor="let rol of roles" [value]="rol">{{ rol }}</option>
+          <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
         </select>
         <span class="error-message" *ngIf="esInvalido('rol')">
           {{ obtenerMensajeError('rol') }}

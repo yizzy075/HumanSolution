@@ -21,7 +21,6 @@ public class HumanSolutionApplication {
     public static void main(String[] args) {
         System.out.println("=== INICIANDO HumanSolutionApplication ===");
         SpringApplication.run(HumanSolutionApplication.class, args);
-<<<<<<< HEAD
     }
     
     @EventListener(ApplicationReadyEvent.class)
@@ -55,9 +54,6 @@ public class HumanSolutionApplication {
         }
         
         System.out.println("=".repeat(60) + "\n");
-=======
-        System.out.println("🚀 Servidor REST API HumanSolution iniciado en http://localhost:8080");
->>>>>>> parent of 7105c49 (errores)
     }
 }
 

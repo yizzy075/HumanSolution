@@ -3,6 +3,10 @@ package co.edu.uco.HumanSolution.data.factory.postgresql;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.data.dao.*;
 import co.edu.uco.HumanSolution.data.dao.entity.postgresql.*;
+import co.edu.uco.HumanSolution.data.dao.entity.postgresql.CountryPostgreSqlDAO;
+import co.edu.uco.HumanSolution.data.dao.entity.postgresql.StatePostgreSqlDAO;
+import co.edu.uco.HumanSolution.data.dao.entity.postgresql.CityPostgreSqlDAO;
+import co.edu.uco.HumanSolution.data.dao.entity.postgresql.IdTypePostgreSqlDAO;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
 
 import java.sql.Connection;
@@ -197,5 +201,25 @@ public final class PostgreSqlDAOFactory extends DAOFactory {
     @Override
     public UsuarioHoraExtraDAO getUsuarioHoraExtraDAO() {
         return new UsuarioHoraExtraPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public CountryDAO getCountryDAO() {
+        return new CountryPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public StateDAO getStateDAO() {
+        return new StatePostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public CityDAO getCityDAO() {
+        return new CityPostgreSqlDAO(getConnection());
+    }
+
+    @Override
+    public IdTypeDAO getIdTypeDAO() {
+        return new IdTypePostgreSqlDAO(getConnection());
     }
 }

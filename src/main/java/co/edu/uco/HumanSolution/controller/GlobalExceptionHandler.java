@@ -42,7 +42,6 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
-<<<<<<< HEAD
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ResponseDTO<Object>> handleIllegalArgumentException(IllegalArgumentException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -53,49 +52,6 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<ResponseDTO<Object>> handleNoHandlerFoundException(NoHandlerFoundException exception) {
-        String requestURL = exception.getRequestURL();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ResponseDTO.builder()
-                        .success(false)
-                        .message("Endpoint no encontrado: " + requestURL)
-                        .data(null)
-                        .build());
-    }
-
-=======
->>>>>>> parent of 7105c49 (errores)
-    @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<ResponseDTO<Object>> handleNoResourceFoundException(NoResourceFoundException exception) {
-        String resourcePath = exception.getResourcePath();
-        // Ignorar errores de recursos estáticos como favicon.ico o /error
-        if (resourcePath != null && (resourcePath.equals("/favicon.ico") || resourcePath.equals("/error"))) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        // Si es una ruta de API, es un endpoint no encontrado
-        if (resourcePath != null && resourcePath.startsWith("/api/")) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(ResponseDTO.builder()
-                            .success(false)
-                            .message("Endpoint no encontrado: " + resourcePath + ". Verifique que el controlador esté registrado correctamente.")
-                            .data(null)
-                            .build());
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ResponseDTO.builder()
-                        .success(false)
-                        .message("Recurso no encontrado: " + resourcePath)
-                        .data(null)
-                        .build());
-    }
-
-=======
->>>>>>> parent of b475d55 (correcciones conexion)
-=======
->>>>>>> parent of 8c8c848 (Merge branch 'master' of https://github.com/yizzy075/HumanSolution)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDTO<Object>> handleGenericException(Exception exception) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

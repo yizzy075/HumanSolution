@@ -16,7 +16,8 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class RegistroUsuarioComponent implements OnInit {
   formularioRegistro: FormGroup;
-  roles: string[] = [];
+  roles: any[] = []; // Array de objetos {id, nombre}
+  rolesMap: Map<string, string> = new Map(); // Mapa para facilitar búsqueda
   mensaje: { texto: string, tipo: 'success' | 'error' } | null = null;
   cargando = false;
   mostrarContrasenia = false;
@@ -72,14 +73,37 @@ export class RegistroUsuarioComponent implements OnInit {
    */
   cargarRoles(): void {
     this.usuarioService.obtenerRoles().subscribe({
-      next: (roles) => {
-        this.roles = roles;
-        console.log('Roles cargados:', roles);
+      next: (response) => {
+        // El backend devuelve un ResponseDTO con estructura {success, message, data}
+        if (response && response.data) {
+          this.roles = response.data;
+          // Crear mapa para facilitar búsqueda
+          this.roles.forEach(rol => {
+            this.rolesMap.set(rol.id, rol.nombre);
+          });
+          console.log('Roles cargados:', this.roles);
+        } else if (Array.isArray(response)) {
+          // Si la respuesta es directamente un array
+          this.roles = response;
+          this.roles.forEach(rol => {
+            this.rolesMap.set(rol.id, rol.nombre);
+          });
+        } else {
+          console.warn('Formato de respuesta inesperado:', response);
+          this.roles = [];
+        }
       },
       error: (error) => {
         console.error('Error al cargar roles:', error);
-        // Fallback en caso de error
-        this.roles = ['Postulante', 'Empleado', 'RRHH'];
+        // Fallback en caso de error - usar valores por defecto
+        this.roles = [
+          { id: '550e8400-e29b-41d4-a716-446655440000', nombre: 'Postulante' },
+          { id: '550e8400-e29b-41d4-a716-446655440001', nombre: 'Empleado' },
+          { id: '550e8400-e29b-41d4-a716-446655440002', nombre: 'RRHH' }
+        ];
+        this.roles.forEach(rol => {
+          this.rolesMap.set(rol.id, rol.nombre);
+        });
       }
     });
   }
@@ -108,9 +132,11 @@ export class RegistroUsuarioComponent implements OnInit {
       next: (response) => {
         console.log('Respuesta del servidor:', response);
 
-        if (response.success) {
+        // El backend devuelve ResponseDTO con estructura {success, message, data}
+        if (response && response.success !== false) {
+          const mensaje = response.message || response.mensaje || 'Usuario registrado exitosamente';
           this.mensaje = {
-            texto: '✅ ' + response.mensaje,
+            texto: '✅ ' + mensaje,
             tipo: 'success'
           };
           this.formularioRegistro.reset();
@@ -118,8 +144,9 @@ export class RegistroUsuarioComponent implements OnInit {
           // Ocultar mensaje después de 5 segundos
           setTimeout(() => this.mensaje = null, 5000);
         } else {
+          const mensaje = response?.message || response?.mensaje || 'Error al registrar usuario';
           this.mensaje = {
-            texto: '❌ ' + response.mensaje,
+            texto: '❌ ' + mensaje,
             tipo: 'error'
           };
         }
@@ -129,7 +156,22 @@ export class RegistroUsuarioComponent implements OnInit {
       error: (error) => {
         console.error('Error completo:', error);
 
-        const mensajeError = error.error?.mensaje || 'Error al registrar usuario';
+        // Manejar diferentes formatos de error
+        let mensajeError = 'Error al registrar usuario';
+        if (error.error) {
+          if (error.error.message) {
+            mensajeError = error.error.message;
+          } else if (error.error.mensaje) {
+            mensajeError = error.error.mensaje;
+          } else if (error.error.userMessage) {
+            mensajeError = error.error.userMessage;
+          } else if (typeof error.error === 'string') {
+            mensajeError = error.error;
+          }
+        } else if (error.message) {
+          mensajeError = error.message;
+        }
+
         this.mensaje = {
           texto: '❌ ' + mensajeError,
           tipo: 'error'

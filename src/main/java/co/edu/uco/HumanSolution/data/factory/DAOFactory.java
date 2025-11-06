@@ -33,4 +33,8 @@ public abstract class DAOFactory {
     public abstract UsuarioDocumentoDAO getUsuarioDocumentoDAO();
     public abstract UsuarioPermisoDAO getUsuarioPermisoDAO();
     public abstract UsuarioHoraExtraDAO getUsuarioHoraExtraDAO();
+    public abstract CountryDAO getCountryDAO();
+    public abstract StateDAO getStateDAO();
+    public abstract CityDAO getCityDAO();
+    public abstract IdTypeDAO getIdTypeDAO();
 }
