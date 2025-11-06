@@ -29,18 +29,23 @@ public class HumanSolutionApplication {
         System.out.println("   POST   /api/v1/usuarios");
         System.out.println("   GET    /api/v1/contratos");
         System.out.println("   POST   /api/v1/contratos");
-        System.out.println("=".repeat(60) + "\n");
+        System.out.println("=".repeat(60));
+        System.out.println("📝 Endpoints registrados por Spring Boot:");
         
         // Mostrar endpoints registrados por Spring
         try {
             RequestMappingHandlerMapping mapping = event.getApplicationContext()
                     .getBean(RequestMappingHandlerMapping.class);
             mapping.getHandlerMethods().forEach((key, value) -> {
-                System.out.println("✅ Mapped: " + key.toString());
+                String methods = key.getMethodsCondition().getMethods().isEmpty() 
+                    ? "ALL" 
+                    : key.getMethodsCondition().getMethods().toString().replaceAll("[\\[\\]]", "");
+                System.out.println("   ✅ " + methods + " " + key.getPatternsCondition().getPatterns());
             });
         } catch (Exception e) {
-            System.out.println("⚠️  No se pudieron listar los endpoints mapeados");
+            System.out.println("   ⚠️  No se pudieron listar los endpoints mapeados: " + e.getMessage());
         }
+        System.out.println("=".repeat(60) + "\n");
     }
 }
 
