@@ -34,6 +34,18 @@ public class UUIDHelper {
         return getDefaultUUID().equals(getDefault(value, getDefaultUUID()));
     }
 
+    public static boolean isDefaultUUIDAsString(String value) {
+        if (value == null || value.isEmpty()) {
+            return true;
+        }
+        try {
+            UUID uuid = UUID.fromString(value);
+            return isDefault(uuid);
+        } catch (Exception exception) {
+            return true; // Si no es un UUID válido, se considera default
+        }
+    }
+
     public static UUID generate() {
         return UUID.randomUUID();
     }

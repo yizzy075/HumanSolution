@@ -2,6 +2,7 @@ package co.edu.uco.HumanSolution.business.assembler.dto.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.dto.DTOAssembler;
 import co.edu.uco.HumanSolution.business.domain.UsuarioDomain;
+import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
 import co.edu.uco.HumanSolution.dto.UsuarioDTO;
 
 import java.util.ArrayList;
@@ -21,13 +22,27 @@ public final class UsuarioDTOAssembler implements DTOAssembler<UsuarioDomain, Us
 
     @Override
     public UsuarioDomain toDomain(UsuarioDTO dto) {
+        UUID id;
+        if (dto.getId() != null && !dto.getId().isEmpty() && !UUIDHelper.isDefaultUUIDAsString(dto.getId())) {
+            id = UUID.fromString(dto.getId());
+        } else {
+            id = UUIDHelper.getDefaultUUID(); // Usuario nuevo, se generará en el business
+        }
+        
+        UUID idRol;
+        if (dto.getIdRol() != null && !dto.getIdRol().isEmpty() && !UUIDHelper.isDefaultUUIDAsString(dto.getIdRol())) {
+            idRol = UUID.fromString(dto.getIdRol());
+        } else {
+            throw new IllegalArgumentException("El rol es obligatorio");
+        }
+        
         return UsuarioDomain.create(
-                UUID.fromString(dto.getId()),
+                id,
                 dto.getDocumento(),
                 dto.getNombre(),
                 dto.getCorreo(),
                 dto.getContrasenia(),
-                UUID.fromString(dto.getIdRol())
+                idRol
         );
     }
 
