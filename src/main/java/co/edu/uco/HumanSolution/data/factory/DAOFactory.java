@@ -1,10 +1,6 @@
 package co.edu.uco.HumanSolution.data.factory;
 
 import co.edu.uco.HumanSolution.data.dao.*;
-import co.edu.uco.HumanSolution.data.dao.CityDAO;
-import co.edu.uco.HumanSolution.data.dao.CountryDAO;
-import co.edu.uco.HumanSolution.data.dao.IdTypeDAO;
-import co.edu.uco.HumanSolution.data.dao.StateDAO;
 import co.edu.uco.HumanSolution.data.factory.postgresql.PostgreSqlDAOFactory;
 
 public abstract class DAOFactory {
@@ -37,8 +33,4 @@ public abstract class DAOFactory {
     public abstract UsuarioDocumentoDAO getUsuarioDocumentoDAO();
     public abstract UsuarioPermisoDAO getUsuarioPermisoDAO();
     public abstract UsuarioHoraExtraDAO getUsuarioHoraExtraDAO();
-    public abstract CountryDAO getCountryDAO();
-    public abstract StateDAO getStateDAO();
-    public abstract CityDAO getCityDAO();
-    public abstract IdTypeDAO getIdTypeDAO();
 }
