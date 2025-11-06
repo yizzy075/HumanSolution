@@ -42,15 +42,31 @@ public class HumanSolutionApplication {
                 System.out.println("   Verifique que los controladores estén correctamente anotados con @RestController");
             } else {
                 map.forEach((key, value) -> {
-                    String methods = key.getMethodsCondition().getMethods().isEmpty() 
-                        ? "ALL" 
-                        : key.getMethodsCondition().getMethods().toString().replaceAll("[\\[\\]]", "");
-                    System.out.println("   ✅ " + methods + " " + key.getPatternsCondition().getPatterns());
+                    try {
+                        String methods = key.getMethodsCondition() != null && !key.getMethodsCondition().getMethods().isEmpty() 
+                            ? key.getMethodsCondition().getMethods().toString().replaceAll("[\\[\\]]", "")
+                            : "ALL";
+                        
+                        String patterns = "";
+                        if (key.getPatternsCondition() != null && key.getPatternsCondition().getPatterns() != null) {
+                            patterns = key.getPatternsCondition().getPatterns().toString();
+                        } else if (key.getPathPatternsCondition() != null && key.getPathPatternsCondition().getPatterns() != null) {
+                            // Para Spring Boot 3.x, puede usar PathPatternsCondition
+                            patterns = key.getPathPatternsCondition().getPatterns().toString();
+                        } else {
+                            patterns = "[N/A]";
+                        }
+                        
+                        System.out.println("   ✅ " + methods + " " + patterns);
+                    } catch (Exception e) {
+                        // Si hay algún error al obtener la información del endpoint, simplemente mostrar el método
+                        System.out.println("   ✅ Endpoint registrado: " + value.getMethod().getName());
+                    }
                 });
             }
         } catch (Exception e) {
             System.out.println("   ⚠️  Error al listar endpoints: " + e.getMessage());
-            e.printStackTrace();
+            // No imprimir el stack trace completo para evitar ruido
         }
         
         System.out.println("=".repeat(60) + "\n");
