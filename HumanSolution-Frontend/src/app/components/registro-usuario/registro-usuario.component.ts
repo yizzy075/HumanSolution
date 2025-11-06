@@ -78,39 +78,38 @@ export class RegistroUsuarioComponent implements OnInit {
     this.rolService.listarRoles().subscribe({
       next: (response) => {
         console.log('Respuesta de roles:', response);
-        if (response.success && response.data) {
+        if (response.success && response.data && response.data.length > 0) {
           this.roles = response.data;
-          console.log('Roles cargados:', this.roles);
+          console.log('Roles cargados desde backend:', this.roles);
+          // Limpiar mensaje de error si había uno
+          if (this.mensaje?.tipo === 'error' && this.mensaje.texto.includes('roles')) {
+            this.mensaje = null;
+          }
         } else {
-          console.warn('No se pudieron cargar los roles:', response.message);
-          this.mensaje = {
-            texto: '⚠️ No se pudieron cargar los roles: ' + response.message,
-            tipo: 'error'
-          };
+          console.warn('No se pudieron cargar los roles desde el backend, usando roles de respaldo');
+          this.usarRolesDeRespaldo();
         }
         this.cargandoRoles = false;
       },
       error: (error) => {
-        console.error('Error al cargar roles:', error);
-        this.mensaje = {
-          texto: '❌ Error al cargar los roles. Verifique que el backend esté corriendo en http://localhost:8080',
-          tipo: 'error'
-        };
+        console.warn('No se pudo conectar con el backend para cargar roles:', error);
+        // Usar roles de respaldo automáticamente sin mostrar error alarmante
+        this.usarRolesDeRespaldo();
         this.cargandoRoles = false;
-        
-        // Roles de respaldo si hay error de conexión
-        setTimeout(() => {
-          if (this.roles.length === 0) {
-            console.warn('Usando roles de respaldo');
-            this.roles = [
-              { id: '550e8400-e29b-41d4-a716-446655440000', nombre: 'Postulante' },
-              { id: '550e8400-e29b-41d4-a716-446655440001', nombre: 'Empleado' },
-              { id: '550e8400-e29b-41d4-a716-446655440002', nombre: 'RRHH' }
-            ];
-          }
-        }, 2000);
       }
     });
+  }
+
+  /**
+   * Usa roles de respaldo cuando el backend no está disponible
+   */
+  private usarRolesDeRespaldo(): void {
+    this.roles = [
+      { id: '550e8400-e29b-41d4-a716-446655440000', nombre: 'Postulante' },
+      { id: '550e8400-e29b-41d4-a716-446655440001', nombre: 'Empleado' },
+      { id: '550e8400-e29b-41d4-a716-446655440002', nombre: 'RRHH' }
+    ];
+    console.log('Usando roles de respaldo:', this.roles);
   }
 
   /**
