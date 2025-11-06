@@ -4,49 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93563d11-ea17-4a4a-a760-28e1bf1c7dee" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/angular.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/iniciar-frontend.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/app.component.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/app.config.server.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/app.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/app.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/app.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/app.routes.server.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/app.routes.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/components/registro-usuario/registro-usuario.component.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/components/registro-usuario/registro-usuario.component.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/components/registro-usuario/registro-usuario.component.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/models/usuario.model.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/services/rol.service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/app/services/usuario.service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/main.server.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/main.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/server.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/src/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/tsconfig.app.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution-Frontend/tsconfig.spec.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution/src/main/java/co/edu/uco/HumanSolution/controller/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/HumanSolution/src/main/java/co/edu/uco/HumanSolution/controller/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HumanSolution/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/HumanSolution/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iniciar-servidor.bat" beforeDir="false" afterPath="$PROJECT_DIR$/iniciar-servidor.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/humansolution.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/humansolution.log" afterDir="false" />
-    </list>
+    <list default="true" id="93563d11-ea17-4a4a-a760-28e1bf1c7dee" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/HumanSolution" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -80,15 +47,6 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
-    <configuration name="HumanSolutionApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="HumanSolution" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="co.edu.uco.HumanSolution.initializer.HumanSolutionApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -111,11 +69,72 @@
       <workItem from="1762394429433" duration="815000" />
       <workItem from="1762395308467" duration="1059000" />
       <workItem from="1762396983960" duration="351000" />
-      <workItem from="1762397550487" duration="389000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="a39cfede-0b8f-4df8-b031-4710026e9662" value="TOOL_WINDOW" />
+        <entry key="b316e395-929f-47bc-9f94-eb29f6d62675" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="a39cfede-0b8f-4df8-b031-4710026e9662">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/samue/OneDrive/Escritorio/HumanSolution/HumanSolution-Frontend/src/app" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
+        <entry key="b316e395-929f-47bc-9f94-eb29f6d62675">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
