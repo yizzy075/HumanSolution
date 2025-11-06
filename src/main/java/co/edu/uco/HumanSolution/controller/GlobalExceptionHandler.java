@@ -54,6 +54,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDTO<Object>> handleGenericException(Exception exception) {
+        // Log del error completo para debugging (solo en consola, no devolver detalles al cliente)
+        System.err.println("ERROR NO MANEJADO: " + exception.getClass().getName());
+        System.err.println("Mensaje: " + exception.getMessage());
+        exception.printStackTrace();
+
+        // Respuesta genérica sin exponer detalles internos
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ResponseDTO.builder()
                         .success(false)
