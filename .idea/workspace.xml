@@ -76,7 +76,7 @@
     "ts.external.directory.path": "C:\\Users\\samue\\OneDrive\\Escritorio\\HumanSolution\\HumanSolution-Frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="MainApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="HumanSolution" />
