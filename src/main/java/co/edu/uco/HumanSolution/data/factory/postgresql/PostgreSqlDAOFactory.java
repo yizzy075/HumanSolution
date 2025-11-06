@@ -83,9 +83,10 @@ public final class PostgreSqlDAOFactory extends DAOFactory {
     }
 
     private void openConnection() {
-        String url = "jdbc:postgresql://localhost:5432/humansolution";
+        // Usar las mismas credenciales que application.properties
+        String url = "jdbc:postgresql://localhost:5432/sistema_usuarios";
         String user = "postgres";
-        String password = "tu_password";
+        String password = "dino2020";
 
         try {
             connection = DriverManager.getConnection(url, user, password);

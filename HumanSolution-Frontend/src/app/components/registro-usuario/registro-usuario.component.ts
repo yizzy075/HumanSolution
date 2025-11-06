@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { UsuarioService } from '../../services/usuario.service';
+import { UsuarioService, UsuarioDTO } from '../../services/usuario.service';
 
 /**
  * Componente para el registro de usuarios
@@ -68,20 +68,29 @@ export class RegistroUsuarioComponent implements OnInit {
   }
 
   /**
-   * Carga los roles disponibles desde el backend
+   * Carga los roles disponibles
+   * TODO: Implementar endpoint en backend para obtener roles desde /api/v1/roles
    */
   cargarRoles(): void {
-    this.usuarioService.obtenerRoles().subscribe({
-      next: (roles) => {
-        this.roles = roles;
-        console.log('Roles cargados:', roles);
-      },
-      error: (error) => {
-        console.error('Error al cargar roles:', error);
-        // Fallback en caso de error
-        this.roles = ['Postulante', 'Empleado', 'RRHH'];
-      }
-    });
+    // Por ahora usar roles hardcodeados
+    // TODO: Implementar cuando el endpoint de roles esté disponible
+    // this.usuarioService.obtenerRoles().subscribe({
+    //   next: (roles) => {
+    //     this.roles = roles;
+    //   },
+    //   error: (error) => {
+    //     console.error('Error al cargar roles:', error);
+    //     this.roles = ['Postulante', 'Empleado', 'RRHH'];
+    //   }
+    // });
+    
+    // Roles temporales - necesitarás obtener los UUIDs reales de la base de datos
+    this.roles = [
+      '550e8400-e29b-41d4-a716-446655440000', // Postulante
+      '550e8400-e29b-41d4-a716-446655440001', // Empleado
+      '550e8400-e29b-41d4-a716-446655440002'  // RRHH
+    ];
+    console.log('Roles cargados (temporales):', this.roles);
   }
 
   /**
@@ -103,14 +112,23 @@ export class RegistroUsuarioComponent implements OnInit {
     this.cargando = true;
     this.mensaje = null;
 
+    // Preparar datos para el backend
+    const usuarioDTO: UsuarioDTO = {
+      documento: this.formularioRegistro.value.numeroDocumento,
+      nombre: `${this.formularioRegistro.value.nombre} ${this.formularioRegistro.value.apellido}`.trim(),
+      correo: this.formularioRegistro.value.correo,
+      contrasenia: this.formularioRegistro.value.contrasenia,
+      idRol: this.formularioRegistro.value.rol
+    };
+
     // Enviar al backend
-    this.usuarioService.registrarUsuario(this.formularioRegistro.value).subscribe({
+    this.usuarioService.registrarUsuario(usuarioDTO).subscribe({
       next: (response) => {
         console.log('Respuesta del servidor:', response);
 
         if (response.success) {
           this.mensaje = {
-            texto: '✅ ' + response.mensaje,
+            texto: '✅ ' + response.message,
             tipo: 'success'
           };
           this.formularioRegistro.reset();
@@ -119,7 +137,7 @@ export class RegistroUsuarioComponent implements OnInit {
           setTimeout(() => this.mensaje = null, 5000);
         } else {
           this.mensaje = {
-            texto: '❌ ' + response.mensaje,
+            texto: '❌ ' + response.message,
             tipo: 'error'
           };
         }
@@ -129,7 +147,7 @@ export class RegistroUsuarioComponent implements OnInit {
       error: (error) => {
         console.error('Error completo:', error);
 
-        const mensajeError = error.error?.mensaje || 'Error al registrar usuario';
+        const mensajeError = error.error?.message || error.message || 'Error al registrar usuario';
         this.mensaje = {
           texto: '❌ ' + mensajeError,
           tipo: 'error'

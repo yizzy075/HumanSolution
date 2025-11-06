@@ -1,0 +1,18 @@
+package co.edu.uco.HumanSolution.initializer;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+
+@SpringBootApplication
+@ComponentScan(basePackages = {"co.edu.uco.HumanSolution"})
+@EntityScan(basePackages = {"co.edu.uco.HumanSolution.entity"})
+public class HumanSolutionApplication {
+    
+    public static void main(String[] args) {
+        SpringApplication.run(HumanSolutionApplication.class, args);
+        System.out.println("🚀 Servidor REST API HumanSolution iniciado en http://localhost:8080");
+    }
+}
+
