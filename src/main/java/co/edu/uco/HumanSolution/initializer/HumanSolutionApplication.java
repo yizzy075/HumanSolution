@@ -13,6 +13,13 @@ public class HumanSolutionApplication {
     public static void main(String[] args) {
         SpringApplication.run(HumanSolutionApplication.class, args);
         System.out.println("🚀 Servidor REST API HumanSolution iniciado en http://localhost:8080");
+        System.out.println("📋 Endpoints disponibles:");
+        System.out.println("   GET  /api/v1/roles");
+        System.out.println("   GET  /api/v1/roles/{id}");
+        System.out.println("   GET  /api/v1/usuarios");
+        System.out.println("   POST /api/v1/usuarios");
+        System.out.println("   GET  /api/v1/contratos");
+        System.out.println("   POST /api/v1/contratos");
     }
 }
 
