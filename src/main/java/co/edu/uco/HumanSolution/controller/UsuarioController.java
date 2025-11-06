@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class UsuarioController {
 
     private final UsuarioFacade facade;
