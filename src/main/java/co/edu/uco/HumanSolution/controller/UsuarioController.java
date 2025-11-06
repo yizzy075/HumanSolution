@@ -20,7 +20,15 @@ public class UsuarioController {
     private final UsuarioFacade facade;
 
     public UsuarioController() {
-        this.facade = new UsuarioFacadeImpl();
+        System.out.println("=== UsuarioController CONSTRUIDO ===");
+        try {
+            this.facade = new UsuarioFacadeImpl();
+            System.out.println("=== UsuarioController INICIALIZADO - Endpoint /api/v1/usuarios DISPONIBLE ===");
+        } catch (Exception e) {
+            System.err.println("ERROR al crear UsuarioController: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @PostMapping
