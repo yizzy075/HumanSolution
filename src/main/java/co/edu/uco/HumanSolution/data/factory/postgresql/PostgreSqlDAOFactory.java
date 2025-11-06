@@ -3,10 +3,6 @@ package co.edu.uco.HumanSolution.data.factory.postgresql;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.data.dao.*;
 import co.edu.uco.HumanSolution.data.dao.entity.postgresql.*;
-import co.edu.uco.HumanSolution.data.dao.entity.postgresql.CountryPostgreSqlDAO;
-import co.edu.uco.HumanSolution.data.dao.entity.postgresql.StatePostgreSqlDAO;
-import co.edu.uco.HumanSolution.data.dao.entity.postgresql.CityPostgreSqlDAO;
-import co.edu.uco.HumanSolution.data.dao.entity.postgresql.IdTypePostgreSqlDAO;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
 
 import java.sql.Connection;
@@ -21,13 +17,17 @@ public final class PostgreSqlDAOFactory extends DAOFactory {
     private static PostgreSqlDAOFactory instance;
 
     private PostgreSqlDAOFactory() {
-        openConnection();
+        // No abrir conexión en el constructor - se abrirá cuando se necesite (lazy initialization)
     }
 
     // MÉTODO ESTÁTICO PARA OBTENER LA INSTANCIA
     public static PostgreSqlDAOFactory getInstance() {
         if (instance == null) {
-            instance = new PostgreSqlDAOFactory();
+            synchronized (PostgreSqlDAOFactory.class) {
+                if (instance == null) {
+                    instance = new PostgreSqlDAOFactory();
+                }
+            }
         }
         return instance;
     }

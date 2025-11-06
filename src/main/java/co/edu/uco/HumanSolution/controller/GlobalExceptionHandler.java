@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -52,8 +53,24 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<ResponseDTO<Object>> handleNoHandlerFoundException(NoHandlerFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ResponseDTO.builder()
+                        .success(false)
+                        .message("Endpoint no encontrado: " + exception.getRequestURL())
+                        .data(null)
+                        .build());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDTO<Object>> handleGenericException(Exception exception) {
+        // Log del error completo para debugging (solo en consola, no devolver detalles al cliente)
+        System.err.println("ERROR NO MANEJADO: " + exception.getClass().getName());
+        System.err.println("Mensaje: " + exception.getMessage());
+        exception.printStackTrace();
+        
+        // Respuesta genérica sin exponer detalles internos
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ResponseDTO.builder()
                         .success(false)
