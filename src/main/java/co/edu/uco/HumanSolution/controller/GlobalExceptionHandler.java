@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -54,6 +53,7 @@ public class GlobalExceptionHandler {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ResponseDTO<Object>> handleNoHandlerFoundException(NoHandlerFoundException exception) {
         String requestURL = exception.getRequestURL();
@@ -91,6 +91,8 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
+=======
+>>>>>>> parent of b475d55 (correcciones conexion)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDTO<Object>> handleGenericException(Exception exception) {
         // Log del error completo para debugging
