@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
@@ -54,6 +53,7 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
+<<<<<<< HEAD
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ResponseDTO<Object>> handleNoHandlerFoundException(NoHandlerFoundException exception) {
         String requestURL = exception.getRequestURL();
@@ -65,6 +65,8 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
+=======
+>>>>>>> parent of 7105c49 (errores)
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ResponseDTO<Object>> handleNoResourceFoundException(NoResourceFoundException exception) {
         String resourcePath = exception.getResourcePath();
