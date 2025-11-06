@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93563d11-ea17-4a4a-a760-28e1bf1c7dee" name="Changes" comment="" />
+    <list default="true" id="93563d11-ea17-4a4a-a760-28e1bf1c7dee" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,6 +71,7 @@
       <workItem from="1762394429433" duration="815000" />
       <workItem from="1762395308467" duration="1059000" />
       <workItem from="1762396983960" duration="351000" />
+      <workItem from="1762436877569" duration="190000" />
     </task>
     <servers />
   </component>
@@ -84,6 +87,11 @@
     </option>
     <option name="TAB_STATES">
       <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="a39cfede-0b8f-4df8-b031-4710026e9662">
           <value>
             <State>
