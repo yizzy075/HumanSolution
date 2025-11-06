@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ResponseDTO.builder()
                         .success(false)
-                        .message("Endpoint no encontrado: " + requestURL + ". Verifique que el controlador esté registrado correctamente.")
+                        .message("Endpoint no encontrado: " + requestURL)
                         .data(null)
                         .build());
     }
@@ -68,20 +68,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ResponseDTO<Object>> handleNoResourceFoundException(NoResourceFoundException exception) {
         String resourcePath = exception.getResourcePath();
-        // Si es una ruta /api/**, significa que el controlador no está registrado
-        if (resourcePath != null && resourcePath.startsWith("/api/")) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(ResponseDTO.builder()
-                            .success(false)
-                            .message("Endpoint no encontrado: " + resourcePath + ". Verifique que el controlador esté registrado correctamente.")
-                            .data(null)
-                            .build());
+        // Ignorar errores de recursos estáticos como favicon.ico
+        if (resourcePath != null && (resourcePath.equals("/favicon.ico") || resourcePath.equals("/error"))) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        // Para otros recursos estáticos (como favicon.ico), solo retornar 404 sin mensaje
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ResponseDTO.builder()
                         .success(false)
-                        .message("Recurso no encontrado")
+                        .message("Recurso no encontrado: " + resourcePath)
                         .data(null)
                         .build());
     }
