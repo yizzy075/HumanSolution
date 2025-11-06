@@ -15,7 +15,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/contratos")
-@CrossOrigin(originPatterns = "*")
 public class ContratoController {
 
     private final ContratoFacade facade;
