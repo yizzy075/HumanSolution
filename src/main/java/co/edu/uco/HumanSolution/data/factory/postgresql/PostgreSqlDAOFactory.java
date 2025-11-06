@@ -44,7 +44,10 @@ public final class PostgreSqlDAOFactory extends DAOFactory {
     @Override
     public void commitTransaction() {
         try {
-            getConnection().commit();
+            if (connection != null && !connection.isClosed()) {
+                getConnection().commit();
+                getConnection().setAutoCommit(true); // Restaurar auto-commit
+            }
         } catch (SQLException exception) {
             throw new HumanSolutionException(
                     "Error técnico confirmando transacción: " + exception.getMessage(),
@@ -57,7 +60,10 @@ public final class PostgreSqlDAOFactory extends DAOFactory {
     @Override
     public void rollbackTransaction() {
         try {
-            getConnection().rollback();
+            if (connection != null && !connection.isClosed()) {
+                getConnection().rollback();
+                getConnection().setAutoCommit(true); // Restaurar auto-commit
+            }
         } catch (SQLException exception) {
             throw new HumanSolutionException(
                     "Error técnico revirtiendo transacción: " + exception.getMessage(),

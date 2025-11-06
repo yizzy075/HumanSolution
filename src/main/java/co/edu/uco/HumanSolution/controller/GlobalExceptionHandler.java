@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -48,6 +49,27 @@ public class GlobalExceptionHandler {
                 .body(ResponseDTO.builder()
                         .success(false)
                         .message(exception.getMessage())
+                        .data(null)
+                        .build());
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ResponseDTO<Object>> handleNoResourceFoundException(NoResourceFoundException exception) {
+        String resourcePath = exception.getResourcePath();
+        // Si es una ruta /api/**, significa que el controlador no está registrado
+        if (resourcePath != null && resourcePath.startsWith("/api/")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ResponseDTO.builder()
+                            .success(false)
+                            .message("Endpoint no encontrado: " + resourcePath + ". Verifique que el controlador esté registrado correctamente.")
+                            .data(null)
+                            .build());
+        }
+        // Para otros recursos estáticos (como favicon.ico), solo retornar 404 sin mensaje
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ResponseDTO.builder()
+                        .success(false)
+                        .message("Recurso no encontrado")
                         .data(null)
                         .build());
     }

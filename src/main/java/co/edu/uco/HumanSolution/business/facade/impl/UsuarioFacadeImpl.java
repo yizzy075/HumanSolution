@@ -31,17 +31,25 @@ public final class UsuarioFacadeImpl implements UsuarioFacade {
             daoFactory.commitTransaction();
 
         } catch (HumanSolutionException exception) {
-            daoFactory.rollbackTransaction();
+            try {
+                daoFactory.rollbackTransaction();
+            } catch (Exception rollbackException) {
+                // Log del error de rollback pero no lo propagamos
+                System.err.println("Error al hacer rollback: " + rollbackException.getMessage());
+            }
             throw exception;
         } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
+            try {
+                daoFactory.rollbackTransaction();
+            } catch (Exception rollbackException) {
+                // Log del error de rollback pero no lo propagamos
+                System.err.println("Error al hacer rollback: " + rollbackException.getMessage());
+            }
             throw new HumanSolutionException(
                     "Error inesperado en Facade registrando usuario: " + exception.getMessage(),
-                    "Error al registrar usuario",
+                    "Error al registrar usuario. Por favor intente más tarde.",
                     exception
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
