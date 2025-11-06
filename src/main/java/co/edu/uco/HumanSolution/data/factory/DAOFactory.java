@@ -1,6 +1,10 @@
 package co.edu.uco.HumanSolution.data.factory;
 
 import co.edu.uco.HumanSolution.data.dao.*;
+import co.edu.uco.HumanSolution.data.dao.CityDAO;
+import co.edu.uco.HumanSolution.data.dao.CountryDAO;
+import co.edu.uco.HumanSolution.data.dao.IdTypeDAO;
+import co.edu.uco.HumanSolution.data.dao.StateDAO;
 import co.edu.uco.HumanSolution.data.factory.postgresql.PostgreSqlDAOFactory;
 
 public abstract class DAOFactory {
