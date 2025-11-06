@@ -202,24 +202,4 @@ public final class PostgreSqlDAOFactory extends DAOFactory {
     public UsuarioHoraExtraDAO getUsuarioHoraExtraDAO() {
         return new UsuarioHoraExtraPostgreSqlDAO(getConnection());
     }
-
-    @Override
-    public CountryDAO getCountryDAO() {
-        return new CountryPostgreSqlDAO(getConnection());
-    }
-
-    @Override
-    public StateDAO getStateDAO() {
-        return new StatePostgreSqlDAO(getConnection());
-    }
-
-    @Override
-    public CityDAO getCityDAO() {
-        return new CityPostgreSqlDAO(getConnection());
-    }
-
-    @Override
-    public IdTypeDAO getIdTypeDAO() {
-        return new IdTypePostgreSqlDAO(getConnection());
-    }
 }
