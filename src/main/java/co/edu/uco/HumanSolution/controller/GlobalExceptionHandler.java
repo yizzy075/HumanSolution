@@ -31,12 +31,24 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ResponseDTO<Object>> handleIllegalArgumentException(IllegalArgumentException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ResponseDTO.builder()
+                        .success(false)
+                        .message(exception.getMessage())
+                        .data(null)
+                        .build());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDTO<Object>> handleGenericException(Exception exception) {
+        // Log del error completo para debugging
+        exception.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ResponseDTO.builder()
                         .success(false)
-                        .message("Error inesperado en el servidor")
+                        .message("Error inesperado en el servidor: " + exception.getMessage())
                         .data(null)
                         .build());
     }

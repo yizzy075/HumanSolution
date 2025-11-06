@@ -14,7 +14,7 @@ public class UsuarioDomain extends Domain {
     private UUID idRol;
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*\\d).{6,}$");
 
     private UsuarioDomain(UUID id, String documento, String nombre, String correo, String contrasenia, UUID idRol) {
         super(id);
@@ -86,8 +86,8 @@ public class UsuarioDomain extends Domain {
         if (TextHelper.isEmpty(nombre)) {
             throw new IllegalArgumentException("El nombre es obligatorio");
         }
-        if (nombre.length() < 5 || nombre.length() > 50) {
-            throw new IllegalArgumentException("El nombre debe tener entre 5 y 50 caracteres");
+        if (nombre.length() < 3 || nombre.length() > 50) {
+            throw new IllegalArgumentException("El nombre debe tener entre 3 y 50 caracteres");
         }
     }
 
@@ -108,7 +108,7 @@ public class UsuarioDomain extends Domain {
             throw new IllegalArgumentException("La contraseña es obligatoria");
         }
         if (!PASSWORD_PATTERN.matcher(contrasenia).matches()) {
-            throw new IllegalArgumentException("La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial");
+            throw new IllegalArgumentException("La contraseña debe tener al menos 6 caracteres, una mayúscula y un número");
         }
         if (contrasenia.length() > 50) {
             throw new IllegalArgumentException("La contraseña no puede exceder 50 caracteres");
