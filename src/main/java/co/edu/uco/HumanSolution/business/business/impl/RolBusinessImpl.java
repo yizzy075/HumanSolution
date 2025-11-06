@@ -13,11 +13,9 @@ import java.util.UUID;
 public class RolBusinessImpl implements RolBusiness {
 
     private DAOFactory daoFactory;
-    private RolEntityAssembler assembler;
 
-    public RolBusinessImpl(DAOFactory daoFactory) {
-        this.daoFactory = DAOFactory.getFactory();
-        this.assembler = new RolEntityAssembler();
+    public RolBusinessImpl(final DAOFactory daoFactory) {
+        this.daoFactory = daoFactory;
     }
 
     @Override
@@ -34,7 +32,7 @@ public class RolBusinessImpl implements RolBusiness {
 
             daoFactory.initTransaction();
 
-            RolEntity entity = assembler.toEntity(domain);
+            var entity = RolEntityAssembler.getRolEntityAssembler().toEntity(domain);
             daoFactory.getRolDAO().create(entity);
 
             daoFactory.commitTransaction();
@@ -59,7 +57,7 @@ public class RolBusinessImpl implements RolBusiness {
         try {
             RolEntity filter = RolEntity.create();
             List<RolEntity> entities = daoFactory.getRolDAO().read(filter);
-            return assembler.toDomainList(entities);
+            return RolEntityAssembler.getRolEntityAssembler().toDomainList(entities);
 
         } catch (Exception exception) {
             throw new HumanSolutionException(
@@ -85,7 +83,7 @@ public class RolBusinessImpl implements RolBusiness {
                 );
             }
 
-            return assembler.toDomain(entities.get(0));
+            return RolEntityAssembler.getRolEntityAssembler().toDomain(entities.get(0));
 
         } catch (HumanSolutionException exception) {
             throw exception;
@@ -107,7 +105,7 @@ public class RolBusinessImpl implements RolBusiness {
 
             daoFactory.initTransaction();
 
-            RolEntity entity = assembler.toEntity(domain);
+            var entity = RolEntityAssembler.getRolEntityAssembler().toEntity(domain);
             daoFactory.getRolDAO().update(entity);
 
             daoFactory.commitTransaction();
