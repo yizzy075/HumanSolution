@@ -11,12 +11,12 @@ import org.springframework.context.event.EventListener;
 @ComponentScan(basePackages = {"co.edu.uco.HumanSolution"})
 @EntityScan(basePackages = {"co.edu.uco.HumanSolution.entity"})
 public class HumanSolutionApplication {
-
+    
     public static void main(String[] args) {
         System.out.println("=== INICIANDO HumanSolutionApplication ===");
         SpringApplication.run(HumanSolutionApplication.class, args);
     }
-
+    
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady(ApplicationReadyEvent event) {
         System.out.println("\n" + "=".repeat(60));
@@ -25,3 +25,4 @@ public class HumanSolutionApplication {
         System.out.println("=".repeat(60) + "\n");
     }
 }
+

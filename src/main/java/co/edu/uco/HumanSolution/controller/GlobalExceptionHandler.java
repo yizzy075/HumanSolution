@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
         System.err.println("ERROR NO MANEJADO: " + exception.getClass().getName());
         System.err.println("Mensaje: " + exception.getMessage());
         exception.printStackTrace();
-
+        
         // Respuesta genérica sin exponer detalles internos
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ResponseDTO.builder()
