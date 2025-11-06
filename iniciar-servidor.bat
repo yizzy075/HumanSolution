@@ -1,3 +1,4 @@
+
 @echo off
 echo ========================================
 echo Iniciando HumanSolution API Backend
