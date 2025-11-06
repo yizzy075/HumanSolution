@@ -28,7 +28,7 @@ public class ContratoEntity extends Entity {
         setSueldo(BigDecimal.ZERO);
     }
 
-    public static ContratoEntity create(UUID id, UUID idUsuario, LocalDate fechaInicio, LocalDate fechaFin, int sueldo) {
+    public static ContratoEntity create(UUID id, UUID idUsuario, LocalDate fechaInicio, LocalDate fechaFin, BigDecimal sueldo) {
         return new ContratoEntity(id, idUsuario, fechaInicio, fechaFin, sueldo);
     }
 

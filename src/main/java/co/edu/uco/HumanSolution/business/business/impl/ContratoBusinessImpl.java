@@ -66,7 +66,7 @@ public final class ContratoBusinessImpl implements ContratoBusiness {
     @Override
     public List<ContratoDomain> findByUsuario(UUID idUsuario) {
         try {
-            ContratoEntity filter = ContratoEntity.create(UUIDHelper.getDefaultUUID(), idUsuario, null, null, 0);
+            ContratoEntity filter = ContratoEntity.create(UUIDHelper.getDefaultUUID(), idUsuario, null, null, java.math.BigDecimal.ZERO);
             List<ContratoEntity> entities = daoFactory.getContratoDAO().read(filter);
             return ContratoEntityAssembler.getContratoEntityAssembler().toDomainList(entities);
 
@@ -82,7 +82,7 @@ public final class ContratoBusinessImpl implements ContratoBusiness {
     @Override
     public ContratoDomain findById(UUID id) {
         try {
-            ContratoEntity filter = ContratoEntity.create(id, UUIDHelper.getDefaultUUID(), null, null, 0);
+            ContratoEntity filter = ContratoEntity.create(id, UUIDHelper.getDefaultUUID(), null, null, java.math.BigDecimal.ZERO);
             List<ContratoEntity> entities = daoFactory.getContratoDAO().read(filter);
 
             if (entities.isEmpty()) {
@@ -140,12 +140,12 @@ public final class ContratoBusinessImpl implements ContratoBusiness {
 
     private UUID generateId() {
         var id = UUIDHelper.generateNewUUID();
-        var entity = ContratoEntity.create(id, UUIDHelper.getDefaultUUID(), null, null, 0);
+        var entity = ContratoEntity.create(id, UUIDHelper.getDefaultUUID(), null, null, java.math.BigDecimal.ZERO);
         var existing = daoFactory.getContratoDAO().read(entity);
 
         while (!existing.isEmpty()) {
             id = UUIDHelper.generateNewUUID();
-            entity = ContratoEntity.create(id, UUIDHelper.getDefaultUUID(), null, null, 0);
+            entity = ContratoEntity.create(id, UUIDHelper.getDefaultUUID(), null, null, java.math.BigDecimal.ZERO);
             existing = daoFactory.getContratoDAO().read(entity);
         }
 

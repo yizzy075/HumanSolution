@@ -1,7 +1,7 @@
 package co.edu.uco.HumanSolution.controller.dto.response;
 
 public class ResponseDTO<T> {
-    
+
     private boolean success;
     private String message;
     private T data;
@@ -73,4 +73,3 @@ public class ResponseDTO<T> {
         }
     }
 }
-
