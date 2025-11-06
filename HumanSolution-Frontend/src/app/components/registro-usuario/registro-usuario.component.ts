@@ -166,12 +166,34 @@ export class RegistroUsuarioComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error completo:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+        console.error('Error error:', error.error);
 
         let mensajeError = 'Error al registrar usuario';
         
-        if (error.status === 0) {
+        // Error de conexión (backend no disponible)
+        if (error.status === 0 || error.status === undefined) {
           mensajeError = 'No se pudo conectar con el servidor. Verifique que el backend esté corriendo en http://localhost:8080';
-        } else if (error.error?.message) {
+        } 
+        // Error HTTP 400 (Bad Request) - errores de validación
+        else if (error.status === 400) {
+          if (error.error?.message) {
+            mensajeError = error.error.message;
+          } else {
+            mensajeError = 'Error en los datos enviados. Por favor verifique los campos del formulario.';
+          }
+        }
+        // Error HTTP 500 (Internal Server Error) - errores del servidor
+        else if (error.status === 500) {
+          if (error.error?.message) {
+            mensajeError = error.error.message;
+          } else {
+            mensajeError = 'Error interno del servidor. Por favor intente más tarde.';
+          }
+        }
+        // Otros errores HTTP
+        else if (error.error?.message) {
           mensajeError = error.error.message;
         } else if (error.message) {
           mensajeError = error.message;

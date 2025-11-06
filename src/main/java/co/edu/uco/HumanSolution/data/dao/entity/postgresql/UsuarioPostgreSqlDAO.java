@@ -152,7 +152,7 @@ public class UsuarioPostgreSqlDAO implements UsuarioDAO {
         } catch (SQLException exception) {
             throw new HumanSolutionException(
                     "Error técnico verificando email de usuario: " + exception.getMessage(),
-                    "Error al verificar email",
+                    "Error al verificar el correo electrónico. Por favor intente más tarde.",
                     exception
             );
         }
@@ -176,7 +176,7 @@ public class UsuarioPostgreSqlDAO implements UsuarioDAO {
         } catch (SQLException exception) {
             throw new HumanSolutionException(
                     "Error técnico verificando documento de usuario: " + exception.getMessage(),
-                    "Error al verificar documento",
+                    "Error al verificar el documento. Por favor intente más tarde.",
                     exception
             );
         }
