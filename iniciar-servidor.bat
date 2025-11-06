@@ -1,24 +1,24 @@
 @echo off
 echo ========================================
-echo Iniciando HumanSolution API
+echo Iniciando HumanSolution API Backend
 echo ========================================
 echo.
+echo NOTA: Si prefieres iniciar desde tu IDE,
+echo       ejecuta la clase: HumanSolutionApplication
+echo       ubicada en: co.edu.uco.HumanSolution.initializer
+echo.
+pause
 
-REM Verificar si Maven está instalado
-where mvn >nul 2>&1
-if %ERRORLEVEL% NEQ 0 (
-    echo [ERROR] Maven no está instalado o no está en el PATH
-    echo.
-    echo Por favor:
-    echo 1. Instala Maven desde https://maven.apache.org/download.cgi
-    echo 2. O ejecuta desde tu IDE (IntelliJ, Eclipse, VS Code)
-    echo.
+REM Verificar si existe el wrapper de Maven
+if not exist "mvnw.cmd" (
+    echo [ERROR] No se encuentra mvnw.cmd
+    echo Por favor ejecuta el backend desde tu IDE usando HumanSolutionApplication
     pause
     exit /b 1
 )
 
 echo Compilando proyecto...
-call mvn clean compile
+call mvnw.cmd clean compile
 
 if %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Error al compilar el proyecto
@@ -31,7 +31,7 @@ echo Iniciando servidor en http://localhost:8080
 echo Presiona Ctrl+C para detener el servidor
 echo.
 
-call mvn spring-boot:run
+call mvnw.cmd spring-boot:run
 
 pause
 

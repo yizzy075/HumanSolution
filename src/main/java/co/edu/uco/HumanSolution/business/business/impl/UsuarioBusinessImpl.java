@@ -53,6 +53,12 @@ public final class UsuarioBusinessImpl implements UsuarioBusiness {
             var entity = UsuarioEntityAssembler.getUsuarioEntityAssembler().toEntity(domainWithId);
             daoFactory.getUsuarioDAO().create(entity);
 
+        } catch (IllegalArgumentException exception) {
+            throw new HumanSolutionException(
+                    "Error de validación: " + exception.getMessage(),
+                    exception.getMessage(),
+                    exception
+            );
         } catch (HumanSolutionException exception) {
             throw exception;
         } catch (Exception exception) {
