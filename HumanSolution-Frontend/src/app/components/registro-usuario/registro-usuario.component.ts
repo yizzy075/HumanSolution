@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UsuarioService, UsuarioDTO } from '../../services/usuario.service';
+import { RolService, RolDTO } from '../../services/rol.service';
 
 /**
  * Componente para el registro de usuarios
@@ -16,14 +17,16 @@ import { UsuarioService, UsuarioDTO } from '../../services/usuario.service';
 })
 export class RegistroUsuarioComponent implements OnInit {
   formularioRegistro: FormGroup;
-  roles: string[] = [];
+  roles: RolDTO[] = [];
   mensaje: { texto: string, tipo: 'success' | 'error' } | null = null;
   cargando = false;
   mostrarContrasenia = false;
+  cargandoRoles = false;
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private rolService: RolService
   ) {
     // Inicializar formulario con validaciones
     this.formularioRegistro = this.fb.group({
@@ -68,29 +71,46 @@ export class RegistroUsuarioComponent implements OnInit {
   }
 
   /**
-   * Carga los roles disponibles
-   * TODO: Implementar endpoint en backend para obtener roles desde /api/v1/roles
+   * Carga los roles disponibles desde el backend
    */
   cargarRoles(): void {
-    // Por ahora usar roles hardcodeados
-    // TODO: Implementar cuando el endpoint de roles esté disponible
-    // this.usuarioService.obtenerRoles().subscribe({
-    //   next: (roles) => {
-    //     this.roles = roles;
-    //   },
-    //   error: (error) => {
-    //     console.error('Error al cargar roles:', error);
-    //     this.roles = ['Postulante', 'Empleado', 'RRHH'];
-    //   }
-    // });
-    
-    // Roles temporales - necesitarás obtener los UUIDs reales de la base de datos
-    this.roles = [
-      '550e8400-e29b-41d4-a716-446655440000', // Postulante
-      '550e8400-e29b-41d4-a716-446655440001', // Empleado
-      '550e8400-e29b-41d4-a716-446655440002'  // RRHH
-    ];
-    console.log('Roles cargados (temporales):', this.roles);
+    this.cargandoRoles = true;
+    this.rolService.listarRoles().subscribe({
+      next: (response) => {
+        console.log('Respuesta de roles:', response);
+        if (response.success && response.data) {
+          this.roles = response.data;
+          console.log('Roles cargados:', this.roles);
+        } else {
+          console.warn('No se pudieron cargar los roles:', response.message);
+          this.mensaje = {
+            texto: '⚠️ No se pudieron cargar los roles: ' + response.message,
+            tipo: 'error'
+          };
+        }
+        this.cargandoRoles = false;
+      },
+      error: (error) => {
+        console.error('Error al cargar roles:', error);
+        this.mensaje = {
+          texto: '❌ Error al cargar los roles. Verifique que el backend esté corriendo en http://localhost:8080',
+          tipo: 'error'
+        };
+        this.cargandoRoles = false;
+        
+        // Roles de respaldo si hay error de conexión
+        setTimeout(() => {
+          if (this.roles.length === 0) {
+            console.warn('Usando roles de respaldo');
+            this.roles = [
+              { id: '550e8400-e29b-41d4-a716-446655440000', nombre: 'Postulante' },
+              { id: '550e8400-e29b-41d4-a716-446655440001', nombre: 'Empleado' },
+              { id: '550e8400-e29b-41d4-a716-446655440002', nombre: 'RRHH' }
+            ];
+          }
+        }, 2000);
+      }
+    });
   }
 
   /**
@@ -147,7 +167,16 @@ export class RegistroUsuarioComponent implements OnInit {
       error: (error) => {
         console.error('Error completo:', error);
 
-        const mensajeError = error.error?.message || error.message || 'Error al registrar usuario';
+        let mensajeError = 'Error al registrar usuario';
+        
+        if (error.status === 0) {
+          mensajeError = 'No se pudo conectar con el servidor. Verifique que el backend esté corriendo en http://localhost:8080';
+        } else if (error.error?.message) {
+          mensajeError = error.error.message;
+        } else if (error.message) {
+          mensajeError = error.message;
+        }
+
         this.mensaje = {
           texto: '❌ ' + mensajeError,
           tipo: 'error'
