@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="47460403-0698-404d-8542-1be34bd537cb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/ContratoBusinessImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/business/business/impl/ContratoBusinessImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/controller/dto/response/ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/controller/dto/response/ResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/entity/ContratoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uco/HumanSolution/entity/ContratoEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/humansolution.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/humansolution.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +62,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.HumanSolutionApplication.executor": "Run",
     "Spring Boot.MainApp.executor": "Run",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "Merging master",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
