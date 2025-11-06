@@ -68,6 +68,11 @@ export class RegistroUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarRoles();
+    
+    // Si está cargando roles, deshabilitar el campo rol
+    if (this.cargandoRoles) {
+      this.formularioRegistro.get('rol')?.disable();
+    }
   }
 
   /**
@@ -75,6 +80,9 @@ export class RegistroUsuarioComponent implements OnInit {
    */
   cargarRoles(): void {
     this.cargandoRoles = true;
+    // Deshabilitar el campo rol mientras carga
+    this.formularioRegistro.get('rol')?.disable();
+    
     this.rolService.listarRoles().subscribe({
       next: (response) => {
         console.log('Respuesta de roles:', response);
@@ -90,12 +98,16 @@ export class RegistroUsuarioComponent implements OnInit {
           this.usarRolesDeRespaldo();
         }
         this.cargandoRoles = false;
+        // Habilitar el campo rol después de cargar
+        this.formularioRegistro.get('rol')?.enable();
       },
       error: (error) => {
         console.warn('No se pudo conectar con el backend para cargar roles:', error);
         // Usar roles de respaldo automáticamente sin mostrar error alarmante
         this.usarRolesDeRespaldo();
         this.cargandoRoles = false;
+        // Habilitar el campo rol después de cargar
+        this.formularioRegistro.get('rol')?.enable();
       }
     });
   }
