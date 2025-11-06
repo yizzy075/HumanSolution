@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93563d11-ea17-4a4a-a760-28e1bf1c7dee" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/humansolution.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/humansolution.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -13,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/HumanSolution" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -65,6 +66,7 @@
       <workItem from="1762393080635" duration="699000" />
       <workItem from="1762393818689" duration="348000" />
       <workItem from="1762394196416" duration="195000" />
+      <workItem from="1762394429433" duration="815000" />
     </task>
     <servers />
   </component>
