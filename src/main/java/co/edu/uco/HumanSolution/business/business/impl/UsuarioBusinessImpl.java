@@ -25,19 +25,43 @@ public final class UsuarioBusinessImpl implements UsuarioBusiness {
             domain.validar();
 
             // Validar que no exista usuario con mismo email
-            if (daoFactory.getUsuarioDAO().existsByEmail(domain.getCorreo())) {
-                throw new HumanSolutionException(
-                        "Ya existe un usuario con ese correo electrónico",
-                        "El correo ya está registrado"
-                );
+            try {
+                if (daoFactory.getUsuarioDAO().existsByEmail(domain.getCorreo())) {
+                    throw new HumanSolutionException(
+                            "Ya existe un usuario con ese correo electrónico",
+                            "El correo ya está registrado"
+                    );
+                }
+            } catch (HumanSolutionException e) {
+                // Si es un error de conexión, re-lanzar con mensaje más claro
+                if (e.getUserMessage().contains("verificar")) {
+                    throw new HumanSolutionException(
+                            e.getTechnicalMessage(),
+                            "Error de conexión a la base de datos. Verifique que PostgreSQL esté corriendo.",
+                            e.getRootException()
+                    );
+                }
+                throw e;
             }
 
             // Validar que no exista usuario con mismo documento
-            if (daoFactory.getUsuarioDAO().existsByDocumento(domain.getDocumento())) {
-                throw new HumanSolutionException(
-                        "Ya existe un usuario con ese documento",
-                        "El documento ya está registrado"
-                );
+            try {
+                if (daoFactory.getUsuarioDAO().existsByDocumento(domain.getDocumento())) {
+                    throw new HumanSolutionException(
+                            "Ya existe un usuario con ese documento",
+                            "El documento ya está registrado"
+                    );
+                }
+            } catch (HumanSolutionException e) {
+                // Si es un error de conexión, re-lanzar con mensaje más claro
+                if (e.getUserMessage().contains("verificar")) {
+                    throw new HumanSolutionException(
+                            e.getTechnicalMessage(),
+                            "Error de conexión a la base de datos. Verifique que PostgreSQL esté corriendo.",
+                            e.getRootException()
+                    );
+                }
+                throw e;
             }
 
             var id = generateId();
