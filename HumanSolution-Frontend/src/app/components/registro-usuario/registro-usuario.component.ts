@@ -95,6 +95,14 @@ export class RegistroUsuarioComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al cargar roles:', error);
+        console.error('Status:', error.status);
+        console.error('StatusText:', error.statusText);
+        
+        // Si es un error de conexión, mostrar mensaje
+        if (error.status === 0 || error.status === undefined) {
+          console.warn('No se pudo conectar al backend. Usando roles por defecto.');
+        }
+        
         // Fallback en caso de error - usar valores por defecto
         this.roles = [
           { id: '550e8400-e29b-41d4-a716-446655440000', nombre: 'Postulante' },
@@ -155,10 +163,17 @@ export class RegistroUsuarioComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error completo:', error);
+        console.error('Status:', error.status);
+        console.error('StatusText:', error.statusText);
+        console.error('Error object:', error.error);
 
         // Manejar diferentes formatos de error
         let mensajeError = 'Error al registrar usuario';
-        if (error.error) {
+        
+        // Verificar si es un error de conexión
+        if (error.status === 0 || error.status === undefined) {
+          mensajeError = 'No se pudo conectar al servidor. Verifica que el backend esté corriendo en http://localhost:8080';
+        } else if (error.error) {
           if (error.error.message) {
             mensajeError = error.error.message;
           } else if (error.error.mensaje) {
@@ -169,7 +184,11 @@ export class RegistroUsuarioComponent implements OnInit {
             mensajeError = error.error;
           }
         } else if (error.message) {
-          mensajeError = error.message;
+          if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+            mensajeError = 'Error de conexión. Verifica que el backend esté corriendo en http://localhost:8080';
+          } else {
+            mensajeError = error.message;
+          }
         }
 
         this.mensaje = {
