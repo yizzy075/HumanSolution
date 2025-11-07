@@ -48,6 +48,7 @@ build/
 
 # VS Code
 .vscode/
+<<<<<<< HEAD
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -103,3 +104,6 @@ coverage/
 *.log
 *.tmp
 .history/
+=======
+HumanSolution/
+>>>>>>> 835c6dc692d0a0525a74536bfab62777d842c39b
