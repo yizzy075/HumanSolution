@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MessagesEnumTest {
+class MessagesEnumTest {
 
     @Test
     void messagesEnumTieneCodigoYMensaje() {
@@ -13,7 +13,7 @@ public class MessagesEnumTest {
         assertNotNull(message.getCode());
         assertNotNull(message.getMessage());
         assertEquals("HS-00001", message.getCode());
-        assertTrue(message.getMessage().length() > 0);
+        assertFalse(message.getMessage().isEmpty());
     }
 
     @Test
@@ -22,12 +22,12 @@ public class MessagesEnumTest {
             assertNotNull(message.getCode());
             assertNotNull(message.getMessage());
             assertTrue(message.getCode().startsWith("HS-"));
-            assertTrue(message.getMessage().length() > 0);
+            assertFalse(message.getMessage().isEmpty());
         }
     }
 
     @Test
-     void messagesEnumNoSonNull() {
+    void messagesEnumNoSonNull() {
         assertNotNull(MessagesEnum.TECHNICAL_GENERAL_PROBLEM);
         assertNotNull(MessagesEnum.USER_GENERAL_PROBLEM);
         assertNotNull(MessagesEnum.CONNECTION_PROBLEM);

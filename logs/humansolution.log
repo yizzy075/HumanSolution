@@ -290,3 +290,5 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-11-06 19:54:38 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-11-06 19:54:38 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-11-06 19:54:38 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-06 22:38:24 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [co.edu.uco.HumanSolution.HumanSolutionApplicationTests]: HumanSolutionApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-06 22:39:20 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [co.edu.uco.HumanSolution.HumanSolutionApplicationTests]: HumanSolutionApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
