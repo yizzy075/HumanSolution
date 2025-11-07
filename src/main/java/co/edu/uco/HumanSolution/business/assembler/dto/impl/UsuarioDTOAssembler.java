@@ -24,12 +24,12 @@ public final class UsuarioDTOAssembler implements DTOAssembler<UsuarioDomain, Us
     public UsuarioDomain toDomain(UsuarioDTO dto) {
         // Extraer ID del rol si existe
         UUID idRol = null;
-        if (dto.getRol() != null && dto.getRol().getId() != null) {
+        if (dto.getRol() != null && dto.getRol().getId() != null && !dto.getRol().getId().isBlank()) {
             idRol = UUID.fromString(dto.getRol().getId());
         }
 
         return UsuarioDomain.create(
-                dto.getId() != null ? UUID.fromString(dto.getId()) : null,
+                dto.getId() != null && !dto.getId().isBlank() ? UUID.fromString(dto.getId()) : null,
                 dto.getDocumento(),
                 dto.getNombre(),
                 dto.getCorreo(),
