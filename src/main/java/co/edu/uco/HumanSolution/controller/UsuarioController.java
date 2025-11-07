@@ -67,8 +67,9 @@ public class UsuarioController {
 
             // Devolver 500 para errores del servidor, 400 para errores de validación
             HttpStatus status = technicalMessage != null && (
-                               technicalMessage.contains("validación") || 
+                               technicalMessage.contains("validación") ||
                                technicalMessage.contains("requerido") ||
+                               technicalMessage.contains("obligatorio") ||
                                technicalMessage.contains("formato") ||
                                technicalMessage.contains("inválido")) ?
                                HttpStatus.BAD_REQUEST : HttpStatus.INTERNAL_SERVER_ERROR;
@@ -87,10 +88,11 @@ public class UsuarioController {
             error.put("userMessage", errorMessage);
 
             // Devolver 500 para errores del servidor, 400 solo para errores de validación
-            HttpStatus status = e instanceof IllegalArgumentException || 
+            HttpStatus status = e instanceof IllegalArgumentException ||
                                (errorMessage != null && (
-                               errorMessage.contains("validación") || 
+                               errorMessage.contains("validación") ||
                                errorMessage.contains("requerido") ||
+                               errorMessage.contains("obligatorio") ||
                                errorMessage.contains("formato"))) ?
                                HttpStatus.BAD_REQUEST : HttpStatus.INTERNAL_SERVER_ERROR;
 
