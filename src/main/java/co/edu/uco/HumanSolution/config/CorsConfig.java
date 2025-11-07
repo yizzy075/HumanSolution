@@ -1,32 +1,19 @@
 package co.edu.uco.HumanSolution.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CorsConfig {
+public class CorsConfig implements WebMvcConfigurer {
 
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-
-        // Permitir credenciales
-        config.setAllowCredentials(true);
-
-        // Permitir solicitudes desde el frontend Angular
-        config.addAllowedOrigin("http://localhost:4200");
-
-        // Permitir todos los headers
-        config.addAllowedHeader("*");
-
-        // Permitir todos los métodos HTTP
-        config.addAllowedMethod("*");
-
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOriginPatterns("http://localhost:4200")  // ← SOLO ESTE
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 }
