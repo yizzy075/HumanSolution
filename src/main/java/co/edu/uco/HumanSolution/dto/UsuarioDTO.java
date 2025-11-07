@@ -1,43 +1,19 @@
 package co.edu.uco.HumanSolution.dto;
 
-import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
-import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
-
 public class UsuarioDTO {
 
     private String id;
     private String documento;
     private String nombre;
     private String correo;
-    private String contrasenia;
-    private String idRol;
+    private String contrasena;
+    private RolDTO rol;
 
-    public UsuarioDTO(String id, String documento, String nombre, String correo, String contrasenia, String idRol) {
-        setId(id);
-        setDocumento(documento);
-        setNombre(nombre);
-        setCorreo(correo);
-        setContrasenia(contrasenia);
-        setIdRol(idRol);
-    }
-
+    // Constructor vacío (IMPORTANTE)
     public UsuarioDTO() {
-        setId(UUIDHelper.getDefaultUUIDAsString());
-        setDocumento(TextHelper.EMPTY);
-        setNombre(TextHelper.EMPTY);
-        setCorreo(TextHelper.EMPTY);
-        setContrasenia(TextHelper.EMPTY);
-        setIdRol(UUIDHelper.getDefaultUUIDAsString());
     }
 
-    public static UsuarioDTO create(String id, String documento, String nombre, String correo, String contrasenia, String idRol) {
-        return new UsuarioDTO(id, documento, nombre, correo, contrasenia, idRol);
-    }
-
-    public static UsuarioDTO create() {
-        return new UsuarioDTO();
-    }
-
+    // Getters y Setters (TODOS)
     public String getId() {
         return id;
     }
@@ -51,7 +27,7 @@ public class UsuarioDTO {
     }
 
     public void setDocumento(String documento) {
-        this.documento = TextHelper.applyTrim(documento);
+        this.documento = documento;
     }
 
     public String getNombre() {
@@ -59,7 +35,7 @@ public class UsuarioDTO {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = TextHelper.applyTrim(nombre);
+        this.nombre = nombre;
     }
 
     public String getCorreo() {
@@ -67,22 +43,34 @@ public class UsuarioDTO {
     }
 
     public void setCorreo(String correo) {
-        this.correo = TextHelper.applyTrim(correo);
+        this.correo = correo;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = TextHelper.applyTrim(contrasenia);
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
-    public String getIdRol() {
-        return idRol;
+    public RolDTO getRol() {
+        return rol;
     }
 
-    public void setIdRol(String idRol) {
-        this.idRol = idRol;
+    public void setRol(RolDTO rol) {
+        this.rol = rol;
+    }
+
+    // toString para logs
+    @Override
+    public String toString() {
+        return "UsuarioDTO{" +
+                "id='" + id + '\'' +
+                ", documento='" + documento + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", rol=" + (rol != null ? rol.getId() : "null") +
+                '}';
     }
 }

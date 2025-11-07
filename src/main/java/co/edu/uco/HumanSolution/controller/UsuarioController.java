@@ -1,197 +1,101 @@
 package co.edu.uco.HumanSolution.controller;
 
 import co.edu.uco.HumanSolution.business.facade.UsuarioFacade;
-import co.edu.uco.HumanSolution.business.facade.impl.UsuarioFacadeImpl;
-import co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO;
-import co.edu.uco.HumanSolution.crosscutting.exception.ControllerException;
-import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.dto.UsuarioDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
 
-    private final UsuarioFacade facade;
+    private static final String KEY_MENSAJE = "mensaje";
+    private static final String KEY_ERROR = "error";
+    private static final String MSG_REGISTRO_EXITOSO = "Usuario registrado exitosamente";
+    private static final String MSG_ACTUALIZACION_EXITOSA = "Usuario actualizado exitosamente";
+    private static final String MSG_ELIMINACION_EXITOSA = "Usuario eliminado exitosamente";
 
-    public UsuarioController() {
-        System.out.println("=== UsuarioController CONSTRUIDO ===");
-        try {
-            this.facade = new UsuarioFacadeImpl();
-            System.out.println("=== UsuarioController INICIALIZADO - Endpoint /api/v1/usuarios DISPONIBLE ===");
-        } catch (Exception e) {
-            System.err.println("ERROR al crear UsuarioController: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
+    private final UsuarioFacade usuarioFacade;
+
+    public UsuarioController(UsuarioFacade usuarioFacade) {
+        this.usuarioFacade = usuarioFacade;
     }
 
     @PostMapping
-    public ResponseEntity<ResponseDTO<UsuarioDTO>> register(@RequestBody UsuarioDTO dto) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody UsuarioDTO usuarioDTO) {
         try {
-            facade.register(dto);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(ResponseDTO.<UsuarioDTO>builder()
-                            .success(true)
-                            .message("Usuario registrado exitosamente")
-                            .data(null)
-                            .build());
-        } catch (HumanSolutionException exception) {
-            throw new ControllerException(
-                    exception.getTechnicalMessage(),
-                    exception.getUserMessage(),
-                    exception
-            );
-        } catch (Exception exception) {
-            throw new ControllerException(
-                    "Error inesperado registrando usuario: " + exception.getMessage(),
-                    "Error al registrar usuario",
-                    exception
-            );
+            usuarioFacade.register(usuarioDTO);
+
+            Map<String, String> response = new HashMap<>();
+            response.put(KEY_MENSAJE, MSG_REGISTRO_EXITOSO);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put(KEY_ERROR, e.getMessage());
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
 
     @GetMapping
-    public ResponseEntity<ResponseDTO<List<UsuarioDTO>>> list() {
+    public ResponseEntity<List<UsuarioDTO>> list() {
         try {
-            List<UsuarioDTO> usuarios = facade.list();
-            return ResponseEntity.ok(ResponseDTO.<List<UsuarioDTO>>builder()
-                    .success(true)
-                    .message("Usuarios consultados exitosamente")
-                    .data(usuarios)
-                    .build());
-        } catch (HumanSolutionException exception) {
-            throw new ControllerException(
-                    exception.getTechnicalMessage(),
-                    exception.getUserMessage(),
-                    exception
-            );
-        } catch (Exception exception) {
-            throw new ControllerException(
-                    "Error inesperado listando usuarios: " + exception.getMessage(),
-                    "Error al listar usuarios",
-                    exception
-            );
+            return ResponseEntity.ok(usuarioFacade.list());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseDTO<UsuarioDTO>> findById(@PathVariable String id) {
+    public ResponseEntity<UsuarioDTO> findById(@PathVariable String id) {
         try {
             UUID uuid = UUID.fromString(id);
-            UsuarioDTO usuario = facade.findById(uuid);
-            return ResponseEntity.ok(ResponseDTO.<UsuarioDTO>builder()
-                    .success(true)
-                    .message("Usuario consultado exitosamente")
-                    .data(usuario)
-                    .build());
-        } catch (IllegalArgumentException exception) {
-            throw new ControllerException(
-                    "El ID proporcionado no es válido",
-                    "ID de usuario inválido"
-            );
-        } catch (HumanSolutionException exception) {
-            throw new ControllerException(
-                    exception.getTechnicalMessage(),
-                    exception.getUserMessage(),
-                    exception
-            );
-        } catch (Exception exception) {
-            throw new ControllerException(
-                    "Error inesperado buscando usuario: " + exception.getMessage(),
-                    "Error al buscar usuario",
-                    exception
-            );
-        }
-    }
-
-    @GetMapping("/email/{email}")
-    public ResponseEntity<ResponseDTO<UsuarioDTO>> findByEmail(@PathVariable String email) {
-        try {
-            UsuarioDTO usuario = facade.findByEmail(email);
-            return ResponseEntity.ok(ResponseDTO.<UsuarioDTO>builder()
-                    .success(true)
-                    .message("Usuario consultado exitosamente")
-                    .data(usuario)
-                    .build());
-        } catch (HumanSolutionException exception) {
-            throw new ControllerException(
-                    exception.getTechnicalMessage(),
-                    exception.getUserMessage(),
-                    exception
-            );
-        } catch (Exception exception) {
-            throw new ControllerException(
-                    "Error inesperado buscando usuario por email: " + exception.getMessage(),
-                    "Error al buscar usuario",
-                    exception
-            );
+            return ResponseEntity.ok(usuarioFacade.findById(uuid));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseDTO<UsuarioDTO>> update(@PathVariable String id, @RequestBody UsuarioDTO dto) {
+    public ResponseEntity<Map<String, String>> update(@PathVariable String id, @RequestBody UsuarioDTO usuarioDTO) {
         try {
-            dto.setId(id);
-            facade.update(dto);
-            return ResponseEntity.ok(ResponseDTO.<UsuarioDTO>builder()
-                    .success(true)
-                    .message("Usuario actualizado exitosamente")
-                    .data(null)
-                    .build());
-        } catch (IllegalArgumentException exception) {
-            throw new ControllerException(
-                    "El ID proporcionado no es válido",
-                    "ID de usuario inválido"
-            );
-        } catch (HumanSolutionException exception) {
-            throw new ControllerException(
-                    exception.getTechnicalMessage(),
-                    exception.getUserMessage(),
-                    exception
-            );
-        } catch (Exception exception) {
-            throw new ControllerException(
-                    "Error inesperado actualizando usuario: " + exception.getMessage(),
-                    "Error al actualizar usuario",
-                    exception
-            );
+            usuarioDTO.setId(id);
+            usuarioFacade.update(usuarioDTO);
+
+            Map<String, String> response = new HashMap<>();
+            response.put(KEY_MENSAJE, MSG_ACTUALIZACION_EXITOSA);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put(KEY_ERROR, e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDTO<Void>> delete(@PathVariable String id) {
+    public ResponseEntity<Map<String, String>> delete(@PathVariable String id) {
         try {
             UUID uuid = UUID.fromString(id);
-            facade.delete(uuid);
-            return ResponseEntity.ok(ResponseDTO.<Void>builder()
-                    .success(true)
-                    .message("Usuario eliminado exitosamente")
-                    .data(null)
-                    .build());
-        } catch (IllegalArgumentException exception) {
-            throw new ControllerException(
-                    "El ID proporcionado no es válido",
-                    "ID de usuario inválido"
-            );
-        } catch (HumanSolutionException exception) {
-            throw new ControllerException(
-                    exception.getTechnicalMessage(),
-                    exception.getUserMessage(),
-                    exception
-            );
-        } catch (Exception exception) {
-            throw new ControllerException(
-                    "Error inesperado eliminando usuario: " + exception.getMessage(),
-                    "Error al eliminar usuario",
-                    exception
-            );
+            usuarioFacade.delete(uuid);
+
+            Map<String, String> response = new HashMap<>();
+            response.put(KEY_MENSAJE, MSG_ELIMINACION_EXITOSA);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put(KEY_ERROR, e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
 }
-

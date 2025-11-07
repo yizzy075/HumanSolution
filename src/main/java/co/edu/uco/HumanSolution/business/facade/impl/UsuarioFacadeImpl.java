@@ -7,10 +7,12 @@ import co.edu.uco.HumanSolution.business.facade.UsuarioFacade;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
 import co.edu.uco.HumanSolution.dto.UsuarioDTO;
+import org.springframework.stereotype.Service;  // ← AGREGAR ESTE IMPORT
 
 import java.util.List;
 import java.util.UUID;
 
+@Service  // ← AGREGAR ESTA ANOTACIÓN
 public final class UsuarioFacadeImpl implements UsuarioFacade {
 
     private DAOFactory daoFactory;

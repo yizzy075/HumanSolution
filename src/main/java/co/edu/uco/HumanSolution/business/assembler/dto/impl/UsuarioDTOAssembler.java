@@ -2,6 +2,7 @@ package co.edu.uco.HumanSolution.business.assembler.dto.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.dto.DTOAssembler;
 import co.edu.uco.HumanSolution.business.domain.UsuarioDomain;
+import co.edu.uco.HumanSolution.dto.RolDTO;
 import co.edu.uco.HumanSolution.dto.UsuarioDTO;
 
 import java.util.ArrayList;
@@ -10,44 +11,76 @@ import java.util.UUID;
 
 public final class UsuarioDTOAssembler implements DTOAssembler<UsuarioDomain, UsuarioDTO> {
 
-    private static final UsuarioDTOAssembler instance = new UsuarioDTOAssembler();
+    private static final UsuarioDTOAssembler INSTANCE = new UsuarioDTOAssembler();
 
     private UsuarioDTOAssembler() {
     }
 
     public static UsuarioDTOAssembler getUsuarioDTOAssembler() {
-        return instance;
+        return INSTANCE;
     }
 
     @Override
     public UsuarioDomain toDomain(UsuarioDTO dto) {
+        // Extraer ID del rol si existe
+        UUID idRol = null;
+        if (dto.getRol() != null && dto.getRol().getId() != null) {
+            idRol = UUID.fromString(dto.getRol().getId());
+        }
+
         return UsuarioDomain.create(
-                UUID.fromString(dto.getId()),
+                dto.getId() != null ? UUID.fromString(dto.getId()) : null,
                 dto.getDocumento(),
                 dto.getNombre(),
                 dto.getCorreo(),
-                dto.getContrasenia(),
-                UUID.fromString(dto.getIdRol())
+                dto.getContrasena(),  // ← DTO usa "contrasena"
+                idRol  // ← Solo el UUID del rol
         );
     }
 
     @Override
     public UsuarioDTO toDTO(UsuarioDomain domain) {
-        return UsuarioDTO.create(
-                domain.getId().toString(),
-                domain.getDocumento(),
-                domain.getNombre(),
-                domain.getCorreo(),
-                domain.getContrasenia(),
-                domain.getIdRol().toString()
-        );
+        UsuarioDTO dto = new UsuarioDTO();
+
+        dto.setId(domain.getId() != null ? domain.getId().toString() : null);
+        dto.setDocumento(domain.getDocumento());
+        dto.setNombre(domain.getNombre());
+        dto.setCorreo(domain.getCorreo());
+        dto.setContrasena(domain.getContrasenia());  // ← Domain usa "contrasenia"
+
+        // Crear RolDTO con solo el ID
+        if (domain.getIdRol() != null) {
+            RolDTO rolDTO = new RolDTO();
+            rolDTO.setId(domain.getIdRol().toString());
+            dto.setRol(rolDTO);
+        }
+
+        return dto;
     }
 
-    public List<UsuarioDTO> toDTOList(List<UsuarioDomain> domains) {
-        List<UsuarioDTO> dtos = new ArrayList<>();
-        for (UsuarioDomain domain : domains) {
-            dtos.add(toDTO(domain));
+    @Override
+    public List<UsuarioDTO> toDTOList(List<UsuarioDomain> domainList) {
+        List<UsuarioDTO> dtoList = new ArrayList<>();
+
+        if (domainList != null) {
+            for (UsuarioDomain domain : domainList) {
+                dtoList.add(toDTO(domain));
+            }
         }
-        return dtos;
+
+        return dtoList;
+    }
+
+    @Override
+    public List<UsuarioDomain> toDomainList(List<UsuarioDTO> dtoList) {
+        List<UsuarioDomain> domainList = new ArrayList<>();
+
+        if (dtoList != null) {
+            for (UsuarioDTO dto : dtoList) {
+                domainList.add(toDomain(dto));
+            }
+        }
+
+        return domainList;
     }
 }
