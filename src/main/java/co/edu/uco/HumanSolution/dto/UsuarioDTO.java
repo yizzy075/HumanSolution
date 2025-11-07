@@ -1,5 +1,7 @@
 package co.edu.uco.HumanSolution.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UsuarioDTO {
 
     private String id;
@@ -9,11 +11,10 @@ public class UsuarioDTO {
     private String contrasena;
     private RolDTO rol;
 
-    // Constructor vacío (IMPORTANTE)
     public UsuarioDTO() {
     }
 
-    // Getters y Setters (TODOS)
+    @JsonProperty("id")
     public String getId() {
         return id;
     }
@@ -22,6 +23,7 @@ public class UsuarioDTO {
         this.id = id;
     }
 
+    @JsonProperty("documento")
     public String getDocumento() {
         return documento;
     }
@@ -30,6 +32,7 @@ public class UsuarioDTO {
         this.documento = documento;
     }
 
+    @JsonProperty("nombre")
     public String getNombre() {
         return nombre;
     }
@@ -38,6 +41,7 @@ public class UsuarioDTO {
         this.nombre = nombre;
     }
 
+    @JsonProperty("correo")
     public String getCorreo() {
         return correo;
     }
@@ -46,6 +50,7 @@ public class UsuarioDTO {
         this.correo = correo;
     }
 
+    @JsonProperty("contrasena")
     public String getContrasena() {
         return contrasena;
     }
@@ -54,6 +59,7 @@ public class UsuarioDTO {
         this.contrasena = contrasena;
     }
 
+    @JsonProperty("rol")
     public RolDTO getRol() {
         return rol;
     }
@@ -62,7 +68,6 @@ public class UsuarioDTO {
         this.rol = rol;
     }
 
-    // toString para logs
     @Override
     public String toString() {
         return "UsuarioDTO{" +
@@ -70,7 +75,8 @@ public class UsuarioDTO {
                 ", documento='" + documento + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", correo='" + correo + '\'' +
-                ", rol=" + (rol != null ? rol.getId() : "null") +
+                ", contrasena='***'" +
+                ", rol=" + (rol != null ? (rol.getId() != null ? rol.getId() : "null") : "null") +
                 '}';
     }
 }

@@ -31,16 +31,33 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<Map<String, String>> register(@RequestBody UsuarioDTO usuarioDTO) {
         try {
+            // LOGS DE DEBUG
+            System.out.println("======= DEBUG CONTROLLER =======");
+            System.out.println("DTO Recibido: " + usuarioDTO);
+            System.out.println("ID: " + usuarioDTO.getId());
+            System.out.println("Documento: " + usuarioDTO.getDocumento());
+            System.out.println("Nombre: " + usuarioDTO.getNombre());
+            System.out.println("Correo: " + usuarioDTO.getCorreo());
+            System.out.println("Contrasena: " + usuarioDTO.getContrasena());
+            System.out.println("Rol: " + usuarioDTO.getRol());
+            if (usuarioDTO.getRol() != null) {
+                System.out.println("Rol ID: " + usuarioDTO.getRol().getId());
+            }
+            System.out.println("================================");
+
             usuarioFacade.register(usuarioDTO);
 
             Map<String, String> response = new HashMap<>();
-            response.put(KEY_MENSAJE, MSG_REGISTRO_EXITOSO);
+            response.put("mensaje", "Usuario registrado exitosamente");
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
         } catch (Exception e) {
+            System.err.println("ERROR EN CONTROLLER: " + e.getMessage());
+            e.printStackTrace();
+
             Map<String, String> error = new HashMap<>();
-            error.put(KEY_ERROR, e.getMessage());
+            error.put("error", e.getMessage());
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }

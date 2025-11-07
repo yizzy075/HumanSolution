@@ -16,8 +16,8 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class RegistroUsuarioComponent implements OnInit {
   formularioRegistro: FormGroup;
-  roles: any[] = []; // Array de objetos {id, nombre}
-  rolesMap: Map<string, string> = new Map(); // Mapa para facilitar búsqueda
+  roles: any[] = [];
+  rolesMap: Map<string, string> = new Map();
   mensaje: { texto: string, tipo: 'success' | 'error' } | null = null;
   cargando = false;
   mostrarContrasenia = false;
@@ -26,40 +26,28 @@ export class RegistroUsuarioComponent implements OnInit {
     private fb: FormBuilder,
     private usuarioService: UsuarioService
   ) {
-    // Inicializar formulario con validaciones
     this.formularioRegistro = this.fb.group({
-      // Usuario-PO-01: Nombre obligatorio, solo letras
       nombre: ['', [
         Validators.required,
         Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
       ]],
-
-      // Usuario-PO-01: Apellido obligatorio, solo letras
       apellido: ['', [
         Validators.required,
         Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
       ]],
-
-      // Usuario-PO-02: Número de documento obligatorio, 6-20 dígitos
       numeroDocumento: ['', [
         Validators.required,
         Validators.pattern(/^\d{6,20}$/)
       ]],
-
-      // Usuario-PO-01 y PO-05: Correo obligatorio y formato válido
       correo: ['', [
         Validators.required,
         Validators.email
       ]],
-
-      // Usuario-PO-06: Contraseña con todos los requisitos
       contrasenia: ['', [
         Validators.required,
         Validators.minLength(6),
-        Validators.pattern(/^(?=.*[A-Z])(?=.*\d).+$/)  // Al menos 1 mayúscula y 1 número
+        Validators.pattern(/^(?=.*[A-Z])(?=.*\d).+$/)
       ]],
-
-      // Usuario-PO-07: Rol obligatorio
       rol: ['', Validators.required]
     });
   }
@@ -68,22 +56,16 @@ export class RegistroUsuarioComponent implements OnInit {
     this.cargarRoles();
   }
 
-  /**
-   * Carga los roles disponibles desde el backend
-   */
   cargarRoles(): void {
     this.usuarioService.obtenerRoles().subscribe({
       next: (response) => {
-        // El backend devuelve un ResponseDTO con estructura {success, message, data}
         if (response && response.data) {
           this.roles = response.data;
-          // Crear mapa para facilitar búsqueda
           this.roles.forEach(rol => {
             this.rolesMap.set(rol.id, rol.nombre);
           });
           console.log('Roles cargados:', this.roles);
         } else if (Array.isArray(response)) {
-          // Si la respuesta es directamente un array
           this.roles = response;
           this.roles.forEach(rol => {
             this.rolesMap.set(rol.id, rol.nombre);
@@ -97,13 +79,11 @@ export class RegistroUsuarioComponent implements OnInit {
         console.error('Error al cargar roles:', error);
         console.error('Status:', error.status);
         console.error('StatusText:', error.statusText);
-        
-        // Si es un error de conexión, mostrar mensaje
+
         if (error.status === 0 || error.status === undefined) {
           console.warn('No se pudo conectar al backend. Usando roles por defecto.');
         }
-        
-        // Fallback en caso de error - usar valores por defecto
+
         this.roles = [
           { id: '550e8400-e29b-41d4-a716-446655440000', nombre: 'Postulante' },
           { id: '550e8400-e29b-41d4-a716-446655440001', nombre: 'Empleado' },
@@ -116,16 +96,11 @@ export class RegistroUsuarioComponent implements OnInit {
     });
   }
 
-  /**
-   * Registra un nuevo usuario
-   * Valida el formulario antes de enviar
-   */
   registrarUsuario(): void {
     console.log('Intentando registrar usuario...');
     console.log('Formulario válido:', this.formularioRegistro.valid);
     console.log('Valores:', this.formularioRegistro.value);
 
-    // Validar formulario
     if (this.formularioRegistro.invalid) {
       this.formularioRegistro.markAllAsTouched();
       console.log('Formulario inválido - mostrando errores');
@@ -135,12 +110,22 @@ export class RegistroUsuarioComponent implements OnInit {
     this.cargando = true;
     this.mensaje = null;
 
-    // Enviar al backend
-    this.usuarioService.registrarUsuario(this.formularioRegistro.value).subscribe({
+    const usuarioDTO = {
+      documento: this.formularioRegistro.value.numeroDocumento,
+      nombre: this.formularioRegistro.value.nombre + ' ' + this.formularioRegistro.value.apellido,
+      correo: this.formularioRegistro.value.correo,
+      contrasena: this.formularioRegistro.value.contrasenia,
+      rol: {
+        id: this.formularioRegistro.value.rol
+      }
+    };
+
+    console.log('Enviando al backend:', usuarioDTO);
+
+    this.usuarioService.registrarUsuario(usuarioDTO).subscribe({
       next: (response) => {
         console.log('Respuesta del servidor:', response);
 
-        // El backend devuelve ResponseDTO con estructura {success, message, data}
         if (response && response.success !== false) {
           const mensaje = response.message || response.mensaje || 'Usuario registrado exitosamente';
           this.mensaje = {
@@ -148,8 +133,6 @@ export class RegistroUsuarioComponent implements OnInit {
             tipo: 'success'
           };
           this.formularioRegistro.reset();
-
-          // Ocultar mensaje después de 5 segundos
           setTimeout(() => this.mensaje = null, 5000);
         } else {
           const mensaje = response?.message || response?.mensaje || 'Error al registrar usuario';
@@ -167,14 +150,14 @@ export class RegistroUsuarioComponent implements OnInit {
         console.error('StatusText:', error.statusText);
         console.error('Error object:', error.error);
 
-        // Manejar diferentes formatos de error
         let mensajeError = 'Error al registrar usuario';
-        
-        // Verificar si es un error de conexión
+
         if (error.status === 0 || error.status === undefined) {
           mensajeError = 'No se pudo conectar al servidor. Verifica que el backend esté corriendo en http://localhost:8080';
         } else if (error.error) {
-          if (error.error.message) {
+          if (error.error.error) {
+            mensajeError = error.error.error;
+          } else if (error.error.message) {
             mensajeError = error.error.message;
           } else if (error.error.mensaje) {
             mensajeError = error.error.mensaje;
@@ -201,27 +184,16 @@ export class RegistroUsuarioComponent implements OnInit {
     });
   }
 
-  /**
-   * Limpia el formulario y los mensajes
-   */
   limpiarFormulario(): void {
     console.log('Limpiando formulario');
     this.formularioRegistro.reset();
     this.mensaje = null;
   }
 
-  /**
-   * Alterna la visibilidad de la contraseña
-   */
   toggleMostrarContrasenia(): void {
     this.mostrarContrasenia = !this.mostrarContrasenia;
   }
 
-  /**
-   * Obtiene el mensaje de error apropiado para un campo
-   * @param campo Nombre del campo a validar
-   * @returns Mensaje de error descriptivo
-   */
   obtenerMensajeError(campo: string): string {
     const control = this.formularioRegistro.get(campo);
 
@@ -254,48 +226,26 @@ export class RegistroUsuarioComponent implements OnInit {
     return '';
   }
 
-  /**
-   * Verifica si un campo es inválido y debe mostrar error
-   * @param campo Nombre del campo
-   * @returns true si el campo es inválido y fue tocado
-   */
   esInvalido(campo: string): boolean {
     const control = this.formularioRegistro.get(campo);
     return !!(control?.invalid && (control?.dirty || control?.touched));
   }
 
-  /**
-   * Verifica si un campo es válido y debe mostrar marca verde
-   * @param campo Nombre del campo
-   * @returns true si el campo es válido y fue modificado
-   */
   esValido(campo: string): boolean {
     const control = this.formularioRegistro.get(campo);
     return !!(control?.valid && control?.dirty);
   }
 
-  /**
-   * Verifica si la contraseña cumple con el requisito de mínimo 6 caracteres
-   * @returns true si cumple
-   */
   cumpleMinCaracteres(): boolean {
     const contrasenia = this.formularioRegistro.get('contrasenia')?.value || '';
     return contrasenia.length >= 6;
   }
 
-  /**
-   * Verifica si la contraseña contiene al menos una letra mayúscula
-   * @returns true si cumple
-   */
   cumpleMayuscula(): boolean {
     const contrasenia = this.formularioRegistro.get('contrasenia')?.value || '';
     return /[A-Z]/.test(contrasenia);
   }
 
-  /**
-   * Verifica si la contraseña contiene al menos un número
-   * @returns true si cumple
-   */
   cumpleNumero(): boolean {
     const contrasenia = this.formularioRegistro.get('contrasenia')?.value || '';
     return /\d/.test(contrasenia);
