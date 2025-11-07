@@ -2,29 +2,31 @@ package co.edu.uco.HumanSolution.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
-/**
- * Configuración de CORS para permitir peticiones desde el frontend
- */
 @Configuration
 public class CorsConfig {
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:4200") // Puerto del frontend Angular
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(true)
-                        .maxAge(3600);
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
 
-                System.out.println("=== CORS CONFIGURADO: Permitiendo peticiones desde http://localhost:4200 ===");
-            }
-        };
+        // Permitir credenciales
+        config.setAllowCredentials(true);
+
+        // Permitir solicitudes desde el frontend Angular
+        config.addAllowedOrigin("http://localhost:4200");
+
+        // Permitir todos los headers
+        config.addAllowedHeader("*");
+
+        // Permitir todos los métodos HTTP
+        config.addAllowedMethod("*");
+
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 }
