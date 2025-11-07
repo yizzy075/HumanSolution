@@ -13,16 +13,23 @@ export class UsuarioService {
 
   // Registrar usuario
   registrarUsuario(usuario: any): Observable<any> {
-    // Mapear los campos del formulario al formato del backend
+    // Si el usuario ya viene en formato DTO (con contrasena y rol como objeto), enviarlo directamente
+    if (usuario.contrasena !== undefined || usuario.rol?.id !== undefined) {
+      console.log('Enviando usuarioDTO al backend:', usuario);
+      return this.http.post<any>(`${this.apiUrl}/usuarios`, usuario);
+    }
+    
+    // Si viene del formulario, mapear los campos al formato del backend
     const usuarioDTO = {
       id: usuario.id || '',
-      documento: usuario.numeroDocumento || '',
-      nombre: `${usuario.nombre || ''} ${usuario.apellido || ''}`.trim(),
+      documento: usuario.numeroDocumento || usuario.documento || '',
+      nombre: usuario.nombre || '',
       correo: usuario.correo || '',
-      contrasenia: usuario.contrasenia || '',
-      idRol: usuario.rol || ''
+      contrasena: usuario.contrasenia || usuario.contrasena || '',
+      rol: usuario.rol ? (typeof usuario.rol === 'string' ? { id: usuario.rol } : usuario.rol) : null
     };
     
+    console.log('Enviando usuarioDTO al backend:', usuarioDTO);
     return this.http.post<any>(`${this.apiUrl}/usuarios`, usuarioDTO);
   }
 

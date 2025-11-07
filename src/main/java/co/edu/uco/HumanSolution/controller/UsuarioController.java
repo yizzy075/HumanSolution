@@ -1,6 +1,7 @@
 package co.edu.uco.HumanSolution.controller;
 
 import co.edu.uco.HumanSolution.business.facade.UsuarioFacade;
+import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.dto.UsuarioDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,18 +49,52 @@ public class UsuarioController {
             usuarioFacade.register(usuarioDTO);
 
             Map<String, String> response = new HashMap<>();
-            response.put("mensaje", "Usuario registrado exitosamente");
+            response.put(KEY_MENSAJE, MSG_REGISTRO_EXITOSO);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
+        } catch (HumanSolutionException e) {
+            System.err.println("ERROR EN CONTROLLER (HumanSolutionException): " + e.getTechnicalMessage());
+            e.printStackTrace();
+
+            Map<String, String> error = new HashMap<>();
+            String userMessage = e.getUserMessage();
+            String technicalMessage = e.getTechnicalMessage();
+            
+            error.put(KEY_ERROR, userMessage != null && !userMessage.isEmpty() ? userMessage : technicalMessage);
+            error.put("userMessage", userMessage != null && !userMessage.isEmpty() ? userMessage : technicalMessage);
+            error.put("technicalMessage", technicalMessage);
+
+            // Devolver 500 para errores del servidor, 400 para errores de validación
+            HttpStatus status = technicalMessage != null && (
+                               technicalMessage.contains("validación") || 
+                               technicalMessage.contains("requerido") ||
+                               technicalMessage.contains("formato") ||
+                               technicalMessage.contains("inválido")) ?
+                               HttpStatus.BAD_REQUEST : HttpStatus.INTERNAL_SERVER_ERROR;
+
+            return ResponseEntity.status(status).body(error);
         } catch (Exception e) {
             System.err.println("ERROR EN CONTROLLER: " + e.getMessage());
             e.printStackTrace();
 
             Map<String, String> error = new HashMap<>();
-            error.put("error", e.getMessage());
+            String errorMessage = e.getMessage();
+            if (errorMessage == null || errorMessage.isEmpty()) {
+                errorMessage = "Error interno del servidor al registrar usuario";
+            }
+            error.put(KEY_ERROR, errorMessage);
+            error.put("userMessage", errorMessage);
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            // Devolver 500 para errores del servidor, 400 solo para errores de validación
+            HttpStatus status = e instanceof IllegalArgumentException || 
+                               (errorMessage != null && (
+                               errorMessage.contains("validación") || 
+                               errorMessage.contains("requerido") ||
+                               errorMessage.contains("formato"))) ?
+                               HttpStatus.BAD_REQUEST : HttpStatus.INTERNAL_SERVER_ERROR;
+
+            return ResponseEntity.status(status).body(error);
         }
     }
 
