@@ -27,7 +27,7 @@ public class MessagesEnumTest {
     }
 
     @Test
-    void messagesEnumNoSonNull() {
+     void messagesEnumNoSonNull() {
         assertNotNull(MessagesEnum.TECHNICAL_GENERAL_PROBLEM);
         assertNotNull(MessagesEnum.USER_GENERAL_PROBLEM);
         assertNotNull(MessagesEnum.CONNECTION_PROBLEM);
