@@ -2,14 +2,26 @@ package co.edu.uco.HumanSolution.entity;
 
 import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
+import jakarta.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "usuario")
 public class UsuarioEntity extends Entity {
 
+    @Column(name = "documento", nullable = false, length = 50)
     private String documento;
+
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
+
+    @Column(name = "correo", nullable = false, unique = true, length = 100)
     private String correo;
+
+    @Column(name = "contrasenia", nullable = false, length = 255)
     private String contrasenia;
+
+    @Column(name = "id_rol", nullable = false)
     private UUID idRol;
 
     public UsuarioEntity(UUID id, String documento, String nombre, String correo, String contrasenia, UUID idRol) {
