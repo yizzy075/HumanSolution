@@ -145,40 +145,12 @@ export class RegistroUsuarioComponent implements OnInit {
         this.cargando = false;
       },
       error: (error) => {
-        console.error('Error completo:', error);
-        console.error('Status:', error.status);
-        console.error('StatusText:', error.statusText);
-        console.error('Error object:', error.error);
-
-        let mensajeError = 'Error al registrar usuario';
-
-        if (error.status === 0 || error.status === undefined) {
-          mensajeError = 'No se pudo conectar al servidor. Verifica que el backend esté corriendo en http://localhost:8080';
-        } else if (error.error) {
-          if (error.error.error) {
-            mensajeError = error.error.error;
-          } else if (error.error.message) {
-            mensajeError = error.error.message;
-          } else if (error.error.mensaje) {
-            mensajeError = error.error.mensaje;
-          } else if (error.error.userMessage) {
-            mensajeError = error.error.userMessage;
-          } else if (typeof error.error === 'string') {
-            mensajeError = error.error;
-          }
-        } else if (error.message) {
-          if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-            mensajeError = 'Error de conexión. Verifica que el backend esté corriendo en http://localhost:8080';
-          } else {
-            mensajeError = error.message;
-          }
-        }
-
+        console.error('Error al registrar usuario:', error);
+        const mensajeError = error.error?.message || error.error?.mensaje || 'Error en la comunicación con el servidor';
         this.mensaje = {
           texto: '❌ ' + mensajeError,
           tipo: 'error'
         };
-
         this.cargando = false;
       }
     });
