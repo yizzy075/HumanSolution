@@ -13,6 +13,7 @@ export class UsuarioService {
 
   // ✅ Registrar usuario
   registrarUsuario(usuario: any): Observable<any> {
+
     // Mapeo correcto al DTO del backend
     const usuarioDTO = {
       id: usuario.id || '',
@@ -29,6 +30,9 @@ export class UsuarioService {
     console.log('📤 Enviando usuarioDTO al backend:', usuarioDTO);
 
     return this.http.post<any>(`${this.apiUrl}`, usuarioDTO);
+
+    // Si el usuario ya viene en formato DTO (con contrasena y rol como objeto), enviarlo directamente
+
   }
 
   // ✅ Obtener lista de usuarios
