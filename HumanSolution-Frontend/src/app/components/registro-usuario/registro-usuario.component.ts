@@ -37,7 +37,7 @@ export class RegistroUsuarioComponent implements OnInit {
       ]],
       numeroDocumento: ['', [
         Validators.required,
-        Validators.pattern(/^\d{6,20}$/)
+        Validators.pattern(/^\d{5,15}$/)
       ]],
       correo: ['', [
         Validators.required,
@@ -45,8 +45,8 @@ export class RegistroUsuarioComponent implements OnInit {
       ]],
       contrasenia: ['', [
         Validators.required,
-        Validators.minLength(6),
-        Validators.pattern(/^(?=.*[A-Z])(?=.*\d).+$/)
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,}$/)
       ]],
       rol: ['', Validators.required]
     });
@@ -180,10 +180,10 @@ export class RegistroUsuarioComponent implements OnInit {
         return 'Solo se permiten letras y espacios';
       }
       if (campo === 'numeroDocumento') {
-        return 'Debe tener entre 6 y 20 dígitos';
+        return 'Debe tener entre 5 y 15 dígitos';
       }
       if (campo === 'contrasenia') {
-        return 'Debe contener al menos una mayúscula y un número';
+        return 'Debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial (@#$%^&+=!)';
       }
     }
 
@@ -211,7 +211,7 @@ export class RegistroUsuarioComponent implements OnInit {
 
   cumpleMinCaracteres(): boolean {
     const contrasenia = this.formularioRegistro.get('contrasenia')?.value || '';
-    return contrasenia.length >= 6;
+    return contrasenia.length >= 8;
   }
 
   cumpleMayuscula(): boolean {
@@ -219,8 +219,18 @@ export class RegistroUsuarioComponent implements OnInit {
     return /[A-Z]/.test(contrasenia);
   }
 
+  cumpleMinuscula(): boolean {
+    const contrasenia = this.formularioRegistro.get('contrasenia')?.value || '';
+    return /[a-z]/.test(contrasenia);
+  }
+
   cumpleNumero(): boolean {
     const contrasenia = this.formularioRegistro.get('contrasenia')?.value || '';
     return /\d/.test(contrasenia);
+  }
+
+  cumpleCaracterEspecial(): boolean {
+    const contrasenia = this.formularioRegistro.get('contrasenia')?.value || '';
+    return /[@#$%^&+=!]/.test(contrasenia);
   }
 }
