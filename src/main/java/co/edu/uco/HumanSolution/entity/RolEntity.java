@@ -1,10 +1,14 @@
 package co.edu.uco.HumanSolution.entity;
 
 import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
+import jakarta.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "rol")
 public class RolEntity extends Entity {
 
+    @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
     public RolEntity(UUID id, String nombre) {
