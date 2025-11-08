@@ -1,44 +1,40 @@
 package co.edu.uco.HumanSolution.dto;
 
-import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
-import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RolDTO {
 
     private String id;
     private String nombre;
 
-    public RolDTO(String id, String nombre) {
-        setId(id);
-        setNombre(nombre);
-    }
-
     public RolDTO() {
-        setId(UUIDHelper.getDefaultUUIDAsString());
-        setNombre(TextHelper.EMPTY);
     }
 
-    public static RolDTO create(String id, String nombre) {
-        return new RolDTO(id, nombre);
-    }
-
-    public static RolDTO create() {
-        return new RolDTO();
-    }
-
+    @JsonProperty("id")
     public String getId() {
         return id;
     }
 
+    @JsonProperty("id")
     public void setId(String id) {
-        this.id = TextHelper.getDefault(id, UUIDHelper.getDefaultUUIDAsString());
+        this.id = id;
     }
 
+    @JsonProperty("nombre")
     public String getNombre() {
         return nombre;
     }
 
+    @JsonProperty("nombre")
     public void setNombre(String nombre) {
-        this.nombre = TextHelper.applyTrim(nombre);
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "RolDTO{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 }

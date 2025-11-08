@@ -19,6 +19,7 @@ public class UsuarioDTO {
         return id;
     }
 
+    @JsonProperty("id")
     public void setId(String id) {
         this.id = id;
     }
@@ -28,6 +29,7 @@ public class UsuarioDTO {
         return documento;
     }
 
+    @JsonProperty("documento")
     public void setDocumento(String documento) {
         this.documento = documento;
     }
@@ -37,6 +39,7 @@ public class UsuarioDTO {
         return nombre;
     }
 
+    @JsonProperty("nombre")
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -46,6 +49,7 @@ public class UsuarioDTO {
         return correo;
     }
 
+    @JsonProperty("correo")
     public void setCorreo(String correo) {
         this.correo = correo;
     }
@@ -55,6 +59,7 @@ public class UsuarioDTO {
         return contrasena;
     }
 
+    @JsonProperty("contrasena")
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
@@ -64,6 +69,7 @@ public class UsuarioDTO {
         return rol;
     }
 
+    @JsonProperty("rol")
     public void setRol(RolDTO rol) {
         this.rol = rol;
     }
