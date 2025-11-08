@@ -109,7 +109,7 @@ export class RegistroUsuarioComponent implements OnInit {
 
     this.cargando = true;
     this.mensaje = null;
-
+    console.log('Valor de rol en el formulario:', this.formularioRegistro.value.rol);
     const usuarioDTO = {
       documento: this.formularioRegistro.value.numeroDocumento,
       nombre: this.formularioRegistro.value.nombre + ' ' + this.formularioRegistro.value.apellido,
@@ -119,6 +119,7 @@ export class RegistroUsuarioComponent implements OnInit {
         id: this.formularioRegistro.value.rol
       }
     };
+
 
     console.log('Enviando al backend:', usuarioDTO);
 

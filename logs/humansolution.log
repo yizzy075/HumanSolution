@@ -839,3 +839,222 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-11-07 19:02:13 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
 2025-11-07 19:02:13 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@44d084da]
 2025-11-07 19:02:13 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:39:12 [main] INFO  c.e.u.H.i.HumanSolutionApplication - Starting HumanSolutionApplication using Java 25 with PID 17352 (C:\Users\HumanSolution\target\classes started by samue in C:\Users\HumanSolution)
+2025-11-07 19:39:12 [main] DEBUG c.e.u.H.i.HumanSolutionApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-07 19:39:12 [main] INFO  c.e.u.H.i.HumanSolutionApplication - No active profile set, falling back to 1 default profile: "default"
+2025-11-07 19:39:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-07 19:39:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 81 ms. Found 0 JPA repository interfaces.
+2025-11-07 19:39:14 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-11-07 19:39:14 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-07 19:39:14 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-07 19:39:14 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-07 19:39:14 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-07 19:39:14 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1220 ms
+2025-11-07 19:39:14 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-07 19:39:14 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-11-07 19:39:14 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-11-07 19:39:14 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-07 19:39:14 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-07 19:39:14 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1d4cc7
+2025-11-07 19:39:14 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-07 19:39:14 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-07 19:39:15 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-07 19:39:15 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-07 19:39:15 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 12 mappings in 'requestMappingHandlerMapping'
+2025-11-07 19:39:15 [main] DEBUG o.s.w.s.c.a.WebMvcConfigurer - Default resource handling disabled
+2025-11-07 19:39:15 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-07 19:39:15 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-07 19:39:15 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-07 19:39:15 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2025-11-07 19:39:16 [main] INFO  c.e.u.H.i.HumanSolutionApplication - Started HumanSolutionApplication in 4.599 seconds (process running for 6.356)
+2025-11-07 19:43:03 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-07 19:43:03 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@4a6facb0
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@4cc89246
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-07 19:43:03 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@3d4615a9]
+2025-11-07 19:43:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:43:04 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 19:43:04 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 19:43:04 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:43:04 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@5792e724]
+2025-11-07 19:43:04 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:43:23 [main] INFO  c.e.u.H.i.HumanSolutionApplication - Starting HumanSolutionApplication using Java 25 with PID 7656 (C:\Users\HumanSolution\target\classes started by samue in C:\Users\HumanSolution)
+2025-11-07 19:43:23 [main] DEBUG c.e.u.H.i.HumanSolutionApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-07 19:43:23 [main] INFO  c.e.u.H.i.HumanSolutionApplication - No active profile set, falling back to 1 default profile: "default"
+2025-11-07 19:43:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-07 19:43:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+2025-11-07 19:43:23 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-11-07 19:43:23 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-07 19:43:23 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-07 19:43:23 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-07 19:43:23 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-07 19:43:23 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 895 ms
+2025-11-07 19:43:24 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-07 19:43:24 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-11-07 19:43:24 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-11-07 19:43:24 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-07 19:43:24 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-07 19:43:24 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@d108406
+2025-11-07 19:43:24 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-07 19:43:24 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-07 19:43:24 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-07 19:43:24 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-07 19:43:25 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 12 mappings in 'requestMappingHandlerMapping'
+2025-11-07 19:43:25 [main] DEBUG o.s.w.s.c.a.WebMvcConfigurer - Default resource handling disabled
+2025-11-07 19:43:25 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-07 19:43:25 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-07 19:43:25 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-07 19:43:25 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2025-11-07 19:43:25 [main] INFO  c.e.u.H.i.HumanSolutionApplication - Started HumanSolutionApplication in 2.502 seconds (process running for 3.146)
+2025-11-07 19:43:47 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-07 19:43:47 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-07 19:43:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-11-07 19:43:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-11-07 19:43:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-11-07 19:43:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@10cb050
+2025-11-07 19:43:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@6e49b011
+2025-11-07 19:43:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-07 19:43:47 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-07 19:43:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - OPTIONS "/api/v1/usuarios", parameters={}
+2025-11-07 19:43:47 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.UsuarioController#register(UsuarioDTO)
+2025-11-07 19:43:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:43:47 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/v1/usuarios", parameters={}
+2025-11-07 19:43:47 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.UsuarioController#register(UsuarioDTO)
+2025-11-07 19:43:47 [http-nio-8080-exec-4] DEBUG o.s.web.method.HandlerMethod - Could not resolve parameter [0] in public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.String>> co.edu.uco.HumanSolution.controller.UsuarioController.register(co.edu.uco.HumanSolution.dto.UsuarioDTO): JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)
+2025-11-07 19:43:47 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler co.edu.uco.HumanSolution.controller.GlobalExceptionHandler#handleGenericException(Exception)
+2025-11-07 19:43:47 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:43:47 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@2cf7f27e]
+2025-11-07 19:43:47 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)]
+2025-11-07 19:43:47 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-11-07 19:50:05 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 19:50:05 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 19:50:05 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:50:05 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@43c80fb1]
+2025-11-07 19:50:05 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:50:05 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 19:50:05 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 19:50:05 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:50:05 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@7447b226]
+2025-11-07 19:50:05 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:50:24 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/v1/usuarios", parameters={}
+2025-11-07 19:50:24 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.UsuarioController#register(UsuarioDTO)
+2025-11-07 19:50:24 [http-nio-8080-exec-10] DEBUG o.s.web.method.HandlerMethod - Could not resolve parameter [0] in public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.String>> co.edu.uco.HumanSolution.controller.UsuarioController.register(co.edu.uco.HumanSolution.dto.UsuarioDTO): JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)
+2025-11-07 19:50:24 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler co.edu.uco.HumanSolution.controller.GlobalExceptionHandler#handleGenericException(Exception)
+2025-11-07 19:50:24 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:50:24 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@172b113]
+2025-11-07 19:50:24 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)]
+2025-11-07 19:50:24 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-11-07 19:52:54 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 19:52:54 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 19:52:54 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:52:54 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@2935c2d7]
+2025-11-07 19:52:54 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:52:55 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 19:52:55 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 19:52:55 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:52:55 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@1f4ffe5]
+2025-11-07 19:52:55 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:53:12 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/v1/usuarios", parameters={}
+2025-11-07 19:53:12 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.UsuarioController#register(UsuarioDTO)
+2025-11-07 19:53:12 [http-nio-8080-exec-9] DEBUG o.s.web.method.HandlerMethod - Could not resolve parameter [0] in public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.String>> co.edu.uco.HumanSolution.controller.UsuarioController.register(co.edu.uco.HumanSolution.dto.UsuarioDTO): JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)
+2025-11-07 19:53:12 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler co.edu.uco.HumanSolution.controller.GlobalExceptionHandler#handleGenericException(Exception)
+2025-11-07 19:53:12 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:53:12 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@414d99fa]
+2025-11-07 19:53:12 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)]
+2025-11-07 19:53:12 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-11-07 19:57:51 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 19:57:51 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 19:57:51 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:57:51 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@16e6d474]
+2025-11-07 19:57:51 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:57:51 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 19:57:51 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 19:57:51 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:57:51 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@3ab582f7]
+2025-11-07 19:57:51 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:59:14 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 19:59:14 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 19:59:14 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:59:14 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@44702f59]
+2025-11-07 19:59:14 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 19:59:14 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 19:59:14 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 19:59:14 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 19:59:14 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@2c9baeeb]
+2025-11-07 19:59:14 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:01:03 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:01:03 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:01:03 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:01:03 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@44f0fb7]
+2025-11-07 20:01:03 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:01:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:01:03 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:01:03 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:01:03 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@1699585]
+2025-11-07 20:01:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:03:15 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:03:15 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:03:15 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:03:15 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@4dcdfe13]
+2025-11-07 20:03:15 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:03:16 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:03:16 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:03:16 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:03:16 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@276f1389]
+2025-11-07 20:03:16 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:03:16 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:03:16 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:03:16 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:03:16 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@1974ac76]
+2025-11-07 20:03:16 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:03:16 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:03:16 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:03:16 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:03:16 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@28a42fa0]
+2025-11-07 20:03:16 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:03:21 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:03:21 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:03:21 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:03:21 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@27f22981]
+2025-11-07 20:03:21 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:03:22 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:03:22 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:03:22 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:03:22 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@b0c9495]
+2025-11-07 20:03:22 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:03:23 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:03:23 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:03:23 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:03:23 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@3581abee]
+2025-11-07 20:03:23 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:03:23 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:03:23 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:03:24 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:03:24 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@6d3ac3c9]
+2025-11-07 20:03:24 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:03:32 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:03:32 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:03:32 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:03:32 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@eed6eb9]
+2025-11-07 20:03:32 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:03:32 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/roles", parameters={}
+2025-11-07 20:03:32 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.RolController#list()
+2025-11-07 20:03:33 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:03:33 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@3aa6d1c8]
+2025-11-07 20:03:33 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-11-07 20:04:10 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/v1/usuarios", parameters={}
+2025-11-07 20:04:10 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to co.edu.uco.HumanSolution.controller.UsuarioController#register(UsuarioDTO)
+2025-11-07 20:04:10 [http-nio-8080-exec-2] DEBUG o.s.web.method.HandlerMethod - Could not resolve parameter [0] in public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.String>> co.edu.uco.HumanSolution.controller.UsuarioController.register(co.edu.uco.HumanSolution.dto.UsuarioDTO): JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)
+2025-11-07 20:04:10 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler co.edu.uco.HumanSolution.controller.GlobalExceptionHandler#handleGenericException(Exception)
+2025-11-07 20:04:10 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-11-07 20:04:10 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO@46896251]
+2025-11-07 20:04:10 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)]
+2025-11-07 20:04:10 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
