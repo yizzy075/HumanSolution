@@ -119,15 +119,23 @@
           <ul class="requirements-list">
             <li [ngClass]="{'requirement-met': cumpleMinCaracteres(), 'requirement-unmet': !cumpleMinCaracteres()}">
               <span class="requirement-icon">{{ cumpleMinCaracteres() ? '✓' : '✗' }}</span>
-              Mínimo 6 caracteres
+              Mínimo 8 caracteres
             </li>
             <li [ngClass]="{'requirement-met': cumpleMayuscula(), 'requirement-unmet': !cumpleMayuscula()}">
               <span class="requirement-icon">{{ cumpleMayuscula() ? '✓' : '✗' }}</span>
               Al menos una letra mayúscula
             </li>
+            <li [ngClass]="{'requirement-met': cumpleMinuscula(), 'requirement-unmet': !cumpleMinuscula()}">
+              <span class="requirement-icon">{{ cumpleMinuscula() ? '✓' : '✗' }}</span>
+              Al menos una letra minúscula
+            </li>
             <li [ngClass]="{'requirement-met': cumpleNumero(), 'requirement-unmet': !cumpleNumero()}">
               <span class="requirement-icon">{{ cumpleNumero() ? '✓' : '✗' }}</span>
               Al menos un número
+            </li>
+            <li [ngClass]="{'requirement-met': cumpleCaracterEspecial(), 'requirement-unmet': !cumpleCaracterEspecial()}">
+              <span class="requirement-icon">{{ cumpleCaracterEspecial() ? '✓' : '✗' }}</span>
+              Al menos un carácter especial (@#$%^&+=!)
             </li>
           </ul>
         </div>
