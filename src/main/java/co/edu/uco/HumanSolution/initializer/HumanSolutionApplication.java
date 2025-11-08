@@ -10,7 +10,7 @@ import org.springframework.context.event.EventListener;
 @SpringBootApplication
 @ComponentScan(basePackages = {"co.edu.uco.HumanSolution"})
 @EntityScan(basePackages = {"co.edu.uco.HumanSolution.entity"})
-public class HumanSolutionApplication {
+public class    HumanSolutionApplication {
     
     public static void main(String[] args) {
         System.out.println("=== INICIANDO HumanSolutionApplication ===");

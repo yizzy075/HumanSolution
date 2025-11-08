@@ -21,7 +21,8 @@ export class UsuarioService {
       correo: usuario.correo || usuario.correoElectronico || '',
       contrasena: usuario.contrasenia || usuario.contrasena || '',
       rol: {
-        id: usuario.rol || usuario.idRol || ''
+        id: usuario.rol?.id || usuario.idRol || ''
+
       }
     };
 
@@ -49,7 +50,7 @@ export class UsuarioService {
       correo: usuario.correo || usuario.correoElectronico || '',
       contrasena: usuario.contrasenia || usuario.contrasena || '',
       rol: {
-        id: usuario.rol || usuario.idRol || ''
+        id: typeof usuario.rol === 'string' ? usuario.rol : usuario.rol?.id || usuario.idRol || ''
       }
     };
 
