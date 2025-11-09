@@ -1,6 +1,8 @@
 package co.edu.uco.HumanSolution.business.domain;
 
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
+import co.edu.uco.HumanSolution.crosscutting.messagecatalog.MessagesEnum;
+import co.edu.uco.HumanSolution.crosscutting.exception.BusinessException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -27,7 +29,13 @@ public class ContratoDomain extends Domain {
     }
 
     public static ContratoDomain create() {
-        return new ContratoDomain(UUIDHelper.getDefaultUUID(), UUIDHelper.getDefaultUUID(), LocalDate.now(), null, BigDecimal.ZERO);
+        return new ContratoDomain(
+                UUIDHelper.getDefaultUUID(),
+                UUIDHelper.getDefaultUUID(),
+                LocalDate.now(),
+                null,
+                BigDecimal.ZERO
+        );
     }
 
     public UUID getIdUsuario() {
@@ -64,29 +72,56 @@ public class ContratoDomain extends Domain {
 
     public void validarIdUsuario() {
         if (UUIDHelper.isDefault(idUsuario)) {
-            throw new IllegalArgumentException("El usuario es obligatorio");
+            throw new BusinessException(
+                    "El ID del usuario es obligatorio para el contrato",
+                    "El usuario es obligatorio"
+            );
         }
     }
 
     public void validarFechaInicio() {
         if (fechaInicio == null) {
-            throw new IllegalArgumentException("La fecha de inicio es obligatoria");
+            throw new BusinessException(
+                    "La fecha de inicio del contrato es nula",
+                    MessagesEnum.CONTRATO_FECHA_INICIO_VACIA.getMessage()
+            );
         }
     }
 
     public void validarFechaFin() {
         if (fechaFin != null && fechaFin.isBefore(fechaInicio)) {
-            throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la fecha de inicio");
+            throw new BusinessException(
+                    "La fecha de fin " + fechaFin + " es anterior a la fecha de inicio " + fechaInicio,
+                    MessagesEnum.CONTRATO_FECHA_FIN_ANTES_INICIO.getMessage()
+            );
         }
     }
 
     public void validarSueldo() {
         if (sueldo.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("El sueldo debe ser mayor a cero");
+            throw new BusinessException(
+                    "El sueldo debe ser mayor a cero",
+                    "El sueldo debe ser mayor a cero"
+            );
         }
         if (sueldo.compareTo(SALARIO_MINIMO) < 0) {
-            throw new IllegalArgumentException("El sueldo no puede ser menor al salario mínimo");
+            throw new BusinessException(
+                    "El sueldo no puede ser menor al salario mínimo",
+                    "El sueldo no puede ser menor al salario mínimo"
+            );
         }
+    }
+
+    // Método para verificar si el contrato está vigente en una fecha específica
+    public boolean estaVigenteEn(LocalDate fecha) {
+        if (fecha == null || fechaInicio == null) {
+            return false;
+        }
+
+        boolean despuesDeFechaInicio = !fecha.isBefore(fechaInicio);
+        boolean antesDeFechaFin = fechaFin == null || !fecha.isAfter(fechaFin);
+
+        return despuesDeFechaInicio && antesDeFechaFin;
     }
 
     public void validar() {

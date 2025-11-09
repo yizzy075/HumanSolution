@@ -1,78 +1,77 @@
 package co.edu.uco.HumanSolution.dto;
 
-import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class ContratoDTO {
 
     private String id;
     private String idUsuario;
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
+    private String fechaInicio;
+    private String fechaFin;
     private BigDecimal sueldo;
 
-    public ContratoDTO(String id, String idUsuario, LocalDate fechaInicio, LocalDate fechaFin, BigDecimal sueldo) {
-        setId(id);
-        setIdUsuario(idUsuario);
-        setFechaInicio(fechaInicio);
-        setFechaFin(fechaFin);
-        setSueldo(sueldo);
-    }
-
     public ContratoDTO() {
-        setId(UUIDHelper.getDefaultUUIDAsString());
-        setIdUsuario(UUIDHelper.getDefaultUUIDAsString());
-        setFechaInicio(LocalDate.now());
-        setFechaFin(null);
-        setSueldo(BigDecimal.ZERO);
     }
 
-    public static ContratoDTO create(String id, String idUsuario, LocalDate fechaInicio, LocalDate fechaFin, BigDecimal sueldo) {
-        return new ContratoDTO(id, idUsuario, fechaInicio, fechaFin, sueldo);
-    }
-
-    public static ContratoDTO create() {
-        return new ContratoDTO();
-    }
-
+    @JsonProperty("id")
     public String getId() {
         return id;
     }
 
+    @JsonProperty("id")
     public void setId(String id) {
         this.id = id;
     }
 
+    @JsonProperty("idUsuario")
     public String getIdUsuario() {
         return idUsuario;
     }
 
+    @JsonProperty("idUsuario")
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public LocalDate getFechaInicio() {
+    @JsonProperty("fechaInicio")
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(LocalDate fechaInicio) {
+    @JsonProperty("fechaInicio")
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public LocalDate getFechaFin() {
+    @JsonProperty("fechaFin")
+    public String getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(LocalDate fechaFin) {
+    @JsonProperty("fechaFin")
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
 
+    @JsonProperty("sueldo")
     public BigDecimal getSueldo() {
         return sueldo;
     }
 
+    @JsonProperty("sueldo")
     public void setSueldo(BigDecimal sueldo) {
         this.sueldo = sueldo;
+    }
+
+    @Override
+    public String toString() {
+        return "ContratoDTO{" +
+                "id='" + id + '\'' +
+                ", idUsuario='" + idUsuario + '\'' +
+                ", fechaInicio='" + fechaInicio + '\'' +
+                ", fechaFin='" + fechaFin + '\'' +
+                ", sueldo=" + sueldo +
+                '}';
     }
 }

@@ -166,4 +166,46 @@ public class ContratoPostgreSqlDAO implements ContratoDAO {
 
         return false;
     }
+
+    @Override
+    public boolean existsContratoVigenteByUsuarioAndFecha(UUID idUsuario, java.time.LocalDate fecha) {
+        String sql = "SELECT COUNT(*) FROM contrato " +
+                     "WHERE id_usuario = ? " +
+                     "AND fecha_inicio <= ? " +
+                     "AND (fecha_fin IS NULL OR fecha_fin >= ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setObject(1, idUsuario);
+            statement.setDate(2, Date.valueOf(fecha));
+            statement.setDate(3, Date.valueOf(fecha));
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+
+        } catch (SQLException exception) {
+            throw new HumanSolutionException(
+                    "Error técnico verificando contrato vigente en fecha específica: " + exception.getMessage(),
+                    "Error al verificar si existe un contrato vigente para la fecha de evaluación",
+                    exception
+            );
+        }
+
+        return false;
+    }
+
+    @Override
+    public List<ContratoEntity> findByUsuario(UUID idUsuario) {
+        var filter = ContratoEntity.create();
+        filter = ContratoEntity.create(
+                UUIDHelper.getDefaultUUID(),
+                idUsuario,
+                null,
+                null,
+                null
+        );
+        return read(filter);
+    }
 }

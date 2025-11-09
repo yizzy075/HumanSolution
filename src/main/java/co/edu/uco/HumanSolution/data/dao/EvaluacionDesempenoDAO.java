@@ -1,6 +1,7 @@
 package co.edu.uco.HumanSolution.data.dao;
 
 import co.edu.uco.HumanSolution.entity.EvaluacionDesempenoEntity;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,4 +14,10 @@ public interface EvaluacionDesempenoDAO {
     void update(EvaluacionDesempenoEntity entity);
 
     void delete(UUID id);
+
+    // ED-02: Verificar si existe una evaluación para un usuario en una fecha específica
+    boolean existsByUsuarioAndFecha(UUID idUsuario, LocalDate fecha);
+
+    // Método para obtener evaluaciones por usuario
+    List<EvaluacionDesempenoEntity> findByUsuario(UUID idUsuario);
 }
