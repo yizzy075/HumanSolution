@@ -7,10 +7,12 @@ import co.edu.uco.HumanSolution.business.facade.EvaluacionDesempenoFacade;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
 import co.edu.uco.HumanSolution.dto.EvaluacionDesempenoDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public final class EvaluacionDesempenoFacadeImpl implements EvaluacionDesempenoFacade {
 
     private DAOFactory daoFactory;

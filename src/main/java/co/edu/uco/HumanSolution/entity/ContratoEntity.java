@@ -1,15 +1,25 @@
 package co.edu.uco.HumanSolution.entity;
 
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Entity
+@Table(name = "contrato")
 public class ContratoEntity extends Entity {
 
+    @Column(name = "id_usuario", nullable = false)
     private UUID idUsuario;
+
+    @Column(name = "fecha_inicio", nullable = false)
     private LocalDate fechaInicio;
+
+    @Column(name = "fecha_fin")
     private LocalDate fechaFin;
+
+    @Column(name = "sueldo", nullable = false, precision = 10, scale = 2)
     private BigDecimal sueldo;
 
     public ContratoEntity(UUID id, UUID idUsuario, LocalDate fechaInicio, LocalDate fechaFin, BigDecimal sueldo) {

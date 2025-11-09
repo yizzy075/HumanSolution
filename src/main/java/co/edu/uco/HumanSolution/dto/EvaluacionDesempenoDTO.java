@@ -1,78 +1,100 @@
 package co.edu.uco.HumanSolution.dto;
 
-import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
-import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EvaluacionDesempenoDTO {
 
     private String id;
     private String idUsuario;
-    private LocalDate fecha;
-    private int calificacion;
+    private String fecha;
+    private String evaluador;
+    private String criterios;
+    private Integer calificacion;
     private String observacion;
 
-    public EvaluacionDesempenoDTO(String id, String idUsuario, LocalDate fecha, int calificacion, String observacion) {
-        setId(id);
-        setIdUsuario(idUsuario);
-        setFecha(fecha);
-        setCalificacion(calificacion);
-        setObservacion(observacion);
-    }
-
     public EvaluacionDesempenoDTO() {
-        setId(UUIDHelper.getDefaultUUIDAsString());
-        setIdUsuario(UUIDHelper.getDefaultUUIDAsString());
-        setFecha(LocalDate.now());
-        setCalificacion(0);
-        setObservacion(TextHelper.EMPTY);
     }
 
-    public static EvaluacionDesempenoDTO create(String id, String idUsuario, LocalDate fecha, int calificacion, String observacion) {
-        return new EvaluacionDesempenoDTO(id, idUsuario, fecha, calificacion, observacion);
-    }
-
-    public static EvaluacionDesempenoDTO create() {
-        return new EvaluacionDesempenoDTO();
-    }
-
+    @JsonProperty("id")
     public String getId() {
         return id;
     }
 
+    @JsonProperty("id")
     public void setId(String id) {
         this.id = id;
     }
 
+    @JsonProperty("idUsuario")
     public String getIdUsuario() {
         return idUsuario;
     }
 
+    @JsonProperty("idUsuario")
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public LocalDate getFecha() {
+    @JsonProperty("fecha")
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    @JsonProperty("fecha")
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public int getCalificacion() {
+    @JsonProperty("evaluador")
+    public String getEvaluador() {
+        return evaluador;
+    }
+
+    @JsonProperty("evaluador")
+    public void setEvaluador(String evaluador) {
+        this.evaluador = evaluador;
+    }
+
+    @JsonProperty("criterios")
+    public String getCriterios() {
+        return criterios;
+    }
+
+    @JsonProperty("criterios")
+    public void setCriterios(String criterios) {
+        this.criterios = criterios;
+    }
+
+    @JsonProperty("calificacion")
+    public Integer getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(int calificacion) {
+    @JsonProperty("calificacion")
+    public void setCalificacion(Integer calificacion) {
         this.calificacion = calificacion;
     }
 
+    @JsonProperty("observacion")
     public String getObservacion() {
         return observacion;
     }
 
+    @JsonProperty("observacion")
     public void setObservacion(String observacion) {
-        this.observacion = TextHelper.applyTrim(observacion);
+        this.observacion = observacion;
+    }
+
+    @Override
+    public String toString() {
+        return "EvaluacionDesempenoDTO{" +
+                "id='" + id + '\'' +
+                ", idUsuario='" + idUsuario + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", evaluador='" + evaluador + '\'' +
+                ", criterios='" + criterios + '\'' +
+                ", calificacion=" + calificacion +
+                ", observacion='" + observacion + '\'' +
+                '}';
     }
 }
