@@ -22,8 +22,6 @@ public final class EvaluacionDesempenoEntityAssembler {
                 entity.getId(),
                 entity.getIdUsuario(),
                 entity.getFecha(),
-                entity.getEvaluador(),
-                entity.getCriterios(),
                 entity.getCalificacion(),
                 entity.getObservacion()
         );
@@ -34,8 +32,6 @@ public final class EvaluacionDesempenoEntityAssembler {
                 domain.getId(),
                 domain.getIdUsuario(),
                 domain.getFecha(),
-                domain.getEvaluador(),
-                domain.getCriterios(),
                 domain.getCalificacion(),
                 domain.getObservacion()
         );

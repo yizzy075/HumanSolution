@@ -2,9 +2,8 @@ package co.edu.uco.HumanSolution.business.assembler.dto.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.dto.DTOAssembler;
 import co.edu.uco.HumanSolution.business.domain.EvaluacionDesempenoDomain;
-import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
-import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
 import co.edu.uco.HumanSolution.dto.EvaluacionDesempenoDTO;
+import co.edu.uco.HumanSolution.dto.UsuarioDTO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,42 +13,36 @@ import java.util.UUID;
 
 public final class EvaluacionDesempenoDTOAssembler implements DTOAssembler<EvaluacionDesempenoDomain, EvaluacionDesempenoDTO> {
 
-    private static final DTOAssembler<EvaluacionDesempenoDomain, EvaluacionDesempenoDTO> instance = new EvaluacionDesempenoDTOAssembler();
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
+    private static final EvaluacionDesempenoDTOAssembler INSTANCE = new EvaluacionDesempenoDTOAssembler();
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private EvaluacionDesempenoDTOAssembler() {
     }
 
-    public static DTOAssembler<EvaluacionDesempenoDomain, EvaluacionDesempenoDTO> getEvaluacionDesempenoDTOAssembler() {
-        return instance;
+    public static EvaluacionDesempenoDTOAssembler getEvaluacionDesempenoDTOAssembler() {
+        return INSTANCE;
     }
 
     @Override
     public EvaluacionDesempenoDomain toDomain(EvaluacionDesempenoDTO dto) {
-        UUID id = (dto.getId() != null && !dto.getId().isBlank())
-                ? UUID.fromString(dto.getId())
-                : UUIDHelper.getDefaultUUID();
+        // Extraer ID del usuario si existe
+        UUID idUsuario = null;
+        if (dto.getUsuario() != null && dto.getUsuario().getId() != null && !dto.getUsuario().getId().isBlank()) {
+            idUsuario = UUID.fromString(dto.getUsuario().getId());
+        }
 
-        UUID idUsuario = (dto.getIdUsuario() != null && !dto.getIdUsuario().isBlank())
-                ? UUID.fromString(dto.getIdUsuario())
-                : UUIDHelper.getDefaultUUID();
-
-        LocalDate fecha = (dto.getFecha() != null && !dto.getFecha().isBlank())
-                ? LocalDate.parse(dto.getFecha(), DATE_FORMATTER)
-                : LocalDate.now();
-
-        int calificacion = (dto.getCalificacion() != null)
-                ? dto.getCalificacion()
-                : 0;
+        // Convertir fecha de String a LocalDate
+        LocalDate fecha = null;
+        if (dto.getFecha() != null && !dto.getFecha().isBlank()) {
+            fecha = LocalDate.parse(dto.getFecha(), DATE_FORMATTER);
+        }
 
         return EvaluacionDesempenoDomain.create(
-                id,
+                dto.getId() != null && !dto.getId().isBlank() ? UUID.fromString(dto.getId()) : null,
                 idUsuario,
                 fecha,
-                dto.getEvaluador() != null ? dto.getEvaluador() : TextHelper.EMPTY,
-                dto.getCriterios() != null ? dto.getCriterios() : TextHelper.EMPTY,
-                calificacion,
-                dto.getObservacion() != null ? dto.getObservacion() : TextHelper.EMPTY
+                dto.getCalificacion(),
+                dto.getObservacion()
         );
     }
 
@@ -58,23 +51,48 @@ public final class EvaluacionDesempenoDTOAssembler implements DTOAssembler<Evalu
         EvaluacionDesempenoDTO dto = new EvaluacionDesempenoDTO();
 
         dto.setId(domain.getId() != null ? domain.getId().toString() : null);
-        dto.setIdUsuario(domain.getIdUsuario() != null ? domain.getIdUsuario().toString() : null);
-        dto.setFecha(domain.getFecha() != null ? domain.getFecha().format(DATE_FORMATTER) : null);
-        dto.setEvaluador(domain.getEvaluador());
-        dto.setCriterios(domain.getCriterios());
+
+        // Crear UsuarioDTO con solo el ID
+        if (domain.getIdUsuario() != null) {
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+            usuarioDTO.setId(domain.getIdUsuario().toString());
+            dto.setUsuario(usuarioDTO);
+        }
+
+        // Convertir fecha de LocalDate a String
+        if (domain.getFecha() != null) {
+            dto.setFecha(domain.getFecha().format(DATE_FORMATTER));
+        }
+
         dto.setCalificacion(domain.getCalificacion());
         dto.setObservacion(domain.getObservacion());
 
         return dto;
     }
 
-    public List<EvaluacionDesempenoDTO> toDTOList(List<EvaluacionDesempenoDomain> domains) {
-        List<EvaluacionDesempenoDTO> dtos = new ArrayList<>();
-        if (domains != null) {
-            for (EvaluacionDesempenoDomain domain : domains) {
-                dtos.add(toDTO(domain));
+    @Override
+    public List<EvaluacionDesempenoDTO> toDTOList(List<EvaluacionDesempenoDomain> domainList) {
+        List<EvaluacionDesempenoDTO> dtoList = new ArrayList<>();
+
+        if (domainList != null) {
+            for (EvaluacionDesempenoDomain domain : domainList) {
+                dtoList.add(toDTO(domain));
             }
         }
-        return dtos;
+
+        return dtoList;
+    }
+
+    @Override
+    public List<EvaluacionDesempenoDomain> toDomainList(List<EvaluacionDesempenoDTO> dtoList) {
+        List<EvaluacionDesempenoDomain> domainList = new ArrayList<>();
+
+        if (dtoList != null) {
+            for (EvaluacionDesempenoDTO dto : dtoList) {
+                domainList.add(toDomain(dto));
+            }
+        }
+
+        return domainList;
     }
 }

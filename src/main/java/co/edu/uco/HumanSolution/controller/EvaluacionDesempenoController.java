@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/evaluaciones")
+@RequestMapping("/api/v1/evaluaciones-desempeno")
 @CrossOrigin(origins = "http://localhost:4200")
 public class EvaluacionDesempenoController {
 
@@ -30,24 +30,24 @@ public class EvaluacionDesempenoController {
 
     /**
      * Endpoint para registrar una nueva evaluación de desempeño
-     * POST /api/v1/evaluaciones
+     * POST /api/v1/evaluaciones-desempeno
      *
-     * Implementa las 5 reglas de negocio:
-     * - ED-01: Datos obligatorios (fecha, evaluador, criterios)
+     * Implementa las reglas de negocio:
+     * - ED-01: Datos obligatorios
      * - ED-02: No duplicados (misma fecha y usuario)
      * - ED-03: Fecha no futura
      * - ED-04: Contrato vigente
-     * - ED-05: Buenas prácticas (formato, longitud, rango)
+     * - ED-05: Calificación en rango 1-10, observación 5-500 caracteres
      */
     @PostMapping
     public ResponseEntity<Map<String, String>> create(@RequestBody EvaluacionDesempenoDTO evaluacionDTO) {
         try {
             System.out.println("======= DEBUG CONTROLLER - EVALUACION DESEMPENO =======");
             System.out.println("DTO Recibido: " + evaluacionDTO);
-            System.out.println("ID Usuario: " + evaluacionDTO.getIdUsuario());
+            if (evaluacionDTO.getUsuario() != null) {
+                System.out.println("Usuario ID: " + evaluacionDTO.getUsuario().getId());
+            }
             System.out.println("Fecha: " + evaluacionDTO.getFecha());
-            System.out.println("Evaluador: " + evaluacionDTO.getEvaluador());
-            System.out.println("Criterios: " + evaluacionDTO.getCriterios());
             System.out.println("Calificación: " + evaluacionDTO.getCalificacion());
             System.out.println("Observación: " + evaluacionDTO.getObservacion());
             System.out.println("====================================================");
@@ -72,7 +72,7 @@ public class EvaluacionDesempenoController {
 
     /**
      * Endpoint para listar todas las evaluaciones de desempeño
-     * GET /api/v1/evaluaciones
+     * GET /api/v1/evaluaciones-desempeno
      */
     @GetMapping
     public ResponseEntity<List<EvaluacionDesempenoDTO>> list() {
@@ -87,7 +87,7 @@ public class EvaluacionDesempenoController {
 
     /**
      * Endpoint para buscar evaluaciones de desempeño por usuario
-     * GET /api/v1/evaluaciones/usuario/{idUsuario}
+     * GET /api/v1/evaluaciones-desempeno/usuario/{idUsuario}
      */
     @GetMapping("/usuario/{idUsuario}")
     public ResponseEntity<List<EvaluacionDesempenoDTO>> findByUsuario(@PathVariable String idUsuario) {
@@ -106,7 +106,7 @@ public class EvaluacionDesempenoController {
 
     /**
      * Endpoint para buscar una evaluación de desempeño por ID
-     * GET /api/v1/evaluaciones/{id}
+     * GET /api/v1/evaluaciones-desempeno/{id}
      */
     @GetMapping("/{id}")
     public ResponseEntity<EvaluacionDesempenoDTO> findById(@PathVariable String id) {
@@ -124,7 +124,7 @@ public class EvaluacionDesempenoController {
 
     /**
      * Endpoint para actualizar una evaluación de desempeño
-     * PUT /api/v1/evaluaciones/{id}
+     * PUT /api/v1/evaluaciones-desempeno/{id}
      */
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, String>> update(@PathVariable String id, @RequestBody EvaluacionDesempenoDTO evaluacionDTO) {
@@ -148,7 +148,7 @@ public class EvaluacionDesempenoController {
 
     /**
      * Endpoint para eliminar una evaluación de desempeño
-     * DELETE /api/v1/evaluaciones/{id}
+     * DELETE /api/v1/evaluaciones-desempeno/{id}
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> delete(@PathVariable String id) {
