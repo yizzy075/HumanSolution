@@ -16,25 +16,16 @@ public class EvaluacionDesempenoEntity extends Entity {
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
-    @Column(name = "evaluador", nullable = false, length = 100)
-    private String evaluador;
-
-    @Column(name = "criterios", nullable = false, length = 500)
-    private String criterios;
-
     @Column(name = "calificacion", nullable = false)
-    private int calificacion;
+    private Integer calificacion;
 
-    @Column(name = "observacion", length = 1000)
+    @Column(name = "observacion", nullable = false, length = 500)
     private String observacion;
 
-    public EvaluacionDesempenoEntity(UUID id, UUID idUsuario, LocalDate fecha, String evaluador,
-                                      String criterios, int calificacion, String observacion) {
+    public EvaluacionDesempenoEntity(UUID id, UUID idUsuario, LocalDate fecha, Integer calificacion, String observacion) {
         super(id);
         setIdUsuario(idUsuario);
         setFecha(fecha);
-        setEvaluador(evaluador);
-        setCriterios(criterios);
         setCalificacion(calificacion);
         setObservacion(observacion);
     }
@@ -43,16 +34,12 @@ public class EvaluacionDesempenoEntity extends Entity {
         super();
         setIdUsuario(UUIDHelper.getDefaultUUID());
         setFecha(LocalDate.now());
-        setEvaluador(TextHelper.EMPTY);
-        setCriterios(TextHelper.EMPTY);
         setCalificacion(0);
         setObservacion(TextHelper.EMPTY);
     }
 
-    public static EvaluacionDesempenoEntity create(UUID id, UUID idUsuario, LocalDate fecha,
-                                                     String evaluador, String criterios,
-                                                     int calificacion, String observacion) {
-        return new EvaluacionDesempenoEntity(id, idUsuario, fecha, evaluador, criterios, calificacion, observacion);
+    public static EvaluacionDesempenoEntity create(UUID id, UUID idUsuario, LocalDate fecha, Integer calificacion, String observacion) {
+        return new EvaluacionDesempenoEntity(id, idUsuario, fecha, calificacion, observacion);
     }
 
     public static EvaluacionDesempenoEntity create() {
@@ -75,28 +62,12 @@ public class EvaluacionDesempenoEntity extends Entity {
         this.fecha = fecha != null ? fecha : LocalDate.now();
     }
 
-    public String getEvaluador() {
-        return evaluador;
-    }
-
-    private void setEvaluador(String evaluador) {
-        this.evaluador = TextHelper.applyTrim(evaluador);
-    }
-
-    public String getCriterios() {
-        return criterios;
-    }
-
-    private void setCriterios(String criterios) {
-        this.criterios = TextHelper.applyTrim(criterios);
-    }
-
-    public int getCalificacion() {
+    public Integer getCalificacion() {
         return calificacion;
     }
 
-    private void setCalificacion(int calificacion) {
-        this.calificacion = Math.max(0, Math.min(calificacion, 100));
+    private void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion != null ? calificacion : 0;
     }
 
     public String getObservacion() {

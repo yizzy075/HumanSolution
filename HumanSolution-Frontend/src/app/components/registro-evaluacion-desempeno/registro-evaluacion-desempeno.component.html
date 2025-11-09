@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Registro de Evaluación de Desempeño</h2>
+    </div>
+
+    <div class="card-body">
+      <!-- Mensaje de alerta -->
+      <div *ngIf="mostrarMensaje"
+           class="alert"
+           [ngClass]="{'alert-success': tipoMensaje === 'success', 'alert-error': tipoMensaje === 'error'}">
+        {{ mensaje }}
+      </div>
+
+      <form [formGroup]="evaluacionForm" (ngSubmit)="onSubmit()">
+        <!-- Usuario -->
+        <div class="form-group">
+          <label for="usuario">Usuario Evaluado <span class="required">*</span></label>
+          <select
+            id="usuario"
+            formControlName="usuario"
+            class="form-control"
+            [ngClass]="{'is-invalid': f['usuario'].invalid && f['usuario'].touched}">
+            <option value="">Seleccione un usuario</option>
+            <option *ngFor="let usuario of usuarios" [value]="usuario.id">
+              {{ usuario.nombre }} - {{ usuario.numeroDocumento }}
+            </option>
+          </select>
+          <div *ngIf="f['usuario'].invalid && f['usuario'].touched" class="invalid-feedback">
+            El usuario es obligatorio
+          </div>
+        </div>
+
+        <!-- Fecha -->
+        <div class="form-group">
+          <label for="fecha">Fecha de Evaluación <span class="required">*</span></label>
+          <input
+            type="date"
+            id="fecha"
+            formControlName="fecha"
+            class="form-control"
+            [max]="fechaMaxima"
+            [ngClass]="{'is-invalid': f['fecha'].invalid && f['fecha'].touched}">
+          <div *ngIf="f['fecha'].invalid && f['fecha'].touched" class="invalid-feedback">
+            La fecha es obligatoria y no puede ser futura
+          </div>
+        </div>
+
+        <!-- Calificación -->
+        <div class="form-group">
+          <label for="calificacion">Calificación (1-10) <span class="required">*</span></label>
+          <input
+            type="number"
+            id="calificacion"
+            formControlName="calificacion"
+            class="form-control"
+            min="1"
+            max="10"
+            placeholder="Ingrese una calificación entre 1 y 10"
+            [ngClass]="{'is-invalid': f['calificacion'].invalid && f['calificacion'].touched}">
+          <div *ngIf="f['calificacion'].invalid && f['calificacion'].touched" class="invalid-feedback">
+            <span *ngIf="f['calificacion'].errors?.['required']">La calificación es obligatoria</span>
+            <span *ngIf="f['calificacion'].errors?.['min'] || f['calificacion'].errors?.['max']">
+              La calificación debe estar entre 1 y 10
+            </span>
+          </div>
+        </div>
+
+        <!-- Observación -->
+        <div class="form-group">
+          <label for="observacion">Observaciones <span class="required">*</span></label>
+          <textarea
+            id="observacion"
+            formControlName="observacion"
+            class="form-control"
+            rows="4"
+            minlength="5"
+            maxlength="500"
+            placeholder="Ingrese sus observaciones (mínimo 5 caracteres, máximo 500)"
+            [ngClass]="{'is-invalid': f['observacion'].invalid && f['observacion'].touched}">
+          </textarea>
+          <small class="form-text">
+            Caracteres: {{ f['observacion'].value?.length || 0 }} / 500
+          </small>
+          <div *ngIf="f['observacion'].invalid && f['observacion'].touched" class="invalid-feedback">
+            <span *ngIf="f['observacion'].errors?.['required']">La observación es obligatoria</span>
+            <span *ngIf="f['observacion'].errors?.['minlength']">
+              La observación debe tener al menos 5 caracteres
+            </span>
+            <span *ngIf="f['observacion'].errors?.['maxlength']">
+              La observación no puede exceder 500 caracteres
+            </span>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="!evaluacionForm.valid">
+            Registrar Evaluación
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="evaluacionForm.reset()">
+            Limpiar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
