@@ -6,12 +6,18 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity
+@jakarta.persistence.Entity
 @Table(name = "evaluacion_desempeno")
 public class EvaluacionDesempenoEntity extends Entity {
 
     @Column(name = "id_usuario", nullable = false)
     private UUID idUsuario;
+
+    @Column(name = "id_evaluador", nullable = false)
+    private UUID idEvaluador;
+
+    @Column(name = "id_contrato", nullable = false)
+    private UUID idContrato;
 
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
@@ -22,24 +28,33 @@ public class EvaluacionDesempenoEntity extends Entity {
     @Column(name = "observacion", nullable = false, length = 500)
     private String observacion;
 
-    public EvaluacionDesempenoEntity(UUID id, UUID idUsuario, LocalDate fecha, Integer calificacion, String observacion) {
+    @Column(name = "criterios", nullable = false, length = 1000)
+    private String criterios;
+
+    public EvaluacionDesempenoEntity(UUID id, UUID idUsuario, UUID idEvaluador, UUID idContrato, LocalDate fecha, Integer calificacion, String observacion, String criterios) {
         super(id);
         setIdUsuario(idUsuario);
+        setIdEvaluador(idEvaluador);
+        setIdContrato(idContrato);
         setFecha(fecha);
         setCalificacion(calificacion);
         setObservacion(observacion);
+        setCriterios(criterios);
     }
 
     public EvaluacionDesempenoEntity() {
         super();
         setIdUsuario(UUIDHelper.getDefaultUUID());
+        setIdEvaluador(UUIDHelper.getDefaultUUID());
+        setIdContrato(UUIDHelper.getDefaultUUID());
         setFecha(LocalDate.now());
         setCalificacion(0);
         setObservacion(TextHelper.EMPTY);
+        setCriterios(TextHelper.EMPTY);
     }
 
-    public static EvaluacionDesempenoEntity create(UUID id, UUID idUsuario, LocalDate fecha, Integer calificacion, String observacion) {
-        return new EvaluacionDesempenoEntity(id, idUsuario, fecha, calificacion, observacion);
+    public static EvaluacionDesempenoEntity create(UUID id, UUID idUsuario, UUID idEvaluador, UUID idContrato, LocalDate fecha, Integer calificacion, String observacion, String criterios) {
+        return new EvaluacionDesempenoEntity(id, idUsuario, idEvaluador, idContrato, fecha, calificacion, observacion, criterios);
     }
 
     public static EvaluacionDesempenoEntity create() {
@@ -52,6 +67,22 @@ public class EvaluacionDesempenoEntity extends Entity {
 
     private void setIdUsuario(UUID idUsuario) {
         this.idUsuario = UUIDHelper.getDefault(idUsuario, UUIDHelper.getDefaultUUID());
+    }
+
+    public UUID getIdEvaluador() {
+        return idEvaluador;
+    }
+
+    private void setIdEvaluador(UUID idEvaluador) {
+        this.idEvaluador = UUIDHelper.getDefault(idEvaluador, UUIDHelper.getDefaultUUID());
+    }
+
+    public UUID getIdContrato() {
+        return idContrato;
+    }
+
+    private void setIdContrato(UUID idContrato) {
+        this.idContrato = UUIDHelper.getDefault(idContrato, UUIDHelper.getDefaultUUID());
     }
 
     public LocalDate getFecha() {
@@ -76,5 +107,13 @@ public class EvaluacionDesempenoEntity extends Entity {
 
     private void setObservacion(String observacion) {
         this.observacion = TextHelper.applyTrim(observacion);
+    }
+
+    public String getCriterios() {
+        return criterios;
+    }
+
+    private void setCriterios(String criterios) {
+        this.criterios = TextHelper.applyTrim(criterios);
     }
 }

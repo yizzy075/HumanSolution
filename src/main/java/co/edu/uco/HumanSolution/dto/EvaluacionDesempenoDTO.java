@@ -6,9 +6,12 @@ public class EvaluacionDesempenoDTO {
 
     private String id;
     private UsuarioDTO usuario;
+    private UsuarioDTO evaluador;
+    private ContratoDTO contrato;
     private String fecha;
     private Integer calificacion;
     private String observacion;
+    private String criterios;
 
     public EvaluacionDesempenoDTO() {
     }
@@ -31,6 +34,26 @@ public class EvaluacionDesempenoDTO {
     @JsonProperty("usuario")
     public void setUsuario(UsuarioDTO usuario) {
         this.usuario = usuario;
+    }
+
+    @JsonProperty("evaluador")
+    public UsuarioDTO getEvaluador() {
+        return evaluador;
+    }
+
+    @JsonProperty("evaluador")
+    public void setEvaluador(UsuarioDTO evaluador) {
+        this.evaluador = evaluador;
+    }
+
+    @JsonProperty("contrato")
+    public ContratoDTO getContrato() {
+        return contrato;
+    }
+
+    @JsonProperty("contrato")
+    public void setContrato(ContratoDTO contrato) {
+        this.contrato = contrato;
     }
 
     @JsonProperty("fecha")
@@ -63,14 +86,27 @@ public class EvaluacionDesempenoDTO {
         this.observacion = observacion;
     }
 
+    @JsonProperty("criterios")
+    public String getCriterios() {
+        return criterios;
+    }
+
+    @JsonProperty("criterios")
+    public void setCriterios(String criterios) {
+        this.criterios = criterios;
+    }
+
     @Override
     public String toString() {
         return "EvaluacionDesempenoDTO{" +
                 "id='" + id + '\'' +
                 ", usuario=" + (usuario != null ? usuario.getId() : "null") +
+                ", evaluador=" + (evaluador != null ? evaluador.getId() : "null") +
+                ", contrato=" + (contrato != null ? contrato.getId() : "null") +
                 ", fecha='" + fecha + '\'' +
                 ", calificacion=" + calificacion +
                 ", observacion='" + observacion + '\'' +
+                ", criterios='" + criterios + '\'' +
                 '}';
     }
 }

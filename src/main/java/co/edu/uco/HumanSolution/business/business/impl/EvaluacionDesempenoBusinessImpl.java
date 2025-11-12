@@ -33,9 +33,12 @@ public final class EvaluacionDesempenoBusinessImpl implements EvaluacionDesempen
             var domainWithId = EvaluacionDesempenoDomain.create(
                     id,
                     domain.getIdUsuario(),
+                    domain.getIdEvaluador(),
+                    domain.getIdContrato(),
                     domain.getFecha(),
                     domain.getCalificacion(),
-                    domain.getObservacion()
+                    domain.getObservacion(),
+                    domain.getCriterios()
             );
 
             System.out.println("======= DEBUG CREATE BUSINESS =======");
@@ -95,8 +98,11 @@ public final class EvaluacionDesempenoBusinessImpl implements EvaluacionDesempen
             EvaluacionDesempenoEntity filter = EvaluacionDesempenoEntity.create(
                     id,
                     UUIDHelper.getDefaultUUID(),
+                    UUIDHelper.getDefaultUUID(),
+                    UUIDHelper.getDefaultUUID(),
                     null,
                     0,
+                    "",
                     ""
             );
             List<EvaluacionDesempenoEntity> entities = daoFactory.getEvaluacionDesempenoDAO().read(filter);
@@ -162,8 +168,11 @@ public final class EvaluacionDesempenoBusinessImpl implements EvaluacionDesempen
         var entity = EvaluacionDesempenoEntity.create(
                 id,
                 UUIDHelper.getDefaultUUID(),
+                UUIDHelper.getDefaultUUID(),
+                UUIDHelper.getDefaultUUID(),
                 null,
                 0,
+                "",
                 ""
         );
         var existing = daoFactory.getEvaluacionDesempenoDAO().read(entity);
@@ -173,8 +182,11 @@ public final class EvaluacionDesempenoBusinessImpl implements EvaluacionDesempen
             entity = EvaluacionDesempenoEntity.create(
                     id,
                     UUIDHelper.getDefaultUUID(),
+                    UUIDHelper.getDefaultUUID(),
+                    UUIDHelper.getDefaultUUID(),
                     null,
                     0,
+                    "",
                     ""
             );
             existing = daoFactory.getEvaluacionDesempenoDAO().read(entity);

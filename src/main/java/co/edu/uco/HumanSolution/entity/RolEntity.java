@@ -4,7 +4,7 @@ import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
 import jakarta.persistence.*;
 import java.util.UUID;
 
-@Entity
+@jakarta.persistence.Entity
 @Table(name = "rol")
 public class RolEntity extends Entity {
 
