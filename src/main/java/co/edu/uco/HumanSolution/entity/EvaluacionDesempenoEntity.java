@@ -2,26 +2,25 @@ package co.edu.uco.HumanSolution.entity;
 
 import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@jakarta.persistence.Entity
+@Entity
 @Table(name = "evaluacion_desempeno")
 public class EvaluacionDesempenoEntity extends Entity {
 
     @Column(name = "id_usuario", nullable = false)
     private UUID idUsuario;
 
-    @Column(name = "id_evaluador", nullable = false)
-    private UUID idEvaluador;
-
-    @Column(name = "id_contrato", nullable = false)
-    private UUID idContrato;
-
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
+
+    @Column(name = "evaluador", nullable = false, length = 100)
+    private String evaluador;
+
+    @Column(name = "criterios", nullable = false, length = 500)
+    private String criterios;
 
     @Column(name = "calificacion", nullable = false)
     private int calificacion;
@@ -29,35 +28,31 @@ public class EvaluacionDesempenoEntity extends Entity {
     @Column(name = "observacion", length = 1000)
     private String observacion;
 
-    @Column(name = "criterios", nullable = false, length = 1000)
-    private String criterios;
-
-    public EvaluacionDesempenoEntity(UUID id, UUID idUsuario, UUID idEvaluador, UUID idContrato,
-                                     LocalDate fecha, int calificacion, String observacion, String criterios) {
+    public EvaluacionDesempenoEntity(UUID id, UUID idUsuario, LocalDate fecha, String evaluador,
+                                      String criterios, int calificacion, String observacion) {
         super(id);
         setIdUsuario(idUsuario);
-        setIdEvaluador(idEvaluador);
-        setIdContrato(idContrato);
         setFecha(fecha);
+        setEvaluador(evaluador);
+        setCriterios(criterios);
         setCalificacion(calificacion);
         setObservacion(observacion);
-        setCriterios(criterios);
     }
 
     public EvaluacionDesempenoEntity() {
         super();
         setIdUsuario(UUIDHelper.getDefaultUUID());
-        setIdEvaluador(UUIDHelper.getDefaultUUID());
-        setIdContrato(UUIDHelper.getDefaultUUID());
         setFecha(LocalDate.now());
+        setEvaluador(TextHelper.EMPTY);
+        setCriterios(TextHelper.EMPTY);
         setCalificacion(0);
         setObservacion(TextHelper.EMPTY);
-        setCriterios(TextHelper.EMPTY);
     }
 
-    public static EvaluacionDesempenoEntity create(UUID id, UUID idUsuario, UUID idEvaluador, UUID idContrato,
-                                                   LocalDate fecha, int calificacion, String observacion, String criterios) {
-        return new EvaluacionDesempenoEntity(id, idUsuario, idEvaluador, idContrato, fecha, calificacion, observacion, criterios);
+    public static EvaluacionDesempenoEntity create(UUID id, UUID idUsuario, LocalDate fecha,
+                                                     String evaluador, String criterios,
+                                                     int calificacion, String observacion) {
+        return new EvaluacionDesempenoEntity(id, idUsuario, fecha, evaluador, criterios, calificacion, observacion);
     }
 
     public static EvaluacionDesempenoEntity create() {
@@ -72,28 +67,28 @@ public class EvaluacionDesempenoEntity extends Entity {
         this.idUsuario = UUIDHelper.getDefault(idUsuario, UUIDHelper.getDefaultUUID());
     }
 
-    public UUID getIdEvaluador() {
-        return idEvaluador;
-    }
-
-    private void setIdEvaluador(UUID idEvaluador) {
-        this.idEvaluador = UUIDHelper.getDefault(idEvaluador, UUIDHelper.getDefaultUUID());
-    }
-
-    public UUID getIdContrato() {
-        return idContrato;
-    }
-
-    private void setIdContrato(UUID idContrato) {
-        this.idContrato = UUIDHelper.getDefault(idContrato, UUIDHelper.getDefaultUUID());
-    }
-
     public LocalDate getFecha() {
         return fecha;
     }
 
     private void setFecha(LocalDate fecha) {
         this.fecha = fecha != null ? fecha : LocalDate.now();
+    }
+
+    public String getEvaluador() {
+        return evaluador;
+    }
+
+    private void setEvaluador(String evaluador) {
+        this.evaluador = TextHelper.applyTrim(evaluador);
+    }
+
+    public String getCriterios() {
+        return criterios;
+    }
+
+    private void setCriterios(String criterios) {
+        this.criterios = TextHelper.applyTrim(criterios);
     }
 
     public int getCalificacion() {
@@ -110,13 +105,5 @@ public class EvaluacionDesempenoEntity extends Entity {
 
     private void setObservacion(String observacion) {
         this.observacion = TextHelper.applyTrim(observacion);
-    }
-
-    public String getCriterios() {
-        return criterios;
-    }
-
-    private void setCriterios(String criterios) {
-        this.criterios = TextHelper.applyTrim(criterios);
     }
 }
