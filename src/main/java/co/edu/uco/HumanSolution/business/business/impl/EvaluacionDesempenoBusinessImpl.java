@@ -2,7 +2,6 @@ package co.edu.uco.HumanSolution.business.business.impl;
 
 import co.edu.uco.HumanSolution.business.assembler.entity.impl.EvaluacionDesempenoEntityAssembler;
 import co.edu.uco.HumanSolution.business.business.EvaluacionDesempenoBusiness;
-import co.edu.uco.HumanSolution.business.business.validator.evaluaciondesempeno.ValidateEvaluacionDesempenoForRegister;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.crosscutting.exception.BusinessException;
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
@@ -21,44 +20,10 @@ public final class EvaluacionDesempenoBusinessImpl implements EvaluacionDesempen
         this.daoFactory = daoFactory;
     }
 
+
     @Override
     public void create(EvaluacionDesempenoDomain domain) {
-        try {
-            // Aplicar todas las validaciones y reglas de negocio usando el Validator
-            var validator = new ValidateEvaluacionDesempenoForRegister(daoFactory);
-            validator.validate(domain);
 
-            // Generar ID único
-            var id = generateId();
-            var domainWithId = EvaluacionDesempenoDomain.create(
-                    id,
-                    domain.getIdUsuario(),
-                    domain.getIdEvaluador(),
-                    domain.getIdContrato(),
-                    domain.getFecha(),
-                    domain.getCalificacion(),
-                    domain.getObservacion(),
-                    domain.getCriterios()
-            );
-
-            System.out.println("======= DEBUG CREATE BUSINESS =======");
-            System.out.println("Domain con ID: " + domainWithId.getId());
-
-            // Convertir a Entity y persistir
-            var entity = EvaluacionDesempenoEntityAssembler.getEvaluacionDesempenoEntityAssembler().toEntity(domainWithId);
-            daoFactory.getEvaluacionDesempenoDAO().create(entity);
-
-        } catch (BusinessException exception) {
-            throw exception;
-        } catch (HumanSolutionException exception) {
-            throw exception;
-        } catch (Exception exception) {
-            throw new HumanSolutionException(
-                    "Error técnico creando evaluación de desempeño: " + exception.getMessage(),
-                    "Error al registrar la evaluación de desempeño",
-                    exception
-            );
-        }
     }
 
     @Override
