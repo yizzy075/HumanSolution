@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity
+
 @Table(name = "evaluacion_desempeno")
 public class EvaluacionDesempenoEntity extends Entity {
 
