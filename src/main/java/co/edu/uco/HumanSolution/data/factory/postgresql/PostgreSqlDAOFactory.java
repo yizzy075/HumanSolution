@@ -4,10 +4,20 @@ import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.data.dao.*;
 import co.edu.uco.HumanSolution.data.dao.entity.postgresql.*;
 import co.edu.uco.HumanSolution.data.factory.DAOFactory;
+import co.edu.uco.HumanSolution.entity.RolEntity;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Function;
 
 public final class PostgreSqlDAOFactory extends DAOFactory {
 
@@ -145,7 +155,157 @@ public final class PostgreSqlDAOFactory extends DAOFactory {
 
     @Override
     public RolDAO getRolDAO() {
-        return new RolPostgreSqlDAO(getConnection());
+        return new RolPostgreSqlDAO(getConnection()) {
+            @Override
+            public List<RolEntity> findAll(Sort sort) {
+                return List.of();
+            }
+
+            @Override
+            public Page<RolEntity> findAll(Pageable pageable) {
+                return null;
+            }
+
+            @Override
+            public <S extends RolEntity> S save(S entity) {
+                return null;
+            }
+
+            @Override
+            public <S extends RolEntity> List<S> saveAll(Iterable<S> entities) {
+                return List.of();
+            }
+
+            @Override
+            public Optional<RolEntity> findById(UUID uuid) {
+                return Optional.empty();
+            }
+
+            @Override
+            public boolean existsById(UUID uuid) {
+                return false;
+            }
+
+            @Override
+            public List<RolEntity> findAll() {
+                return List.of();
+            }
+
+            @Override
+            public List<RolEntity> findAllById(Iterable<UUID> uuids) {
+                return List.of();
+            }
+
+            @Override
+            public long count() {
+                return 0;
+            }
+
+            @Override
+            public void deleteById(UUID uuid) {
+
+            }
+
+            @Override
+            public void delete(RolEntity entity) {
+
+            }
+
+            @Override
+            public void deleteAllById(Iterable<? extends UUID> uuids) {
+
+            }
+
+            @Override
+            public void deleteAll(Iterable<? extends RolEntity> entities) {
+
+            }
+
+            @Override
+            public void deleteAll() {
+
+            }
+
+            @Override
+            public void flush() {
+
+            }
+
+            @Override
+            public <S extends RolEntity> S saveAndFlush(S entity) {
+                return null;
+            }
+
+            @Override
+            public <S extends RolEntity> List<S> saveAllAndFlush(Iterable<S> entities) {
+                return List.of();
+            }
+
+            @Override
+            public void deleteAllInBatch(Iterable<RolEntity> entities) {
+
+            }
+
+            @Override
+            public void deleteAllByIdInBatch(Iterable<UUID> uuids) {
+
+            }
+
+            @Override
+            public void deleteAllInBatch() {
+
+            }
+
+            @Override
+            public RolEntity getOne(UUID uuid) {
+                return null;
+            }
+
+            @Override
+            public RolEntity getById(UUID uuid) {
+                return null;
+            }
+
+            @Override
+            public RolEntity getReferenceById(UUID uuid) {
+                return null;
+            }
+
+            @Override
+            public <S extends RolEntity> Optional<S> findOne(Example<S> example) {
+                return Optional.empty();
+            }
+
+            @Override
+            public <S extends RolEntity> List<S> findAll(Example<S> example) {
+                return List.of();
+            }
+
+            @Override
+            public <S extends RolEntity> List<S> findAll(Example<S> example, Sort sort) {
+                return List.of();
+            }
+
+            @Override
+            public <S extends RolEntity> Page<S> findAll(Example<S> example, Pageable pageable) {
+                return null;
+            }
+
+            @Override
+            public <S extends RolEntity> long count(Example<S> example) {
+                return 0;
+            }
+
+            @Override
+            public <S extends RolEntity> boolean exists(Example<S> example) {
+                return false;
+            }
+
+            @Override
+            public <S extends RolEntity, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+                return null;
+            }
+        };
     }
 
     @Override

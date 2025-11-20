@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class RolPostgreSqlDAO implements RolDAO {
+public abstract class RolPostgreSqlDAO implements RolDAO {
 
     private Connection connection;
 

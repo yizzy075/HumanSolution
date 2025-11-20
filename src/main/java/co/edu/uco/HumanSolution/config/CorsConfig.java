@@ -10,10 +10,12 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("http://localhost:4200")  // ← SOLO ESTE
+                .allowedOrigins("http://localhost:4200")  // ✅ CAMBIADO DE allowedOriginPatterns
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .allowedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(3600);
+
+        System.out.println("✅ CORS configurado para: http://localhost:4200");
     }
 }

@@ -1,7 +1,6 @@
 package co.edu.uco.HumanSolution.controller;
 
 import co.edu.uco.HumanSolution.business.facade.RolFacade;
-import co.edu.uco.HumanSolution.business.facade.impl.RolFacadeImpl;
 import co.edu.uco.HumanSolution.controller.dto.response.ResponseDTO;
 import co.edu.uco.HumanSolution.crosscutting.exception.ControllerException;
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
@@ -15,20 +14,15 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/roles")
+@CrossOrigin(origins = "http://localhost:4200")  // ✅ AGREGADO
 public class RolController {
 
     private final RolFacade facade;
 
-    public RolController() {
-        System.out.println("=== RolController CONSTRUIDO ===");
-        try {
-            this.facade = new RolFacadeImpl();
-            System.out.println("=== RolController INICIALIZADO - Endpoint /api/v1/roles DISPONIBLE ===");
-        } catch (Exception e) {
-            System.err.println("ERROR al crear RolController: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
+    // ✅ CONSTRUCTOR CON INYECCIÓN DE DEPENDENCIAS
+    public RolController(RolFacade facade) {
+        this.facade = facade;
+        System.out.println("=== RolController INICIALIZADO - Endpoint /api/v1/roles DISPONIBLE ===");
     }
 
     @PostMapping
@@ -59,7 +53,9 @@ public class RolController {
     @GetMapping
     public ResponseEntity<ResponseDTO<List<RolDTO>>> list() {
         try {
+            System.out.println("📋 GET /api/v1/roles - Listando roles");
             List<RolDTO> roles = facade.list();
+            System.out.println("✅ Roles encontrados: " + roles.size());
             return ResponseEntity.ok(ResponseDTO.<List<RolDTO>>builder()
                     .success(true)
                     .message("Roles consultados exitosamente")
@@ -72,6 +68,8 @@ public class RolController {
                     exception
             );
         } catch (Exception exception) {
+            System.err.println("❌ Error listando roles: " + exception.getMessage());
+            exception.printStackTrace();
             throw new ControllerException(
                     "Error inesperado listando roles: " + exception.getMessage(),
                     "Error al listar roles",

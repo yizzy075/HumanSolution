@@ -1,146 +1,231 @@
-package co.edu.uco.HumanSolution.business.business.impl;
+package co.edu.uco.HumanSolution.business.business.impl;  // ← DOS "business"
 
-import co.edu.uco.HumanSolution.business.assembler.entity.impl.RolEntityAssembler;
-import co.edu.uco.HumanSolution.business.business.RolBusiness;
+import co.edu.uco.HumanSolution.business.business.RolBusiness;  // ← DOS "business"
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
-import co.edu.uco.HumanSolution.data.factory.DAOFactory;
-import co.edu.uco.HumanSolution.business.domain.RolDomain;
+import co.edu.uco.HumanSolution.crosscutting.helper.ObjectHelper;
+import co.edu.uco.HumanSolution.crosscutting.helper.StringHelper;
+import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
+import co.edu.uco.HumanSolution.data.dao.RolDAO;
+import co.edu.uco.HumanSolution.dto.RolDTO;
 import co.edu.uco.HumanSolution.entity.RolEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+@Service
+@Transactional
 public class RolBusinessImpl implements RolBusiness {
 
-    private DAOFactory daoFactory;
+    private final RolDAO rolDAO;
 
-    public RolBusinessImpl(final DAOFactory daoFactory) {
-        this.daoFactory = daoFactory;
+    public RolBusinessImpl(RolDAO rolDAO) {
+        this.rolDAO = rolDAO;
+        System.out.println("✅ RolBusinessImpl inicializado");
     }
 
     @Override
-    public void create(RolDomain domain) {
+    public void create(RolDTO dto) {
         try {
-            domain.validar();
+            validateRolDTO(dto);
+            validateRolNotExists(dto.getNombre());
 
-            if (daoFactory.getRolDAO().existsByNombre(domain.getNombre())) {
+            RolEntity entity = new RolEntity();
+            entity.setId(UUIDHelper.generate());
+            entity.setNombre(dto.getNombre());
+            entity.setDescripcion(dto.getDescripcion());
+
+            rolDAO.save(entity);
+
+            System.out.println("✅ Rol creado: " + dto.getNombre());
+
+        } catch (HumanSolutionException e) {
+            throw e;
+        } catch (Exception e) {
+            System.err.println("❌ Error creando rol: " + e.getMessage());
+            e.printStackTrace();
+            throw new HumanSolutionException(
+                    "Error inesperado creando rol: " + e.getMessage(),
+                    "Error al crear el rol"
+            );
+        }
+    }
+
+    @Override
+    public List<RolDTO> list() {
+        try {
+            List<RolEntity> entities = rolDAO.findAll();
+            return entities.stream()
+                    .map(this::convertToDTO)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            System.err.println("❌ Error listando roles: " + e.getMessage());
+            e.printStackTrace();
+            throw new HumanSolutionException(
+                    "Error inesperado listando roles: " + e.getMessage(),
+                    "Error al listar roles"
+            );
+        }
+    }
+
+    @Override
+    public RolDTO findById(UUID id) {
+        try {
+            if (ObjectHelper.isNull(id)) {
                 throw new HumanSolutionException(
-                        "Ya existe un rol con ese nombre",
-                        "El nombre ya está registrado"
+                        "El ID del rol no puede ser nulo",
+                        "ID requerido"
                 );
             }
 
-            daoFactory.initTransaction();
+            RolEntity entity = rolDAO.findById(id)
+                    .orElseThrow(() -> new HumanSolutionException(
+                            "Rol no encontrado con ID: " + id,
+                            "Rol no encontrado"
+                    ));
 
-            var entity = RolEntityAssembler.getRolEntityAssembler().toEntity(domain);
-            daoFactory.getRolDAO().create(entity);
+            return convertToDTO(entity);
 
-            daoFactory.commitTransaction();
-
-        } catch (HumanSolutionException exception) {
-            daoFactory.rollbackTransaction();
-            throw exception;
-        } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
+        } catch (HumanSolutionException e) {
+            throw e;
+        } catch (Exception e) {
+            System.err.println("❌ Error buscando rol: " + e.getMessage());
+            e.printStackTrace();
             throw new HumanSolutionException(
-                    "Error técnico creando rol",
-                    "Error inesperado",
-                    exception
+                    "Error inesperado buscando rol: " + e.getMessage(),
+                    "Error al buscar rol"
             );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
     @Override
-    public List<RolDomain> list() {
+    public void update(RolDTO dto) {
         try {
-            RolEntity filter = RolEntity.create();
-            List<RolEntity> entities = daoFactory.getRolDAO().read(filter);
-            return RolEntityAssembler.getRolEntityAssembler().toDomainList(entities);
+            validateRolDTO(dto);
 
-        } catch (Exception exception) {
-            throw new HumanSolutionException(
-                    "Error técnico consultando roles",
-                    "Error inesperado",
-                    exception
-            );
-        } finally {
-            daoFactory.closeConnection();
-        }
-    }
-
-    @Override
-    public RolDomain findById(UUID id) {
-        try {
-            RolEntity filter = RolEntity.create(id, "");
-            List<RolEntity> entities = daoFactory.getRolDAO().read(filter);
-
-            if (entities.isEmpty()) {
+            if (StringHelper.isEmpty(dto.getId())) {
                 throw new HumanSolutionException(
-                        "No se encontró el rol",
-                        "Rol no existe"
+                        "ID requerido para actualizar",
+                        "ID requerido"
                 );
             }
 
-            return RolEntityAssembler.getRolEntityAssembler().toDomain(entities.get(0));
+            UUID id = UUID.fromString(dto.getId());
 
-        } catch (HumanSolutionException exception) {
-            throw exception;
-        } catch (Exception exception) {
+            RolEntity existingEntity = rolDAO.findById(id)
+                    .orElseThrow(() -> new HumanSolutionException(
+                            "Rol no encontrado con ID: " + id,
+                            "Rol no encontrado"
+                    ));
+
+            if (!existingEntity.getNombre().equals(dto.getNombre())) {
+                validateRolNotExists(dto.getNombre());
+            }
+
+            existingEntity.setNombre(dto.getNombre());
+            existingEntity.setDescripcion(dto.getDescripcion());
+
+            rolDAO.save(existingEntity);
+
+            System.out.println("✅ Rol actualizado: " + dto.getNombre());
+
+        } catch (HumanSolutionException e) {
+            throw e;
+        } catch (Exception e) {
+            System.err.println("❌ Error actualizando rol: " + e.getMessage());
+            e.printStackTrace();
             throw new HumanSolutionException(
-                    "Error técnico consultando rol",
-                    "Error inesperado",
-                    exception
+                    "Error inesperado actualizando rol: " + e.getMessage(),
+                    "Error al actualizar rol"
             );
-        } finally {
-            daoFactory.closeConnection();
-        }
-    }
-
-    @Override
-    public void update(RolDomain domain) {
-        try {
-            domain.validar();
-
-            daoFactory.initTransaction();
-
-            var entity = RolEntityAssembler.getRolEntityAssembler().toEntity(domain);
-            daoFactory.getRolDAO().update(entity);
-
-            daoFactory.commitTransaction();
-
-        } catch (HumanSolutionException exception) {
-            daoFactory.rollbackTransaction();
-            throw exception;
-        } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
-            throw new HumanSolutionException(
-                    "Error técnico actualizando rol",
-                    "Error inesperado",
-                    exception
-            );
-        } finally {
-            daoFactory.closeConnection();
         }
     }
 
     @Override
     public void delete(UUID id) {
         try {
-            daoFactory.initTransaction();
-            daoFactory.getRolDAO().delete(id);
-            daoFactory.commitTransaction();
+            if (ObjectHelper.isNull(id)) {
+                throw new HumanSolutionException(
+                        "El ID no puede ser nulo",
+                        "ID requerido"
+                );
+            }
 
-        } catch (Exception exception) {
-            daoFactory.rollbackTransaction();
+            rolDAO.findById(id)
+                    .orElseThrow(() -> new HumanSolutionException(
+                            "Rol no encontrado con ID: " + id,
+                            "Rol no encontrado"
+                    ));
+
+            rolDAO.deleteById(id);
+
+            System.out.println("✅ Rol eliminado con ID: " + id);
+
+        } catch (HumanSolutionException e) {
+            throw e;
+        } catch (Exception e) {
+            System.err.println("❌ Error eliminando rol: " + e.getMessage());
+            e.printStackTrace();
             throw new HumanSolutionException(
-                    "Error técnico eliminando rol",
-                    "Error inesperado",
-                    exception
+                    "Error inesperado eliminando rol: " + e.getMessage(),
+                    "Error al eliminar rol"
             );
-        } finally {
-            daoFactory.closeConnection();
         }
+    }
+
+    private void validateRolDTO(RolDTO dto) {
+        if (ObjectHelper.isNull(dto)) {
+            throw new HumanSolutionException(
+                    "El rol no puede ser nulo",
+                    "Datos del rol requeridos"
+            );
+        }
+
+        if (StringHelper.isEmpty(dto.getNombre())) {
+            throw new HumanSolutionException(
+                    "El nombre no puede estar vacío",
+                    "Nombre requerido"
+            );
+        }
+
+        if (dto.getNombre().length() < 3 || dto.getNombre().length() > 50) {
+            throw new HumanSolutionException(
+                    "El nombre debe tener entre 3 y 50 caracteres",
+                    "Nombre inválido"
+            );
+        }
+
+        if (StringHelper.isEmpty(dto.getDescripcion())) {
+            throw new HumanSolutionException(
+                    "La descripción no puede estar vacía",
+                    "Descripción requerida"
+            );
+        }
+
+        if (dto.getDescripcion().length() < 5 || dto.getDescripcion().length() > 200) {
+            throw new HumanSolutionException(
+                    "La descripción debe tener entre 5 y 200 caracteres",
+                    "Descripción inválida"
+            );
+        }
+    }
+
+    private void validateRolNotExists(String nombre) {
+        if (rolDAO.existsByNombre(nombre)) {
+            throw new HumanSolutionException(
+                    "Ya existe un rol con el nombre: " + nombre,
+                    "Rol duplicado"
+            );
+        }
+    }
+
+    private RolDTO convertToDTO(RolEntity entity) {
+        RolDTO dto = new RolDTO();
+        dto.setId(entity.getId().toString());
+        dto.setNombre(entity.getNombre());
+        dto.setDescripcion(entity.getDescripcion());
+        return dto;
     }
 }

@@ -2,12 +2,19 @@ package co.edu.uco.HumanSolution.entity;
 
 import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.util.UUID;
 
 @Entity
 @Table(name = "usuario")
-public class UsuarioEntity extends Entity {
+public class UsuarioEntity {
+
+    @Id
+    @Column(name = "id", nullable = false)
+    private UUID id;
 
     @Column(name = "documento", nullable = false, length = 50)
     private String documento;
@@ -24,22 +31,22 @@ public class UsuarioEntity extends Entity {
     @Column(name = "id_rol", nullable = false)
     private UUID idRol;
 
+    public UsuarioEntity() {
+        this.id = UUIDHelper.generate();
+        this.documento = TextHelper.EMPTY;
+        this.nombre = TextHelper.EMPTY;
+        this.correo = TextHelper.EMPTY;
+        this.contrasenia = TextHelper.EMPTY;
+        this.idRol = UUIDHelper.getDefaultUUID();
+    }
+
     public UsuarioEntity(UUID id, String documento, String nombre, String correo, String contrasenia, UUID idRol) {
-        super(id);
+        this.id = id;
         setDocumento(documento);
         setNombre(nombre);
         setCorreo(correo);
         setContrasenia(contrasenia);
         setIdRol(idRol);
-    }
-
-    public UsuarioEntity() {
-        super();
-        setDocumento(TextHelper.EMPTY);
-        setNombre(TextHelper.EMPTY);
-        setCorreo(TextHelper.EMPTY);
-        setContrasenia(TextHelper.EMPTY);
-        setIdRol(UUIDHelper.getDefaultUUID());
     }
 
     public static UsuarioEntity create(UUID id, String documento, String nombre, String correo, String contrasenia, UUID idRol) {
@@ -50,11 +57,19 @@ public class UsuarioEntity extends Entity {
         return new UsuarioEntity();
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public String getDocumento() {
         return documento;
     }
 
-    private void setDocumento(String documento) {
+    public void setDocumento(String documento) {
         this.documento = TextHelper.applyTrim(documento);
     }
 
@@ -62,7 +77,7 @@ public class UsuarioEntity extends Entity {
         return nombre;
     }
 
-    private void setNombre(String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = TextHelper.applyTrim(nombre);
     }
 
@@ -70,7 +85,7 @@ public class UsuarioEntity extends Entity {
         return correo;
     }
 
-    private void setCorreo(String correo) {
+    public void setCorreo(String correo) {
         this.correo = TextHelper.applyTrim(correo);
     }
 
@@ -78,7 +93,7 @@ public class UsuarioEntity extends Entity {
         return contrasenia;
     }
 
-    private void setContrasenia(String contrasenia) {
+    public void setContrasenia(String contrasenia) {
         this.contrasenia = TextHelper.applyTrim(contrasenia);
     }
 
@@ -86,7 +101,7 @@ public class UsuarioEntity extends Entity {
         return idRol;
     }
 
-    private void setIdRol(UUID idRol) {
+    public void setIdRol(UUID idRol) {
         this.idRol = UUIDHelper.getDefault(idRol, UUIDHelper.getDefaultUUID());
     }
 }
