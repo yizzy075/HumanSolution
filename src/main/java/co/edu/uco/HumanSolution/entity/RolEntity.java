@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.UUID;
 
-@Entity
+@jakarta.persistence.Entity
 @Table(name = "rol")
 public class RolEntity {
 

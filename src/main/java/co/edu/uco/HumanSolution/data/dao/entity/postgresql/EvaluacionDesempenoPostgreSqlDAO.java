@@ -2,7 +2,6 @@ package co.edu.uco.HumanSolution.data.dao.entity.postgresql;
 
 import co.edu.uco.HumanSolution.crosscutting.exception.HumanSolutionException;
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
-import co.edu.uco.HumanSolution.crosscutting.messagecatalog.MessagesEnum;
 import co.edu.uco.HumanSolution.data.dao.EvaluacionDesempenoDAO;
 import co.edu.uco.HumanSolution.entity.EvaluacionDesempenoEntity;
 
@@ -26,24 +25,36 @@ public class EvaluacionDesempenoPostgreSqlDAO implements EvaluacionDesempenoDAO 
 
     @Override
     public void create(EvaluacionDesempenoEntity entity) {
-        String sql = "INSERT INTO evaluacion_desempeno (id, id_usuario, fecha, evaluador, criterios, calificacion, observacion) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO evaluacion_desempeno (id, id_usuario, id_evaluador, id_contrato, fecha, calificacion, observacion, criterios) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        System.out.println("======= DEBUG CREATE EVALUACION =======");
+        System.out.println("Entity: " + entity.getId());
+        System.out.println("ID Usuario: " + entity.getIdUsuario());
+        System.out.println("ID Evaluador: " + entity.getIdEvaluador());
+        System.out.println("ID Contrato: " + entity.getIdContrato());
+        System.out.println("Fecha: " + entity.getFecha());
+        System.out.println("Calificacion: " + entity.getCalificacion());
+        System.out.println("Observacion: " + entity.getObservacion());
+        System.out.println("Criterios: " + entity.getCriterios());
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setObject(1, entity.getId());
             statement.setObject(2, entity.getIdUsuario());
-            statement.setDate(3, Date.valueOf(entity.getFecha()));
-            statement.setString(4, entity.getEvaluador());
-            statement.setString(5, entity.getCriterios());
+            statement.setObject(3, entity.getIdEvaluador());
+            statement.setObject(4, entity.getIdContrato());
+            statement.setDate(5, Date.valueOf(entity.getFecha()));
             statement.setInt(6, entity.getCalificacion());
             statement.setString(7, entity.getObservacion());
+            statement.setString(8, entity.getCriterios());
 
             statement.executeUpdate();
+            System.out.println("Evaluación creada exitosamente");
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
                     "Error técnico creando evaluación de desempeño: " + exception.getMessage(),
-                    MessagesEnum.EVALUACION_ERROR_REGISTRO.getMessage(),
+                    "Error al registrar la evaluación de desempeño",
                     exception
             );
         }
@@ -53,7 +64,7 @@ public class EvaluacionDesempenoPostgreSqlDAO implements EvaluacionDesempenoDAO 
     public List<EvaluacionDesempenoEntity> read(EvaluacionDesempenoEntity entity) {
         List<EvaluacionDesempenoEntity> resultados = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
-            "SELECT id, id_usuario, fecha, evaluador, criterios, calificacion, observacion " +
+            "SELECT id, id_usuario, id_evaluador, id_contrato, fecha, calificacion, observacion, criterios " +
             "FROM evaluacion_desempeno WHERE 1=1"
         );
         List<Object> parametros = new ArrayList<>();
@@ -66,6 +77,16 @@ public class EvaluacionDesempenoPostgreSqlDAO implements EvaluacionDesempenoDAO 
         if (!UUIDHelper.isDefault(entity.getIdUsuario())) {
             sql.append(" AND id_usuario = ?");
             parametros.add(entity.getIdUsuario());
+        }
+
+        if (!UUIDHelper.isDefault(entity.getIdEvaluador())) {
+            sql.append(" AND id_evaluador = ?");
+            parametros.add(entity.getIdEvaluador());
+        }
+
+        if (!UUIDHelper.isDefault(entity.getIdContrato())) {
+            sql.append(" AND id_contrato = ?");
+            parametros.add(entity.getIdContrato());
         }
 
         if (entity.getFecha() != null) {
@@ -88,11 +109,12 @@ public class EvaluacionDesempenoPostgreSqlDAO implements EvaluacionDesempenoDAO 
                     EvaluacionDesempenoEntity resultado = EvaluacionDesempenoEntity.create(
                             (UUID) resultSet.getObject("id"),
                             (UUID) resultSet.getObject("id_usuario"),
+                            (UUID) resultSet.getObject("id_evaluador"),
+                            (UUID) resultSet.getObject("id_contrato"),
                             resultSet.getDate("fecha").toLocalDate(),
-                            resultSet.getString("evaluador"),
-                            resultSet.getString("criterios"),
                             resultSet.getInt("calificacion"),
-                            resultSet.getString("observacion")
+                            resultSet.getString("observacion"),
+                            resultSet.getString("criterios")
                     );
                     resultados.add(resultado);
                 }
@@ -101,7 +123,7 @@ public class EvaluacionDesempenoPostgreSqlDAO implements EvaluacionDesempenoDAO 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
                     "Error técnico consultando evaluaciones de desempeño: " + exception.getMessage(),
-                    MessagesEnum.EVALUACION_ERROR_CONSULTA.getMessage(),
+                    "Error al consultar las evaluaciones de desempeño",
                     exception
             );
         }
@@ -111,24 +133,25 @@ public class EvaluacionDesempenoPostgreSqlDAO implements EvaluacionDesempenoDAO 
 
     @Override
     public void update(EvaluacionDesempenoEntity entity) {
-        String sql = "UPDATE evaluacion_desempeno SET id_usuario = ?, fecha = ?, evaluador = ?, " +
-                     "criterios = ?, calificacion = ?, observacion = ? WHERE id = ?";
+        String sql = "UPDATE evaluacion_desempeno SET id_usuario = ?, id_evaluador = ?, id_contrato = ?, fecha = ?, " +
+                     "calificacion = ?, observacion = ?, criterios = ? WHERE id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setObject(1, entity.getIdUsuario());
-            statement.setDate(2, Date.valueOf(entity.getFecha()));
-            statement.setString(3, entity.getEvaluador());
-            statement.setString(4, entity.getCriterios());
+            statement.setObject(2, entity.getIdEvaluador());
+            statement.setObject(3, entity.getIdContrato());
+            statement.setDate(4, Date.valueOf(entity.getFecha()));
             statement.setInt(5, entity.getCalificacion());
             statement.setString(6, entity.getObservacion());
-            statement.setObject(7, entity.getId());
+            statement.setString(7, entity.getCriterios());
+            statement.setObject(8, entity.getId());
 
             statement.executeUpdate();
 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
                     "Error técnico actualizando evaluación de desempeño: " + exception.getMessage(),
-                    MessagesEnum.EVALUACION_ERROR_ACTUALIZACION.getMessage(),
+                    "Error al actualizar la evaluación de desempeño",
                     exception
             );
         }
@@ -145,7 +168,7 @@ public class EvaluacionDesempenoPostgreSqlDAO implements EvaluacionDesempenoDAO 
         } catch (SQLException exception) {
             throw new HumanSolutionException(
                     "Error técnico eliminando evaluación de desempeño: " + exception.getMessage(),
-                    MessagesEnum.EVALUACION_ERROR_ELIMINACION.getMessage(),
+                    "Error al eliminar la evaluación de desempeño",
                     exception
             );
         }
@@ -178,14 +201,14 @@ public class EvaluacionDesempenoPostgreSqlDAO implements EvaluacionDesempenoDAO 
 
     @Override
     public List<EvaluacionDesempenoEntity> findByUsuario(UUID idUsuario) {
-        var filter = EvaluacionDesempenoEntity.create();
-        filter = EvaluacionDesempenoEntity.create(
+        var filter = EvaluacionDesempenoEntity.create(
                 UUIDHelper.getDefaultUUID(),
                 idUsuario,
+                UUIDHelper.getDefaultUUID(),
+                UUIDHelper.getDefaultUUID(),
                 null,
-                "",
-                "",
                 0,
+                "",
                 ""
         );
         return read(filter);

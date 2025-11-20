@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class EvaluacionDesempenoDTO {
 
     private String id;
-    private String idUsuario;
+    private UsuarioDTO usuario;
+    private UsuarioDTO evaluador;
+    private ContratoDTO contrato;
     private String fecha;
-    private String evaluador;
-    private String criterios;
     private Integer calificacion;
     private String observacion;
+    private String criterios;
 
     public EvaluacionDesempenoDTO() {
     }
@@ -25,14 +26,34 @@ public class EvaluacionDesempenoDTO {
         this.id = id;
     }
 
-    @JsonProperty("idUsuario")
-    public String getIdUsuario() {
-        return idUsuario;
+    @JsonProperty("usuario")
+    public UsuarioDTO getUsuario() {
+        return usuario;
     }
 
-    @JsonProperty("idUsuario")
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+    @JsonProperty("usuario")
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
+    }
+
+    @JsonProperty("evaluador")
+    public UsuarioDTO getEvaluador() {
+        return evaluador;
+    }
+
+    @JsonProperty("evaluador")
+    public void setEvaluador(UsuarioDTO evaluador) {
+        this.evaluador = evaluador;
+    }
+
+    @JsonProperty("contrato")
+    public ContratoDTO getContrato() {
+        return contrato;
+    }
+
+    @JsonProperty("contrato")
+    public void setContrato(ContratoDTO contrato) {
+        this.contrato = contrato;
     }
 
     @JsonProperty("fecha")
@@ -43,26 +64,6 @@ public class EvaluacionDesempenoDTO {
     @JsonProperty("fecha")
     public void setFecha(String fecha) {
         this.fecha = fecha;
-    }
-
-    @JsonProperty("evaluador")
-    public String getEvaluador() {
-        return evaluador;
-    }
-
-    @JsonProperty("evaluador")
-    public void setEvaluador(String evaluador) {
-        this.evaluador = evaluador;
-    }
-
-    @JsonProperty("criterios")
-    public String getCriterios() {
-        return criterios;
-    }
-
-    @JsonProperty("criterios")
-    public void setCriterios(String criterios) {
-        this.criterios = criterios;
     }
 
     @JsonProperty("calificacion")
@@ -85,16 +86,27 @@ public class EvaluacionDesempenoDTO {
         this.observacion = observacion;
     }
 
+    @JsonProperty("criterios")
+    public String getCriterios() {
+        return criterios;
+    }
+
+    @JsonProperty("criterios")
+    public void setCriterios(String criterios) {
+        this.criterios = criterios;
+    }
+
     @Override
     public String toString() {
         return "EvaluacionDesempenoDTO{" +
                 "id='" + id + '\'' +
-                ", idUsuario='" + idUsuario + '\'' +
+                ", usuario=" + (usuario != null ? usuario.getId() : "null") +
+                ", evaluador=" + (evaluador != null ? evaluador.getId() : "null") +
+                ", contrato=" + (contrato != null ? contrato.getId() : "null") +
                 ", fecha='" + fecha + '\'' +
-                ", evaluador='" + evaluador + '\'' +
-                ", criterios='" + criterios + '\'' +
                 ", calificacion=" + calificacion +
                 ", observacion='" + observacion + '\'' +
+                ", criterios='" + criterios + '\'' +
                 '}';
     }
 }

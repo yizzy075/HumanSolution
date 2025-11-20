@@ -21,11 +21,12 @@ public final class EvaluacionDesempenoEntityAssembler {
         return EvaluacionDesempenoDomain.create(
                 entity.getId(),
                 entity.getIdUsuario(),
+                entity.getIdEvaluador(),
+                entity.getIdContrato(),
                 entity.getFecha(),
-                entity.getEvaluador(),
-                entity.getCriterios(),
                 entity.getCalificacion(),
-                entity.getObservacion()
+                entity.getObservacion(),
+                entity.getCriterios()
         );
     }
 
@@ -33,11 +34,12 @@ public final class EvaluacionDesempenoEntityAssembler {
         return EvaluacionDesempenoEntity.create(
                 domain.getId(),
                 domain.getIdUsuario(),
+                domain.getIdEvaluador(),
+                domain.getIdContrato(),
                 domain.getFecha(),
-                domain.getEvaluador(),
-                domain.getCriterios(),
                 domain.getCalificacion(),
-                domain.getObservacion()
+                domain.getObservacion(),
+                domain.getCriterios()
         );
     }
 
