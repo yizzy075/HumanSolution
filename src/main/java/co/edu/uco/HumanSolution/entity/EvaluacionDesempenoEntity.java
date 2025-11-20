@@ -2,11 +2,12 @@ package co.edu.uco.HumanSolution.entity;
 
 import co.edu.uco.HumanSolution.crosscutting.helper.TextHelper;
 import co.edu.uco.HumanSolution.crosscutting.helper.UUIDHelper;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity
+@jakarta.persistence.Entity
 @Table(name = "evaluacion_desempeno")
 public class EvaluacionDesempenoEntity extends Entity {
 
